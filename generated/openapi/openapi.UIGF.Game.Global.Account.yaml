@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: UIGF HoYoLAB Account API
+  description: International HoYoLAB account binding APIs.
+  version: 0.0.0
+tags: []
+paths:
+  /binding/api/getUserGameRolesByCookieToken:
+    get:
+      operationId: BindingApi_getRoles
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: game_biz
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/UIGF.GameRoleList'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+components:
+  schemas:
+    UIGF.GameRole:
+      type: object
+      required:
+        - game_biz
+        - region
+        - game_uid
+      properties:
+        game_biz:
+          type: string
+        region:
+          type: string
+        game_uid:
+          type: string
+        nickname:
+          type: string
+        level:
+          type: integer
+          format: int32
+        is_chosen:
+          type: boolean
+        region_name:
+          type: string
+        game_name:
+          type: string
+      description: Standard game account identity reused by record APIs.
+    UIGF.GameRoleList:
+      type: object
+      required:
+        - list
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIGF.GameRole'
+servers:
+  - url: https://api-account-os.hoyolab.com
+    description: HoYoLAB Account API
+    variables: {}

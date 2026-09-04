@@ -1,0 +1,2051 @@
+openapi: 3.0.0
+info:
+  title: UIGF MiYouShe Community API
+  description: MiYouShe (CN community) forum, post, task, and check-in APIs.
+  version: 0.0.0
+tags: []
+paths:
+  /apihub/api/getAppConfig:
+    get:
+      operationId: ApiHub_getAppConfig
+      parameters:
+        - name: gid
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /apihub/api/getShareConf:
+    get:
+      operationId: ApiHub_getShareConfig
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: entity_id
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: entity_type
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            default: 1
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v1
+        header: DS
+  /apihub/api/getVotes:
+    get:
+      operationId: ApiHub_getVotes
+      parameters:
+        - name: owner_uid
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: vote_ids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /apihub/api/getVotesResult:
+    get:
+      operationId: ApiHub_getVoteResults
+      parameters:
+        - name: owner_uid
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: vote_ids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /apihub/api/home/new:
+    get:
+      operationId: ApiHub_getHome
+      parameters:
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            default: 2
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /apihub/api/upvotePost:
+    post:
+      operationId: ApiHub_setPostVote
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LikePostRequest"
+      x-uigf-ds:
+        generation: v1
+        header: DS
+  /apihub/app/api/signIn:
+    post:
+      operationId: ApiHub_signIn
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-rpc-challenge
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignInRequest"
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /apihub/wapi/getAllGamesForums:
+    get:
+      operationId: ApiHub_getAllGamesForums
+      parameters: []
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/ForumList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /apihub/wapi/getGameList:
+    get:
+      operationId: ApiHub_getGameList
+      parameters: []
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/ForumList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /apihub/wapi/getMissions:
+    get:
+      operationId: ApiHub_getMissions
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: point_sn
+          in: query
+          required: true
+          schema:
+            type: string
+            default: myb
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /apihub/wapi/getUserMissionsState:
+    get:
+      operationId: ApiHub_getMissionState
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: point_sn
+          in: query
+          required: true
+          schema:
+            type: string
+            default: myb
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /collection/wapi/collection/detail:
+    get:
+      operationId: CollectionApi_getDetail
+      parameters:
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+          explode: false
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: DS
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v1
+        header: DS
+  /common/homutreasure/v1/web/user/record:
+    get:
+      operationId: CoinRecordApi_list
+      description: Returns MiYouShe coin earnings or spending records.
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: app_id
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "1"
+          explode: false
+        - name: point_sn
+          in: query
+          required: true
+          schema:
+            type: string
+            default: myb
+          explode: false
+        - name: time
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "0"
+          explode: false
+        - name: action
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - "1"
+              - "2"
+            default: "1"
+          explode: false
+        - name: size
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            default: 20
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /misc/api/createVerification:
+    post:
+      operationId: MiscApi_createVerification
+      description: Creates the official verification challenge required by selected
+        operations.
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerificationCreateRequest"
+  /misc/api/emoticon_set:
+    get:
+      operationId: MiscApi_getEmoticonSet
+      parameters: []
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /misc/api/getGeetestChallenge:
+    get:
+      operationId: MiscApi_getGeetestChallenge
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: action_type
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /misc/api/verifyVerification:
+    post:
+      operationId: MiscApi_verifyVerification
+      description: Submits verification output obtained from the official challenge
+        provider.
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerificationSubmitRequest"
+  /painter/wapi/getHotForumPostList:
+    get:
+      operationId: FeedApi_getHotForumPosts
+      parameters:
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - $ref: "#/components/parameters/CommunityPaging.offset"
+        - $ref: "#/components/parameters/CommunityPaging.size"
+        - $ref: "#/components/parameters/CommunityPaging.last_id"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/PostList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /painter/wapi/getNewsList:
+    get:
+      operationId: FeedApi_getNews
+      parameters:
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - $ref: "#/components/parameters/CommunityPaging.offset"
+        - $ref: "#/components/parameters/CommunityPaging.size"
+        - $ref: "#/components/parameters/CommunityPaging.last_id"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/PostList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /painter/wapi/getRecentForumPostList:
+    get:
+      operationId: FeedApi_getRecentForumPosts
+      parameters:
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - $ref: "#/components/parameters/CommunityPaging.offset"
+        - $ref: "#/components/parameters/CommunityPaging.size"
+        - $ref: "#/components/parameters/CommunityPaging.last_id"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/PostList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /painter/wapi/getTimelineList:
+    get:
+      operationId: FeedApi_getTimeline
+      parameters:
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - $ref: "#/components/parameters/CommunityPaging.offset"
+        - $ref: "#/components/parameters/CommunityPaging.size"
+        - $ref: "#/components/parameters/CommunityPaging.last_id"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/PostList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /painter/wapi/lotteryUserShow:
+    get:
+      operationId: FeedApi_getLotteryUserShow
+      parameters:
+        - name: lottery_id
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /post/wapi/getPostFull:
+    get:
+      operationId: PostApi_getFull
+      parameters:
+        - name: Cookie
+          in: header
+          required: false
+          schema:
+            type: string
+        - $ref: "#/components/parameters/PostQuery.postId"
+        - $ref: "#/components/parameters/PostQuery.gids"
+        - $ref: "#/components/parameters/PostQuery.read"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/Post"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /post/wapi/getPostFullInCollection:
+    get:
+      operationId: PostApi_getFullInCollection
+      parameters:
+        - name: collection_id
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: post_id
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/Post"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /post/wapi/getPostReplies:
+    get:
+      operationId: PostApi_getReplies
+      parameters:
+        - $ref: "#/components/parameters/PostReplyQuery.lastId"
+        - $ref: "#/components/parameters/PostReplyQuery.size"
+        - $ref: "#/components/parameters/PostQuery.postId"
+        - $ref: "#/components/parameters/PostQuery.gids"
+        - $ref: "#/components/parameters/PostQuery.read"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/PostList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /post/wapi/getSubReplies:
+    get:
+      operationId: PostApi_getSubReplies
+      parameters:
+        - $ref: "#/components/parameters/ReplyQuery.postId"
+        - $ref: "#/components/parameters/ReplyQuery.replyId"
+        - $ref: "#/components/parameters/ReplyQuery.lastId"
+        - $ref: "#/components/parameters/ReplyQuery.size"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/PostList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /post/wapi/getTopicPostList:
+    get:
+      operationId: PostApi_getTopicPosts
+      parameters:
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: topic_id
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - $ref: "#/components/parameters/CommunityPaging.offset"
+        - $ref: "#/components/parameters/CommunityPaging.size"
+        - $ref: "#/components/parameters/CommunityPaging.last_id"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/PostList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /post/wapi/searchPosts:
+    get:
+      operationId: PostApi_search
+      parameters:
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: keyword
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - $ref: "#/components/parameters/CommunityPaging.offset"
+        - $ref: "#/components/parameters/CommunityPaging.size"
+        - $ref: "#/components/parameters/CommunityPaging.last_id"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/PostList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /post/wapi/userFavoritePost:
+    post:
+      operationId: PostApi_setFavorite
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FavoritePostRequest"
+      x-uigf-ds:
+        generation: v1
+        header: DS
+  /post/wapi/userPost:
+    get:
+      operationId: PostApi_getUserPosts
+      parameters:
+        - name: uid
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - $ref: "#/components/parameters/CommunityPaging.offset"
+        - $ref: "#/components/parameters/CommunityPaging.size"
+        - $ref: "#/components/parameters/CommunityPaging.last_id"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/PostList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /topic/wapi/getTopicFullInfo:
+    get:
+      operationId: TopicApi_getFullInfo
+      parameters:
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /user/wapi/getUserFullInfo:
+    get:
+      operationId: UserApi_getFullInfo
+      description: Gets the authenticated or public MiYouShe user profile.
+      parameters:
+        - name: gids
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: uid
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+        - name: Cookie
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.CommunityUser"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+components:
+  parameters:
+    CommunityPaging.last_id:
+      name: last_id
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    CommunityPaging.offset:
+      name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      explode: false
+    CommunityPaging.size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      explode: false
+    PostQuery.gids:
+      name: gids
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    PostQuery.postId:
+      name: post_id
+      in: query
+      required: true
+      schema:
+        type: string
+      explode: false
+    PostQuery.read:
+      name: read
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      explode: false
+    PostReplyQuery.lastId:
+      name: last_id
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    PostReplyQuery.size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      explode: false
+    ReplyQuery.lastId:
+      name: last_id
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    ReplyQuery.postId:
+      name: post_id
+      in: query
+      required: true
+      schema:
+        type: string
+      explode: false
+    ReplyQuery.replyId:
+      name: reply_id
+      in: query
+      required: true
+      schema:
+        type: string
+      explode: false
+    ReplyQuery.size:
+      name: size
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      explode: false
+  schemas:
+    FavoritePostRequest:
+      type: object
+      required:
+        - post_id
+        - is_cancel
+      properties:
+        post_id:
+          type: string
+        is_cancel:
+          type: boolean
+    Forum:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        game_id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        icon:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    ForumList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/Forum"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    ForumQuery:
+      type: object
+      required:
+        - gids
+      properties:
+        gids:
+          type: string
+    LikePostRequest:
+      type: object
+      required:
+        - post_id
+        - is_cancel
+      properties:
+        post_id:
+          type: string
+        is_cancel:
+          type: boolean
+    LunaCheckInRequest:
+      type: object
+      required:
+        - act_id
+      properties:
+        act_id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    Post:
+      type: object
+      properties:
+        post_id:
+          type: string
+        subject:
+          type: string
+        content:
+          type: string
+        created_at:
+          type: integer
+          format: int64
+        user:
+          $ref: "#/components/schemas/UIGF.CommunityUser"
+        images:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.JsonObject"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    PostList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/Post"
+        is_last:
+          type: boolean
+        last_id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    SignInRequest:
+      type: object
+      required:
+        - gids
+      properties:
+        gids:
+          type: integer
+          format: int32
+    UIGF.Announcement:
+      type: object
+      properties:
+        ann_id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        subtitle:
+          type: string
+        banner:
+          type: string
+        content:
+          type: string
+        start_time:
+          type: string
+        end_time:
+          type: string
+        type:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.AnnouncementList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.Announcement"
+        alert:
+          type: boolean
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.BonusDescription:
+      type: object
+      properties:
+        bonus_desc:
+          type: string
+        bonus_unit:
+          type: integer
+          format: int32
+        bonus_goods_id:
+          type: string
+        bonus_icon:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.CreateOrderRequest:
+      type: object
+      required:
+        - order
+        - sign
+      properties:
+        open_id:
+          type: string
+        special_info:
+          type: string
+        order:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+        sign:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+      description: >-
+        Vendor-signed order creation payload. `sign` must come from an
+        authorized
+
+        official client or payment integration; this SDK intentionally does not
+
+        implement signing or retain payment secrets.
+    UIGF.Commerce.OrderStatus:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        amount:
+          type: string
+        goods_num:
+          type: string
+        goods_title:
+          type: string
+        order_no:
+          type: string
+        pay_plat:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.ShopGood:
+      type: object
+      required:
+        - goods_id
+        - goods_name
+      properties:
+        goods_id:
+          type: string
+        goods_name:
+          type: string
+        goods_type:
+          type: string
+        goods_unit:
+          type: string
+        goods_icon:
+          type: string
+        currency:
+          type: string
+        price:
+          type: string
+        symbol:
+          type: string
+        tier_id:
+          type: string
+        bonus_desc:
+          $ref: "#/components/schemas/UIGF.Commerce.BonusDescription"
+        once_bonus_desc:
+          type: object
+          allOf:
+            - $ref: "#/components/schemas/UIGF.Commerce.BonusDescription"
+          nullable: true
+        available:
+          type: boolean
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.ShopGoods:
+      type: object
+      required:
+        - goods_list
+      properties:
+        goods_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.Commerce.ShopGood"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.CommunityUser:
+      type: object
+      required:
+        - uid
+      properties:
+        uid:
+          type: string
+        nickname:
+          type: string
+        introduce:
+          type: string
+        avatar_url:
+          type: string
+        gender:
+          type: integer
+          format: int32
+        level_exp:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+        community_info:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+      allOf:
+        - type: object
+          additionalProperties: {}
+      description: A user profile returned by community-account APIs.
+    UIGF.GachaItem:
+      type: object
+      required:
+        - id
+      properties:
+        uid:
+          type: string
+        gacha_type:
+          type: string
+        item_id:
+          type: string
+        count:
+          type: string
+        time:
+          type: string
+        name:
+          type: string
+        item_type:
+          type: string
+        rank_type:
+          type: string
+        id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.GachaLogPage:
+      type: object
+      required:
+        - list
+      properties:
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        region:
+          type: string
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.GachaItem"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.CalculateRequest:
+      type: object
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.Character:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        level:
+          type: integer
+          format: int32
+        image:
+          type: string
+        icon:
+          type: string
+        rarity:
+          type: integer
+          format: int32
+        element:
+          type: string
+        fetter:
+          type: integer
+          format: int32
+        actived_constellation_num:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.CharacterList:
+      type: object
+      required:
+        - list
+      properties:
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.Game.Character"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.DeviceFingerprint:
+      type: object
+      properties:
+        device_fp:
+          type: string
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.DeviceFingerprintRequest:
+      type: object
+      required:
+        - seed_id
+        - device_id
+        - platform
+      properties:
+        seed_id:
+          type: string
+        device_id:
+          type: string
+        platform:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.PandaQrResponse:
+      type: object
+      properties:
+        ticket:
+          type: string
+        url:
+          type: string
+        stat:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.JsonObject:
+      type: object
+      allOf:
+        - type: object
+          additionalProperties: {}
+      description: A JSON object whose vendor-defined properties are preserved by
+        generated clients.
+    UIGF.Launcher.GameBasicInfo:
+      type: object
+      properties:
+        game_info_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.JsonObject"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Launcher.GamePackage:
+      type: object
+      properties:
+        game_id:
+          type: string
+        game_name:
+          type: string
+        main:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+        pre_download:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Launcher.GpuInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        vendor_id:
+          type: integer
+          format: int32
+        device_id:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Passport.AuthTicketRequest:
+      type: object
+      required:
+        - game_biz
+      properties:
+        game_biz:
+          type: string
+      allOf:
+        - $ref: "#/components/schemas/UIGF.Passport.DeviceContext"
+    UIGF.Passport.DeviceContext:
+      type: object
+      required:
+        - device
+      properties:
+        device:
+          type: string
+        device_fp:
+          type: string
+        device_name:
+          type: string
+        device_model:
+          type: string
+        device_id:
+          type: string
+        app_id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Passport.LoginCaptchaRequest:
+      type: object
+      required:
+        - action_type
+      properties:
+        action_type:
+          type: string
+        game_biz:
+          type: string
+      allOf:
+        - $ref: "#/components/schemas/UIGF.Passport.DeviceContext"
+    UIGF.Passport.MobileCaptchaLoginRequest:
+      type: object
+      required:
+        - mobile
+        - mobile_captcha
+      properties:
+        mobile:
+          type: string
+        mobile_captcha:
+          type: string
+        action_ticket:
+          type: string
+        game_biz:
+          type: string
+      allOf:
+        - $ref: "#/components/schemas/UIGF.Passport.DeviceContext"
+    UIGF.Passport.QrLoginCreateRequest:
+      type: object
+      required:
+        - app_id
+      properties:
+        app_id:
+          type: string
+      allOf:
+        - $ref: "#/components/schemas/UIGF.Passport.DeviceContext"
+    UIGF.Passport.QrLoginStatus:
+      type: object
+      properties:
+        stat:
+          type: string
+        status:
+          type: string
+        payload:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Passport.QrLoginStatusRequest:
+      type: object
+      required:
+        - ticket
+        - app_id
+      properties:
+        ticket:
+          type: string
+        app_id:
+          type: string
+      allOf:
+        - $ref: "#/components/schemas/UIGF.Passport.DeviceContext"
+    UIGF.Passport.QrLoginTicket:
+      type: object
+      required:
+        - ticket
+      properties:
+        ticket:
+          type: string
+        url:
+          type: string
+        expires_in:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Passport.TokenInfo:
+      type: object
+      properties:
+        account_id:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        token:
+          type: string
+        game_token:
+          type: string
+        stoken:
+          type: string
+        ltoken:
+          type: string
+        cookie_token:
+          type: string
+        mid:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    VerificationCreateRequest:
+      type: object
+      required:
+        - action_type
+      properties:
+        action_type:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    VerificationSubmitRequest:
+      type: object
+      required:
+        - challenge
+        - validate
+      properties:
+        challenge:
+          type: string
+        validate:
+          type: string
+        seccode:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+servers:
+  - url: https://bbs-api.miyoushe.com
+    description: MiYouShe Community API
+    variables: {}

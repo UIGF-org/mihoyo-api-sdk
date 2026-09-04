@@ -1,0 +1,34 @@
+{
+  "name": "@uigf/mihoyo-api-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Unified TypeSpec descriptions for public MiHoYo, MiYouShe, HoYoLAB and HoYoverse HTTP APIs.",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./ds": {
+      "types": "./dist/ds.d.ts",
+      "import": "./dist/ds.js"
+    }
+  },
+  "scripts": {
+    "build": "npm run build:spec && npm run build:runtime",
+    "build:spec": "tsp compile . --output-dir generated && node tools/annotate-openapi.mjs generated",
+    "build:runtime": "tsc -p tsconfig.json",
+    "check": "tsp compile . --no-emit && tsc -p tsconfig.json --noEmit",
+    "test": "npm run build:runtime && node --test dist/ds.test.js && npm run test:emitter",
+    "test:emitter": "npm run build:spec && node tools/verify-ds-openapi.mjs generated"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "@typespec/compiler": "^1.14.0",
+    "@typespec/http": "^1.14.0",
+    "@typespec/openapi3": "^1.14.0",
+    "typescript": "^7.0.2",
+    "yaml": "^2.8.3",
+    "@uigf/typespec-ds": "file:tools/typespec-ds"
+  }
+}

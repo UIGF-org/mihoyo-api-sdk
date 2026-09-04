@@ -1,0 +1,1234 @@
+openapi: 3.0.0
+info:
+  title: UIGF Genshin CN Game Record API
+  description: CN Genshin game-record APIs used by TeyvatGuide, Snap Hutao, and Starward.
+  version: 0.0.0
+tags: []
+paths:
+  /game_record/app/card/wapi/getGameRecordCard:
+    get:
+      operationId: CardApi_getGameRecordCard
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: uid
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /game_record/app/genshin/api/act_calendar:
+    post:
+      operationId: GameRecordApi_getActivityCalendar
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: x-rpc-challenge
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UIGF.Game.CharacterListRequest"
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /game_record/app/genshin/api/char_master:
+    get:
+      operationId: GameRecordApi_getCharacterMaster
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.server"
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.roleId"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /game_record/app/genshin/api/character/detail:
+    post:
+      operationId: GameRecordApi_getCharacterDetails
+      description: Character IDs should be sent in batches of at most 40, as used by
+        TeyvatGuide.
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.Game.CharacterList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UIGF.Game.CharacterDetailRequest"
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /game_record/app/genshin/api/character/list:
+    post:
+      operationId: GameRecordApi_listCharacters
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.Game.CharacterList"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UIGF.Game.CharacterListRequest"
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /game_record/app/genshin/api/dailyNote:
+    get:
+      operationId: GameRecordApi_getDailyNote
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.server"
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.roleId"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /game_record/app/genshin/api/hard_challenge:
+    get:
+      operationId: GameRecordApi_getStygianOnslaught
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.scheduleType"
+        - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.needDetail"
+        - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.needAll"
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.server"
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.roleId"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /game_record/app/genshin/api/hard_challenge/popularity:
+    get:
+      operationId: GameRecordApi_getStygianPopularity
+      parameters:
+        - name: server
+          in: query
+          required: true
+          schema:
+            type: string
+          explode: false
+        - name: role_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /game_record/app/genshin/api/index:
+    get:
+      operationId: GameRecordApi_getIndex
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: avatar_list_type
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+          explode: false
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.server"
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.roleId"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /game_record/app/genshin/api/role_combat:
+    get:
+      operationId: GameRecordApi_getImaginariumTheater
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: active
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+          explode: false
+        - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.scheduleType"
+        - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.needDetail"
+        - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.needAll"
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.server"
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.roleId"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /game_record/app/genshin/api/spiralAbyss:
+    get:
+      operationId: GameRecordApi_getSpiralAbyss
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.scheduleType"
+        - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.needDetail"
+        - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.needAll"
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.server"
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.roleId"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+  /game_record/app/genshin/api/tps:
+    get:
+      operationId: GameRecordApi_getCharacterTps
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: DS
+          in: header
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.server"
+        - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.roleId"
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/UIGF.JsonObject"
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      x-uigf-ds:
+        generation: v2
+        header: DS
+        canonicalization:
+          body: exact-serialized
+          query: lexicographic-segments
+components:
+  parameters:
+    UIGF.Game.GameRecordQuery.roleId:
+      name: role_id
+      in: query
+      required: true
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.GameRecordQuery.server:
+      name: server
+      in: query
+      required: true
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.ScheduleRecordQuery.needAll:
+      name: need_all
+      in: query
+      required: false
+      schema:
+        type: boolean
+      explode: false
+    UIGF.Game.ScheduleRecordQuery.needDetail:
+      name: need_detail
+      in: query
+      required: false
+      schema:
+        type: boolean
+      explode: false
+    UIGF.Game.ScheduleRecordQuery.scheduleType:
+      name: schedule_type
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      explode: false
+  schemas:
+    UIGF.Announcement:
+      type: object
+      properties:
+        ann_id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        subtitle:
+          type: string
+        banner:
+          type: string
+        content:
+          type: string
+        start_time:
+          type: string
+        end_time:
+          type: string
+        type:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.AnnouncementList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.Announcement"
+        alert:
+          type: boolean
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.BonusDescription:
+      type: object
+      properties:
+        bonus_desc:
+          type: string
+        bonus_unit:
+          type: integer
+          format: int32
+        bonus_goods_id:
+          type: string
+        bonus_icon:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.CreateOrderRequest:
+      type: object
+      required:
+        - order
+        - sign
+      properties:
+        open_id:
+          type: string
+        special_info:
+          type: string
+        order:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+        sign:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+      description: >-
+        Vendor-signed order creation payload. `sign` must come from an
+        authorized
+
+        official client or payment integration; this SDK intentionally does not
+
+        implement signing or retain payment secrets.
+    UIGF.Commerce.OrderStatus:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        amount:
+          type: string
+        goods_num:
+          type: string
+        goods_title:
+          type: string
+        order_no:
+          type: string
+        pay_plat:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.ShopGood:
+      type: object
+      required:
+        - goods_id
+        - goods_name
+      properties:
+        goods_id:
+          type: string
+        goods_name:
+          type: string
+        goods_type:
+          type: string
+        goods_unit:
+          type: string
+        goods_icon:
+          type: string
+        currency:
+          type: string
+        price:
+          type: string
+        symbol:
+          type: string
+        tier_id:
+          type: string
+        bonus_desc:
+          $ref: "#/components/schemas/UIGF.Commerce.BonusDescription"
+        once_bonus_desc:
+          type: object
+          allOf:
+            - $ref: "#/components/schemas/UIGF.Commerce.BonusDescription"
+          nullable: true
+        available:
+          type: boolean
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.ShopGoods:
+      type: object
+      required:
+        - goods_list
+      properties:
+        goods_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.Commerce.ShopGood"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.Forum:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        game_id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        icon:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.ForumList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.Community.Forum"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.LunaCheckInRequest:
+      type: object
+      required:
+        - act_id
+      properties:
+        act_id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.Post:
+      type: object
+      properties:
+        post_id:
+          type: string
+        subject:
+          type: string
+        content:
+          type: string
+        created_at:
+          type: integer
+          format: int64
+        user:
+          $ref: "#/components/schemas/UIGF.CommunityUser"
+        images:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.JsonObject"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.PostList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.Community.Post"
+        is_last:
+          type: boolean
+        last_id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.VerificationCreateRequest:
+      type: object
+      required:
+        - action_type
+      properties:
+        action_type:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.VerificationSubmitRequest:
+      type: object
+      required:
+        - challenge
+        - validate
+      properties:
+        challenge:
+          type: string
+        validate:
+          type: string
+        seccode:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.CommunityUser:
+      type: object
+      required:
+        - uid
+      properties:
+        uid:
+          type: string
+        nickname:
+          type: string
+        introduce:
+          type: string
+        avatar_url:
+          type: string
+        gender:
+          type: integer
+          format: int32
+        level_exp:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+        community_info:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+      allOf:
+        - type: object
+          additionalProperties: {}
+      description: A user profile returned by community-account APIs.
+    UIGF.GachaItem:
+      type: object
+      required:
+        - id
+      properties:
+        uid:
+          type: string
+        gacha_type:
+          type: string
+        item_id:
+          type: string
+        count:
+          type: string
+        time:
+          type: string
+        name:
+          type: string
+        item_type:
+          type: string
+        rank_type:
+          type: string
+        id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.GachaLogPage:
+      type: object
+      required:
+        - list
+      properties:
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        region:
+          type: string
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.GachaItem"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.CalculateRequest:
+      type: object
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.Character:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        level:
+          type: integer
+          format: int32
+        image:
+          type: string
+        icon:
+          type: string
+        rarity:
+          type: integer
+          format: int32
+        element:
+          type: string
+        fetter:
+          type: integer
+          format: int32
+        actived_constellation_num:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.CharacterDetailRequest:
+      type: object
+      required:
+        - character_ids
+      properties:
+        character_ids:
+          type: array
+          items:
+            type: string
+      allOf:
+        - $ref: "#/components/schemas/UIGF.Game.CharacterListRequest"
+    UIGF.Game.CharacterList:
+      type: object
+      required:
+        - list
+      properties:
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.Game.Character"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.CharacterListRequest:
+      type: object
+      required:
+        - role_id
+        - server
+      properties:
+        role_id:
+          type: string
+        server:
+          type: string
+    UIGF.Game.DeviceFingerprint:
+      type: object
+      properties:
+        device_fp:
+          type: string
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.DeviceFingerprintRequest:
+      type: object
+      required:
+        - seed_id
+        - device_id
+        - platform
+      properties:
+        seed_id:
+          type: string
+        device_id:
+          type: string
+        platform:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.PandaQrResponse:
+      type: object
+      properties:
+        ticket:
+          type: string
+        url:
+          type: string
+        stat:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.JsonObject:
+      type: object
+      allOf:
+        - type: object
+          additionalProperties: {}
+      description: A JSON object whose vendor-defined properties are preserved by
+        generated clients.
+    UIGF.Launcher.GameBasicInfo:
+      type: object
+      properties:
+        game_info_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/UIGF.JsonObject"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Launcher.GamePackage:
+      type: object
+      properties:
+        game_id:
+          type: string
+        game_name:
+          type: string
+        main:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+        pre_download:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Launcher.GpuInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        vendor_id:
+          type: integer
+          format: int32
+        device_id:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Passport.AuthTicketRequest:
+      type: object
+      required:
+        - game_biz
+      properties:
+        game_biz:
+          type: string
+      allOf:
+        - $ref: "#/components/schemas/UIGF.Passport.DeviceContext"
+    UIGF.Passport.DeviceContext:
+      type: object
+      required:
+        - device
+      properties:
+        device:
+          type: string
+        device_fp:
+          type: string
+        device_name:
+          type: string
+        device_model:
+          type: string
+        device_id:
+          type: string
+        app_id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Passport.LoginCaptchaRequest:
+      type: object
+      required:
+        - action_type
+      properties:
+        action_type:
+          type: string
+        game_biz:
+          type: string
+      allOf:
+        - $ref: "#/components/schemas/UIGF.Passport.DeviceContext"
+    UIGF.Passport.MobileCaptchaLoginRequest:
+      type: object
+      required:
+        - mobile
+        - mobile_captcha
+      properties:
+        mobile:
+          type: string
+        mobile_captcha:
+          type: string
+        action_ticket:
+          type: string
+        game_biz:
+          type: string
+      allOf:
+        - $ref: "#/components/schemas/UIGF.Passport.DeviceContext"
+    UIGF.Passport.QrLoginCreateRequest:
+      type: object
+      required:
+        - app_id
+      properties:
+        app_id:
+          type: string
+      allOf:
+        - $ref: "#/components/schemas/UIGF.Passport.DeviceContext"
+    UIGF.Passport.QrLoginStatus:
+      type: object
+      properties:
+        stat:
+          type: string
+        status:
+          type: string
+        payload:
+          $ref: "#/components/schemas/UIGF.JsonObject"
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Passport.QrLoginStatusRequest:
+      type: object
+      required:
+        - ticket
+        - app_id
+      properties:
+        ticket:
+          type: string
+        app_id:
+          type: string
+      allOf:
+        - $ref: "#/components/schemas/UIGF.Passport.DeviceContext"
+    UIGF.Passport.QrLoginTicket:
+      type: object
+      required:
+        - ticket
+      properties:
+        ticket:
+          type: string
+        url:
+          type: string
+        expires_in:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Passport.TokenInfo:
+      type: object
+      properties:
+        account_id:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        token:
+          type: string
+        game_token:
+          type: string
+        stoken:
+          type: string
+        ltoken:
+          type: string
+        cookie_token:
+          type: string
+        mid:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+servers:
+  - url: https://api-takumi-record.mihoyo.com
+    description: CN Genshin Game Record API
+    variables: {}

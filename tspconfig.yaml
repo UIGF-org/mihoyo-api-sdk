@@ -1,0 +1,8 @@
+emit:
+  - "@typespec/openapi3"
+  - "@uigf/typespec-ds"
+options:
+  "@typespec/openapi3":
+    emitter-output-dir: "{output-dir}/openapi"
+  "@uigf/typespec-ds":
+    emitter-output-dir: "{output-dir}/ds"

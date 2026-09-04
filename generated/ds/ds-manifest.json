@@ -1,0 +1,557 @@
+{
+  "version": 1,
+  "services": [
+    {
+      "service": "UIGF.Community",
+      "operations": [
+        {
+          "operationId": "CollectionApi_getDetail",
+          "method": "GET",
+          "path": "/collection/wapi/collection/detail",
+          "generation": "v1",
+          "header": "DS"
+        },
+        {
+          "operationId": "CoinRecordApi_list",
+          "method": "GET",
+          "path": "/common/homutreasure/v1/web/user/record",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "PostApi_setFavorite",
+          "method": "POST",
+          "path": "/post/wapi/userFavoritePost",
+          "generation": "v1",
+          "header": "DS"
+        },
+        {
+          "operationId": "ApiHub_getMissions",
+          "method": "GET",
+          "path": "/apihub/wapi/getMissions",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "ApiHub_getShareConfig",
+          "method": "GET",
+          "path": "/apihub/api/getShareConf",
+          "generation": "v1",
+          "header": "DS"
+        },
+        {
+          "operationId": "ApiHub_getMissionState",
+          "method": "GET",
+          "path": "/apihub/wapi/getUserMissionsState",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "ApiHub_signIn",
+          "method": "POST",
+          "path": "/apihub/app/api/signIn",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "ApiHub_setPostVote",
+          "method": "POST",
+          "path": "/apihub/api/upvotePost",
+          "generation": "v1",
+          "header": "DS"
+        }
+      ]
+    },
+    {
+      "service": "UIGF.Game.Account",
+      "operations": [
+        {
+          "operationId": "ActionTicketApi_getBySToken",
+          "method": "GET",
+          "path": "/auth/api/getActionTicketBySToken",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "BindingApi_generateAuthKey",
+          "method": "POST",
+          "path": "/binding/api/genAuthKey",
+          "generation": "v1",
+          "header": "DS"
+        },
+        {
+          "operationId": "CultivationApi_batchCompute",
+          "method": "POST",
+          "path": "/event/e20200928calculate/v3/batch_compute",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "CultivationApi_listAvatars",
+          "method": "POST",
+          "path": "/event/e20200928calculate/v1/avatar/list",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "CultivationApi_listWeapons",
+          "method": "POST",
+          "path": "/event/e20200928calculate/v1/weapon/list",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "CultivationApi_syncAvatarList",
+          "method": "POST",
+          "path": "/event/e20200928calculate/v1/sync/avatar/list",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        }
+      ]
+    },
+    {
+      "service": "UIGF.Game.Genshin.Record",
+      "operations": [
+        {
+          "operationId": "GameRecordApi_getIndex",
+          "method": "GET",
+          "path": "/game_record/app/genshin/api/index",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_listCharacters",
+          "method": "POST",
+          "path": "/game_record/app/genshin/api/character/list",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getCharacterDetails",
+          "method": "POST",
+          "path": "/game_record/app/genshin/api/character/detail",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getDailyNote",
+          "method": "GET",
+          "path": "/game_record/app/genshin/api/dailyNote",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getSpiralAbyss",
+          "method": "GET",
+          "path": "/game_record/app/genshin/api/spiralAbyss",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getImaginariumTheater",
+          "method": "GET",
+          "path": "/game_record/app/genshin/api/role_combat",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getCharacterMaster",
+          "method": "GET",
+          "path": "/game_record/app/genshin/api/char_master",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getStygianOnslaught",
+          "method": "GET",
+          "path": "/game_record/app/genshin/api/hard_challenge",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getActivityCalendar",
+          "method": "POST",
+          "path": "/game_record/app/genshin/api/act_calendar",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getCharacterTps",
+          "method": "GET",
+          "path": "/game_record/app/genshin/api/tps",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "CardApi_getGameRecordCard",
+          "method": "GET",
+          "path": "/game_record/app/card/wapi/getGameRecordCard",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        }
+      ]
+    },
+    {
+      "service": "UIGF.Game.Genshin.Ledger",
+      "operations": [
+        {
+          "operationId": "LedgerApi_getMonthInfo",
+          "method": "GET",
+          "path": "/event/ys_ledger/monthInfo",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "LedgerApi_getMonthDetail",
+          "method": "GET",
+          "path": "/event/ys_ledger/monthDetail",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        }
+      ]
+    },
+    {
+      "service": "UIGF.Game.Global.Records",
+      "operations": [
+        {
+          "operationId": "GameRecordApi_getGenshinIndex",
+          "method": "GET",
+          "path": "/event/game_record/app/genshin/api/index",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getGenshinDailyNote",
+          "method": "GET",
+          "path": "/event/game_record/app/genshin/api/dailyNote",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getStarRailIndex",
+          "method": "GET",
+          "path": "/event/game_record/app/hkrpg/api/index",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getStarRailDailyNote",
+          "method": "GET",
+          "path": "/event/game_record/app/hkrpg/api/note",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GameRecordApi_getStarRailChallengePeak",
+          "method": "GET",
+          "path": "/event/game_record/app/hkrpg/api/challenge_peak",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "ZenlessGameRecordApi_getIndex",
+          "method": "GET",
+          "path": "/event/game_record_zzz/api/zzz/index",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "ZenlessGameRecordApi_getDailyNote",
+          "method": "GET",
+          "path": "/event/game_record_zzz/api/zzz/note",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "ZenlessGameRecordApi_getShiyuDefense",
+          "method": "GET",
+          "path": "/event/game_record_zzz/api/zzz/hadal_info_v2",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "ZenlessGameRecordApi_getDeadlyAssault",
+          "method": "GET",
+          "path": "/event/game_record_zzz/api/zzz/hadal_mem_detail_v2",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        }
+      ]
+    },
+    {
+      "service": "UIGF.Game.Global.CommunityRecords",
+      "operations": [
+        {
+          "operationId": "UserApi_getFullInfo",
+          "method": "GET",
+          "path": "/community/user/wapi/getUserFullInfo",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GenshinChallengeApi_getSpiralAbyss",
+          "method": "GET",
+          "path": "/game_record/app/genshin/api/spiralAbyss",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GenshinChallengeApi_getImaginariumTheater",
+          "method": "GET",
+          "path": "/game_record/app/genshin/api/role_combat",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "GenshinChallengeApi_getStygianOnslaught",
+          "method": "GET",
+          "path": "/game_record/app/genshin/api/hard_challenge",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "StarRailChallengeApi_getForgottenHall",
+          "method": "GET",
+          "path": "/game_record/app/hkrpg/api/challenge",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "StarRailChallengeApi_getPureFiction",
+          "method": "GET",
+          "path": "/game_record/app/hkrpg/api/challenge_story",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "StarRailChallengeApi_getApocalypticShadow",
+          "method": "GET",
+          "path": "/game_record/app/hkrpg/api/challenge_boss",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "StarRailChallengeApi_getSimulatedUniverse",
+          "method": "GET",
+          "path": "/game_record/app/hkrpg/api/rogue",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "HonkaiImpactApi_getIndex",
+          "method": "GET",
+          "path": "/game_record/app/honkai3rd/api/index",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "HonkaiImpactApi_getDailyNote",
+          "method": "GET",
+          "path": "/game_record/app/honkai3rd/api/note",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        }
+      ]
+    },
+    {
+      "service": "UIGF.Game.CN.Records",
+      "operations": [
+        {
+          "operationId": "HonkaiImpactApi_getIndex",
+          "method": "GET",
+          "path": "/game_record/app/honkai3rd/api/index",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "StarRailApi_getIndex",
+          "method": "GET",
+          "path": "/game_record/app/hkrpg/api/index",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "StarRailApi_getDailyNote",
+          "method": "GET",
+          "path": "/game_record/app/hkrpg/api/note",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "StarRailApi_getForgottenHall",
+          "method": "GET",
+          "path": "/game_record/app/hkrpg/api/challenge",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "StarRailApi_getPureFiction",
+          "method": "GET",
+          "path": "/game_record/app/hkrpg/api/challenge_story",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "StarRailApi_getApocalypticShadow",
+          "method": "GET",
+          "path": "/game_record/app/hkrpg/api/challenge_boss",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "StarRailApi_getSimulatedUniverse",
+          "method": "GET",
+          "path": "/game_record/app/hkrpg/api/rogue",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "StarRailApi_getChallengePeak",
+          "method": "GET",
+          "path": "/game_record/app/hkrpg/api/challenge_peak",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "ZenlessApi_getIndex",
+          "method": "GET",
+          "path": "/event/game_record_zzz/api/zzz/index",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "ZenlessApi_getShiyuDefense",
+          "method": "GET",
+          "path": "/event/game_record_zzz/api/zzz/hadal_info_v2",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        },
+        {
+          "operationId": "ZenlessApi_getDeadlyAssault",
+          "method": "GET",
+          "path": "/event/game_record_zzz/api/zzz/hadal_mem_detail_v2",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        }
+      ]
+    },
+    {
+      "service": "UIGF.Game.CN.HonkaiImpact",
+      "operations": [
+        {
+          "operationId": "DailyNoteApi_getDailyNote",
+          "method": "GET",
+          "path": "/game_record/appv2/honkai3rd/api/note",
+          "generation": "v2",
+          "header": "DS",
+          "body": "exact-serialized",
+          "query": "lexicographic-segments"
+        }
+      ]
+    }
+  ]
+}

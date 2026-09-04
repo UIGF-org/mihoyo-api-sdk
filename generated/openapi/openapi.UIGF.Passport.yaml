@@ -1,0 +1,874 @@
+openapi: 3.0.0
+info:
+  title: UIGF MiHoYo Passport API
+  description: Passport, login-ticket, QR login, and account-token APIs for CN services.
+  version: 0.0.0
+tags: []
+paths:
+  /account/auth/api/getCookieAccountInfoBySToken:
+    get:
+      operationId: AccountTokenApi_getCookieAccountInfoBySToken
+      description: Returns account information for an authenticated SToken cookie.
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/TokenInfo'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /account/auth/api/getLTokenBySToken:
+    get:
+      operationId: AccountTokenApi_getLTokenBySToken
+      description: Exchanges an SToken cookie for an LToken payload.
+      parameters:
+        - name: Cookie
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/TokenInfo'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+  /account/ma-cn-passport/app/createQRLogin:
+    post:
+      operationId: QrLoginApi_create
+      description: Creates an official QR login ticket.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/QrLoginTicket'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QrLoginCreateRequest'
+  /account/ma-cn-passport/app/loginByMobileCaptcha:
+    post:
+      operationId: QrLoginApi_loginByMobileCaptcha
+      description: Logs in with a mobile-number captcha obtained through the official flow.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/TokenInfo'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MobileCaptchaLoginRequest'
+  /account/ma-cn-passport/app/queryQRLoginStatus:
+    post:
+      operationId: QrLoginApi_getStatus
+      description: Queries an official QR login ticket.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/QrLoginStatus'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QrLoginStatusRequest'
+  /account/ma-cn-session/app/getTokenByGameToken:
+    post:
+      operationId: SessionApi_getTokenByGameToken
+      description: Exchanges a game token for an SToken/session payload.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/TokenInfo'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameTokenRequest'
+  /account/ma-cn-verifier/app/createAuthTicketByGameBiz:
+    post:
+      operationId: AuthTicketApi_createByGameBiz
+      description: Creates an action ticket for a game-biz authentication flow.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/TokenInfo'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthTicketRequest'
+  /account/ma-cn-verifier/verifier/createLoginCaptcha:
+    post:
+      operationId: CaptchaApi_create
+      description: Starts the vendor login-captcha challenge. Solve it through the official flow.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/UIGF.JsonObject'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginCaptchaRequest'
+components:
+  schemas:
+    AuthTicketRequest:
+      type: object
+      required:
+        - game_biz
+      properties:
+        game_biz:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/DeviceContext'
+    DeviceContext:
+      type: object
+      required:
+        - device
+      properties:
+        device:
+          type: string
+        device_fp:
+          type: string
+        device_name:
+          type: string
+        device_model:
+          type: string
+        device_id:
+          type: string
+        app_id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    GameTokenRequest:
+      type: object
+      required:
+        - account_id
+        - game_token
+      properties:
+        account_id:
+          type: integer
+          format: int64
+        game_token:
+          type: string
+    LoginCaptchaRequest:
+      type: object
+      required:
+        - action_type
+      properties:
+        action_type:
+          type: string
+        game_biz:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/DeviceContext'
+    MobileCaptchaLoginRequest:
+      type: object
+      required:
+        - mobile
+        - mobile_captcha
+      properties:
+        mobile:
+          type: string
+        mobile_captcha:
+          type: string
+        action_ticket:
+          type: string
+        game_biz:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/DeviceContext'
+    QrLoginCreateRequest:
+      type: object
+      required:
+        - app_id
+      properties:
+        app_id:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/DeviceContext'
+    QrLoginStatus:
+      type: object
+      properties:
+        stat:
+          type: string
+        status:
+          type: string
+        payload:
+          $ref: '#/components/schemas/UIGF.JsonObject'
+      allOf:
+        - type: object
+          additionalProperties: {}
+    QrLoginStatusRequest:
+      type: object
+      required:
+        - ticket
+        - app_id
+      properties:
+        ticket:
+          type: string
+        app_id:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/DeviceContext'
+    QrLoginTicket:
+      type: object
+      required:
+        - ticket
+      properties:
+        ticket:
+          type: string
+        url:
+          type: string
+        expires_in:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    STokenTokenRequest:
+      type: object
+      properties:
+        account_id:
+          type: integer
+          format: int64
+    TokenInfo:
+      type: object
+      properties:
+        account_id:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        token:
+          type: string
+        game_token:
+          type: string
+        stoken:
+          type: string
+        ltoken:
+          type: string
+        cookie_token:
+          type: string
+        mid:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Announcement:
+      type: object
+      properties:
+        ann_id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        subtitle:
+          type: string
+        banner:
+          type: string
+        content:
+          type: string
+        start_time:
+          type: string
+        end_time:
+          type: string
+        type:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.AnnouncementList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIGF.Announcement'
+        alert:
+          type: boolean
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.BonusDescription:
+      type: object
+      properties:
+        bonus_desc:
+          type: string
+        bonus_unit:
+          type: integer
+          format: int32
+        bonus_goods_id:
+          type: string
+        bonus_icon:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.CreateOrderRequest:
+      type: object
+      required:
+        - order
+        - sign
+      properties:
+        open_id:
+          type: string
+        special_info:
+          type: string
+        order:
+          $ref: '#/components/schemas/UIGF.JsonObject'
+        sign:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+      description: |-
+        Vendor-signed order creation payload. `sign` must come from an authorized
+        official client or payment integration; this SDK intentionally does not
+        implement signing or retain payment secrets.
+    UIGF.Commerce.OrderStatus:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        amount:
+          type: string
+        goods_num:
+          type: string
+        goods_title:
+          type: string
+        order_no:
+          type: string
+        pay_plat:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.ShopGood:
+      type: object
+      required:
+        - goods_id
+        - goods_name
+      properties:
+        goods_id:
+          type: string
+        goods_name:
+          type: string
+        goods_type:
+          type: string
+        goods_unit:
+          type: string
+        goods_icon:
+          type: string
+        currency:
+          type: string
+        price:
+          type: string
+        symbol:
+          type: string
+        tier_id:
+          type: string
+        bonus_desc:
+          $ref: '#/components/schemas/UIGF.Commerce.BonusDescription'
+        once_bonus_desc:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/UIGF.Commerce.BonusDescription'
+          nullable: true
+        available:
+          type: boolean
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Commerce.ShopGoods:
+      type: object
+      required:
+        - goods_list
+      properties:
+        goods_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIGF.Commerce.ShopGood'
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.Forum:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        game_id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        icon:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.ForumList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIGF.Community.Forum'
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.LunaCheckInRequest:
+      type: object
+      required:
+        - act_id
+      properties:
+        act_id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.Post:
+      type: object
+      properties:
+        post_id:
+          type: string
+        subject:
+          type: string
+        content:
+          type: string
+        created_at:
+          type: integer
+          format: int64
+        user:
+          $ref: '#/components/schemas/UIGF.CommunityUser'
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIGF.JsonObject'
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.PostList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIGF.Community.Post'
+        is_last:
+          type: boolean
+        last_id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.VerificationCreateRequest:
+      type: object
+      required:
+        - action_type
+      properties:
+        action_type:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Community.VerificationSubmitRequest:
+      type: object
+      required:
+        - challenge
+        - validate
+      properties:
+        challenge:
+          type: string
+        validate:
+          type: string
+        seccode:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.CommunityUser:
+      type: object
+      required:
+        - uid
+      properties:
+        uid:
+          type: string
+        nickname:
+          type: string
+        introduce:
+          type: string
+        avatar_url:
+          type: string
+        gender:
+          type: integer
+          format: int32
+        level_exp:
+          $ref: '#/components/schemas/UIGF.JsonObject'
+        community_info:
+          $ref: '#/components/schemas/UIGF.JsonObject'
+      allOf:
+        - type: object
+          additionalProperties: {}
+      description: A user profile returned by community-account APIs.
+    UIGF.GachaItem:
+      type: object
+      required:
+        - id
+      properties:
+        uid:
+          type: string
+        gacha_type:
+          type: string
+        item_id:
+          type: string
+        count:
+          type: string
+        time:
+          type: string
+        name:
+          type: string
+        item_type:
+          type: string
+        rank_type:
+          type: string
+        id:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.GachaLogPage:
+      type: object
+      required:
+        - list
+      properties:
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+        region:
+          type: string
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIGF.GachaItem'
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.CalculateRequest:
+      type: object
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.Character:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        level:
+          type: integer
+          format: int32
+        image:
+          type: string
+        icon:
+          type: string
+        rarity:
+          type: integer
+          format: int32
+        element:
+          type: string
+        fetter:
+          type: integer
+          format: int32
+        actived_constellation_num:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.CharacterList:
+      type: object
+      required:
+        - list
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIGF.Game.Character'
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.DeviceFingerprint:
+      type: object
+      properties:
+        device_fp:
+          type: string
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.DeviceFingerprintRequest:
+      type: object
+      required:
+        - seed_id
+        - device_id
+        - platform
+      properties:
+        seed_id:
+          type: string
+        device_id:
+          type: string
+        platform:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Game.PandaQrResponse:
+      type: object
+      properties:
+        ticket:
+          type: string
+        url:
+          type: string
+        stat:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.JsonObject:
+      type: object
+      allOf:
+        - type: object
+          additionalProperties: {}
+      description: A JSON object whose vendor-defined properties are preserved by generated clients.
+    UIGF.Launcher.GameBasicInfo:
+      type: object
+      properties:
+        game_info_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIGF.JsonObject'
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Launcher.GamePackage:
+      type: object
+      properties:
+        game_id:
+          type: string
+        game_name:
+          type: string
+        main:
+          $ref: '#/components/schemas/UIGF.JsonObject'
+        pre_download:
+          $ref: '#/components/schemas/UIGF.JsonObject'
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Launcher.GpuInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        vendor_id:
+          type: integer
+          format: int32
+        device_id:
+          type: integer
+          format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+servers:
+  - url: https://passport-api.mihoyo.com
+    description: CN Passport API
+    variables: {}
