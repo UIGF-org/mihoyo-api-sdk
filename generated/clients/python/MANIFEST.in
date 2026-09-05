@@ -1,0 +1,6 @@
+include *.md
+include LICENSE
+include uigf/passport/py.typed
+recursive-include tests *.py
+recursive-include samples *.py *.md
+include uigf/__init__.py

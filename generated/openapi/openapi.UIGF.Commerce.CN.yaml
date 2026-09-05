@@ -2,8 +2,8 @@ openapi: 3.0.0
 info:
   title: UIGF MiHoYo Commerce API
   description: |-
-    Store catalogue and order-state APIs. The `{game}` server parameter is the
-    game SDK host prefix, such as `hk4e` for `hk4e-sdk.mihoyo.com`.
+    Store catalogue and order-state APIs. Supply the complete game SDK endpoint,
+    such as `https://hk4e-sdk.mihoyo.com` for Genshin Impact.
   version: 0.0.0
 tags: []
 paths:
@@ -760,8 +760,9 @@ components:
         - type: object
           additionalProperties: {}
 servers:
-  - url: https://{game}-sdk.mihoyo.com
+  - url: '{endpoint}'
     description: CN game SDK host
     variables:
-      game:
+      endpoint:
         default: ''
+        description: Complete game SDK origin, for example `https://hk4e-sdk.mihoyo.com`.

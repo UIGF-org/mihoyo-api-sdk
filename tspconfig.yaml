@@ -6,3 +6,20 @@ options:
     emitter-output-dir: "{output-dir}/openapi"
   "@uigf/typespec-ds":
     emitter-output-dir: "{output-dir}/ds"
+  "@typespec/http-client-csharp":
+    emitter-output-dir: "{output-dir}/clients/csharp"
+    package-name: "UIGF.Mihoyo"
+    new-project: true
+  "@typespec/http-client-java":
+    emitter-output-dir: "{output-dir}/clients/java"
+  "@typespec/http-client-python":
+    emitter-output-dir: "{output-dir}/clients/python"
+    package-name: "uigf-mihoyo"
+    package-version: "0.1.0"
+    generate-packaging-files: true
+  "@azure-tools/typespec-ts":
+    emitter-output-dir: "{output-dir}/clients/javascript"
+    package-details:
+      name: "@uigf/mihoyo-client"
+      version: "0.1.0"
+    generate-metadata: false

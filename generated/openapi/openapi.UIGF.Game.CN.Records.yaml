@@ -662,13 +662,8 @@ paths:
           required: true
           schema:
             type: string
-        - name: need_detail
-          in: query
-          required: false
-          schema:
-            type: boolean
-          explode: false
         - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.scheduleType"
+        - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.needDetail"
         - $ref: "#/components/parameters/UIGF.Game.ScheduleRecordQuery.needAll"
         - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.server"
         - $ref: "#/components/parameters/UIGF.Game.GameRecordQuery.roleId"

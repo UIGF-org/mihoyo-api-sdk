@@ -15,20 +15,32 @@
     }
   },
   "scripts": {
-    "build": "npm run build:spec && npm run build:runtime",
+    "build": "npm run build:spec && npm run build:runtime && npm run generate:clients",
     "build:spec": "tsp compile . --output-dir generated && node tools/annotate-openapi.mjs generated",
     "build:runtime": "tsc -p tsconfig.json",
-    "check": "tsp compile . --no-emit && tsc -p tsconfig.json --noEmit",
+    "check": "tsp compile client.tsp --no-emit && tsc -p tsconfig.json --noEmit",
+    "generate:clients": "node tools/generate-clients.mjs",
+    "generate:csharp": "node tools/generate-clients.mjs csharp",
+    "generate:java": "node tools/generate-clients.mjs java",
+    "generate:python": "node tools/generate-clients.mjs python",
+    "generate:js": "node tools/generate-clients.mjs javascript",
+    "build:clients": "node tools/build-clients.mjs",
+    "test:clients": "node --test tools/clients.test.mjs",
     "test": "npm run build:runtime && node --test dist/ds.test.js && npm run test:emitter",
     "test:emitter": "npm run build:spec && node tools/verify-ds-openapi.mjs generated"
   },
   "devDependencies": {
+    "@azure-tools/typespec-client-generator-core": "0.71.2",
+    "@azure-tools/typespec-ts": "0.56.0",
     "@types/node": "^26.4.1",
-    "@typespec/compiler": "^1.14.0",
-    "@typespec/http": "^1.14.0",
-    "@typespec/openapi3": "^1.14.0",
+    "@typespec/compiler": "1.15.0",
+    "@typespec/http": "1.15.0",
+    "@typespec/http-client-csharp": "1.0.0-alpha.20260903.3",
+    "@typespec/http-client-java": "0.9.0",
+    "@typespec/http-client-python": "0.37.0",
+    "@typespec/openapi3": "1.15.0",
+    "@uigf/typespec-ds": "file:tools/typespec-ds",
     "typescript": "^7.0.2",
-    "yaml": "^2.8.3",
-    "@uigf/typespec-ds": "file:tools/typespec-ds"
+    "yaml": "^2.8.3"
   }
 }

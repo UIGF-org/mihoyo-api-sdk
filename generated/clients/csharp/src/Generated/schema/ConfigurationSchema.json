@@ -1,0 +1,431 @@
+{
+  "type": "object",
+  "properties": {
+    "Clients": {
+      "type": "object",
+      "properties": {
+        "PassportClient": {
+          "type": "object",
+          "description": "Configuration for PassportClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "PassportV4Client": {
+          "type": "object",
+          "description": "Configuration for PassportV4Client.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "CommunityClient": {
+          "type": "object",
+          "description": "Configuration for CommunityClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "CheckInClient": {
+          "type": "object",
+          "description": "Configuration for CheckInClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "GameAccountClient": {
+          "type": "object",
+          "description": "Configuration for GameAccountClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "RecordClient": {
+          "type": "object",
+          "description": "Configuration for RecordClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "GachaClient": {
+          "type": "object",
+          "description": "Configuration for GachaClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "AnnouncementsClient": {
+          "type": "object",
+          "description": "Configuration for AnnouncementsClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "LoginClient": {
+          "type": "object",
+          "description": "Configuration for LoginClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "LedgerClient": {
+          "type": "object",
+          "description": "Configuration for LedgerClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "GlobalGameAccountClient": {
+          "type": "object",
+          "description": "Configuration for GlobalGameAccountClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "GlobalGameRecordsClient": {
+          "type": "object",
+          "description": "Configuration for GlobalGameRecordsClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "GenshinClient": {
+          "type": "object",
+          "description": "Configuration for GenshinClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "CommunityRecordsClient": {
+          "type": "object",
+          "description": "Configuration for CommunityRecordsClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "CnGameRecordsClient": {
+          "type": "object",
+          "description": "Configuration for CnGameRecordsClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "EventsClient": {
+          "type": "object",
+          "description": "Configuration for EventsClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "HonkaiImpactClient": {
+          "type": "object",
+          "description": "Configuration for HonkaiImpactClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "CnLauncherClient": {
+          "type": "object",
+          "description": "Configuration for CnLauncherClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "GlobalLauncherClient": {
+          "type": "object",
+          "description": "Configuration for GlobalLauncherClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "CnSophonClient": {
+          "type": "object",
+          "description": "Configuration for CnSophonClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "GlobalSophonClient": {
+          "type": "object",
+          "description": "Configuration for GlobalSophonClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "DeviceClient": {
+          "type": "object",
+          "description": "Configuration for DeviceClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "LiveStreamClient": {
+          "type": "object",
+          "description": "Configuration for LiveStreamClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "CommerceClient": {
+          "type": "object",
+          "description": "Configuration for CommerceClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "description": "Configuration for a named client instance."
+      }
+    }
+  },
+  "definitions": {
+    "uIGFMihoyoClientOptions": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/options"
+        }
+      ]
+    }
+  }
+}

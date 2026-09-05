@@ -1,0 +1,29 @@
+{
+  "emitter": "@azure-tools/typespec-ts",
+  "services": [
+    "UIGF.CheckIn",
+    "UIGF.Commerce.CN",
+    "UIGF.Community",
+    "UIGF.Game.Account",
+    "UIGF.Game.CN.Events",
+    "UIGF.Game.CN.HonkaiImpact",
+    "UIGF.Game.CN.Records",
+    "UIGF.Game.Genshin.Announcements",
+    "UIGF.Game.Genshin.Gacha",
+    "UIGF.Game.Genshin.Ledger",
+    "UIGF.Game.Genshin.Login",
+    "UIGF.Game.Genshin.Record",
+    "UIGF.Game.Global.Account",
+    "UIGF.Game.Global.CommunityRecords",
+    "UIGF.Game.Global.Genshin",
+    "UIGF.Game.Global.Records",
+    "UIGF.Launcher.CN",
+    "UIGF.Launcher.Global",
+    "UIGF.Launcher.Sophon.CN",
+    "UIGF.Launcher.Sophon.Global",
+    "UIGF.Passport",
+    "UIGF.PassportV4",
+    "UIGF.Utility.Device",
+    "UIGF.Utility.LiveStream"
+  ]
+}

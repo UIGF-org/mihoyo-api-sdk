@@ -74,15 +74,16 @@ namespace UIGF.Commerce {
 }
 
 /**
- * Store catalogue and order-state APIs. The `{game}` server parameter is the
- * game SDK host prefix, such as `hk4e` for `hk4e-sdk.mihoyo.com`.
+ * Store catalogue and order-state APIs. Supply the complete game SDK endpoint,
+ * such as `https://hk4e-sdk.mihoyo.com` for Genshin Impact.
  */
 @service(#{ title: "UIGF MiHoYo Commerce API" })
 @server(
-  "https://{game}-sdk.mihoyo.com",
+  "{endpoint}",
   "CN game SDK host",
   {
-    game: string,
+    /** Complete game SDK origin, for example `https://hk4e-sdk.mihoyo.com`. */
+    endpoint: url,
   }
 )
 namespace UIGF.Commerce.CN {

@@ -312,7 +312,6 @@ namespace UIGF.Game.Global.CommunityRecords {
     getSimulatedUniverse(
       @header("Cookie") cookie: string,
       @header("DS") ds: string,
-      @query need_detail?: boolean,
       ...UIGF.Game.ScheduleRecordQuery,
     ): UIGF.ApiResponse<UIGF.JsonObject>;
   }

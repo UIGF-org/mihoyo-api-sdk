@@ -67,7 +67,6 @@ namespace UIGF.Game.CN.Records {
     getSimulatedUniverse(
       @header("Cookie") cookie: string,
       @header("DS") ds: string,
-      @query need_detail?: boolean,
       ...UIGF.Game.ScheduleRecordQuery,
     ): UIGF.ApiResponse<UIGF.JsonObject>;
 
