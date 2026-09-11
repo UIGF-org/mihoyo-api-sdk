@@ -43,26 +43,25 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="appId"></param>
         /// <param name="pointSn"></param>
         /// <param name="time"></param>
         /// <param name="action"></param>
         /// <param name="size"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetAll(string cookie, string ds, string appId, string pointSn, string time, string action, int size, RequestOptions options = null)
+        public virtual ClientResult GetAll(string cookie, string appId, string pointSn, string time, string action, int size, string ds = default, RequestOptions options = null)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(appId, nameof(appId));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
             Argument.AssertNotNullOrEmpty(time, nameof(time));
 
-            using PipelineMessage message = CreateGetAllRequest(cookie, ds, appId, pointSn, time, action, size, options);
+            using PipelineMessage message = CreateGetAllRequest(cookie, appId, pointSn, time, action, size, ds, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -75,74 +74,71 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="appId"></param>
         /// <param name="pointSn"></param>
         /// <param name="time"></param>
         /// <param name="action"></param>
         /// <param name="size"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetAllAsync(string cookie, string ds, string appId, string pointSn, string time, string action, int size, RequestOptions options = null)
+        public virtual async Task<ClientResult> GetAllAsync(string cookie, string appId, string pointSn, string time, string action, int size, string ds = default, RequestOptions options = null)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(appId, nameof(appId));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
             Argument.AssertNotNullOrEmpty(time, nameof(time));
 
-            using PipelineMessage message = CreateGetAllRequest(cookie, ds, appId, pointSn, time, action, size, options);
+            using PipelineMessage message = CreateGetAllRequest(cookie, appId, pointSn, time, action, size, ds, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> Returns MiYouShe coin earnings or spending records. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="appId"></param>
         /// <param name="pointSn"></param>
         /// <param name="time"></param>
         /// <param name="action"></param>
         /// <param name="size"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GetAll(string cookie, string ds, string appId, string pointSn, string time, ListRequestAction action, int size, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GetAll(string cookie, string appId, string pointSn, string time, ListRequestAction action, int size, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(appId, nameof(appId));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
             Argument.AssertNotNullOrEmpty(time, nameof(time));
 
-            ClientResult result = GetAll(cookie, ds, appId, pointSn, time, action.ToSerialString(), size, cancellationToken.ToRequestOptions());
+            ClientResult result = GetAll(cookie, appId, pointSn, time, action.ToSerialString(), size, ds, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> Returns MiYouShe coin earnings or spending records. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="appId"></param>
         /// <param name="pointSn"></param>
         /// <param name="time"></param>
         /// <param name="action"></param>
         /// <param name="size"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="appId"/>, <paramref name="pointSn"/> or <paramref name="time"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetAllAsync(string cookie, string ds, string appId, string pointSn, string time, ListRequestAction action, int size, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetAllAsync(string cookie, string appId, string pointSn, string time, ListRequestAction action, int size, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(appId, nameof(appId));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
             Argument.AssertNotNullOrEmpty(time, nameof(time));
 
-            ClientResult result = await GetAllAsync(cookie, ds, appId, pointSn, time, action.ToSerialString(), size, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetAllAsync(cookie, appId, pointSn, time, action.ToSerialString(), size, ds, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
     }

@@ -55,7 +55,7 @@ namespace UIGF.Community
             return message;
         }
 
-        internal PipelineMessage CreateGetMissionsRequest(string cookie, string ds, string pointSn, RequestOptions options)
+        internal PipelineMessage CreateGetMissionsRequest(string cookie, string pointSn, string ds, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -64,13 +64,16 @@ namespace UIGF.Community
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
         }
 
-        internal PipelineMessage CreateGetShareConfigRequest(string cookie, string ds, string entityId, int entityType, RequestOptions options)
+        internal PipelineMessage CreateGetShareConfigRequest(string cookie, string entityId, int entityType, string ds, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -80,13 +83,16 @@ namespace UIGF.Community
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
         }
 
-        internal PipelineMessage CreateGetMissionStateRequest(string cookie, string ds, string pointSn, RequestOptions options)
+        internal PipelineMessage CreateGetMissionStateRequest(string cookie, string pointSn, string ds, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -95,7 +101,10 @@ namespace UIGF.Community
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
@@ -142,7 +151,7 @@ namespace UIGF.Community
             return message;
         }
 
-        internal PipelineMessage CreateSignInRequest(string cookie, string ds, BinaryContent content, string challenge, RequestOptions options)
+        internal PipelineMessage CreateSignInRequest(string cookie, BinaryContent content, string ds, string challenge, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -150,7 +159,10 @@ namespace UIGF.Community
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "POST", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             if (challenge != null)
             {
                 request.Headers.Set("x-rpc-challenge", challenge);
@@ -162,7 +174,7 @@ namespace UIGF.Community
             return message;
         }
 
-        internal PipelineMessage CreateSetPostVoteRequest(string cookie, string ds, BinaryContent content, RequestOptions options)
+        internal PipelineMessage CreateSetPostVoteRequest(string cookie, BinaryContent content, string ds, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -170,7 +182,10 @@ namespace UIGF.Community
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "POST", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Content-Type", "application/json");
             request.Headers.Set("Accept", "application/json");
             request.Content = content;

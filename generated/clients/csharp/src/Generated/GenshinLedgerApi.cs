@@ -43,23 +43,22 @@ namespace UIGF.Game.Genshin.Ledger
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="bindUid"></param>
         /// <param name="bindRegion"></param>
+        /// <param name="ds"></param>
         /// <param name="month"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetMonthInfo(string cookie, string ds, string bindUid, string bindRegion, int? month, RequestOptions options)
+        public virtual ClientResult GetMonthInfo(string cookie, string bindUid, string bindRegion, string ds, int? month, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(bindUid, nameof(bindUid));
             Argument.AssertNotNullOrEmpty(bindRegion, nameof(bindRegion));
 
-            using PipelineMessage message = CreateGetMonthInfoRequest(cookie, ds, bindUid, bindRegion, month, options);
+            using PipelineMessage message = CreateGetMonthInfoRequest(cookie, bindUid, bindRegion, ds, month, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -72,65 +71,62 @@ namespace UIGF.Game.Genshin.Ledger
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="bindUid"></param>
         /// <param name="bindRegion"></param>
+        /// <param name="ds"></param>
         /// <param name="month"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetMonthInfoAsync(string cookie, string ds, string bindUid, string bindRegion, int? month, RequestOptions options)
+        public virtual async Task<ClientResult> GetMonthInfoAsync(string cookie, string bindUid, string bindRegion, string ds, int? month, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(bindUid, nameof(bindUid));
             Argument.AssertNotNullOrEmpty(bindRegion, nameof(bindRegion));
 
-            using PipelineMessage message = CreateGetMonthInfoRequest(cookie, ds, bindUid, bindRegion, month, options);
+            using PipelineMessage message = CreateGetMonthInfoRequest(cookie, bindUid, bindRegion, ds, month, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetMonthInfo. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="bindUid"></param>
         /// <param name="bindRegion"></param>
+        /// <param name="ds"></param>
         /// <param name="month"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GetMonthInfo(string cookie, string ds, string bindUid, string bindRegion, int? month = default, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GetMonthInfo(string cookie, string bindUid, string bindRegion, string ds = default, int? month = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(bindUid, nameof(bindUid));
             Argument.AssertNotNullOrEmpty(bindRegion, nameof(bindRegion));
 
-            ClientResult result = GetMonthInfo(cookie, ds, bindUid, bindRegion, month, cancellationToken.ToRequestOptions());
+            ClientResult result = GetMonthInfo(cookie, bindUid, bindRegion, ds, month, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> GetMonthInfo. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="bindUid"></param>
         /// <param name="bindRegion"></param>
+        /// <param name="ds"></param>
         /// <param name="month"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetMonthInfoAsync(string cookie, string ds, string bindUid, string bindRegion, int? month = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetMonthInfoAsync(string cookie, string bindUid, string bindRegion, string ds = default, int? month = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(bindUid, nameof(bindUid));
             Argument.AssertNotNullOrEmpty(bindRegion, nameof(bindRegion));
 
-            ClientResult result = await GetMonthInfoAsync(cookie, ds, bindUid, bindRegion, month, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetMonthInfoAsync(cookie, bindUid, bindRegion, ds, month, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
@@ -143,26 +139,25 @@ namespace UIGF.Game.Genshin.Ledger
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="month"></param>
         /// <param name="page"></param>
         /// <param name="type"></param>
         /// <param name="bindUid"></param>
         /// <param name="bindRegion"></param>
+        /// <param name="ds"></param>
         /// <param name="limit"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetMonthDetail(string cookie, string ds, int month, int page, int @type, string bindUid, string bindRegion, int? limit, RequestOptions options)
+        public virtual ClientResult GetMonthDetail(string cookie, int month, int page, int @type, string bindUid, string bindRegion, string ds, int? limit, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(bindUid, nameof(bindUid));
             Argument.AssertNotNullOrEmpty(bindRegion, nameof(bindRegion));
 
-            using PipelineMessage message = CreateGetMonthDetailRequest(cookie, ds, month, page, @type, bindUid, bindRegion, limit, options);
+            using PipelineMessage message = CreateGetMonthDetailRequest(cookie, month, page, @type, bindUid, bindRegion, ds, limit, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -175,74 +170,71 @@ namespace UIGF.Game.Genshin.Ledger
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="month"></param>
         /// <param name="page"></param>
         /// <param name="type"></param>
         /// <param name="bindUid"></param>
         /// <param name="bindRegion"></param>
+        /// <param name="ds"></param>
         /// <param name="limit"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetMonthDetailAsync(string cookie, string ds, int month, int page, int @type, string bindUid, string bindRegion, int? limit, RequestOptions options)
+        public virtual async Task<ClientResult> GetMonthDetailAsync(string cookie, int month, int page, int @type, string bindUid, string bindRegion, string ds, int? limit, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(bindUid, nameof(bindUid));
             Argument.AssertNotNullOrEmpty(bindRegion, nameof(bindRegion));
 
-            using PipelineMessage message = CreateGetMonthDetailRequest(cookie, ds, month, page, @type, bindUid, bindRegion, limit, options);
+            using PipelineMessage message = CreateGetMonthDetailRequest(cookie, month, page, @type, bindUid, bindRegion, ds, limit, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetMonthDetail. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="month"></param>
         /// <param name="page"></param>
         /// <param name="type"></param>
         /// <param name="bindUid"></param>
         /// <param name="bindRegion"></param>
+        /// <param name="ds"></param>
         /// <param name="limit"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GetMonthDetail(string cookie, string ds, int month, int page, int @type, string bindUid, string bindRegion, int? limit = default, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GetMonthDetail(string cookie, int month, int page, int @type, string bindUid, string bindRegion, string ds = default, int? limit = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(bindUid, nameof(bindUid));
             Argument.AssertNotNullOrEmpty(bindRegion, nameof(bindRegion));
 
-            ClientResult result = GetMonthDetail(cookie, ds, month, page, @type, bindUid, bindRegion, limit, cancellationToken.ToRequestOptions());
+            ClientResult result = GetMonthDetail(cookie, month, page, @type, bindUid, bindRegion, ds, limit, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> GetMonthDetail. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="month"></param>
         /// <param name="page"></param>
         /// <param name="type"></param>
         /// <param name="bindUid"></param>
         /// <param name="bindRegion"></param>
+        /// <param name="ds"></param>
         /// <param name="limit"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="bindUid"/> or <paramref name="bindRegion"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetMonthDetailAsync(string cookie, string ds, int month, int page, int @type, string bindUid, string bindRegion, int? limit = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetMonthDetailAsync(string cookie, int month, int page, int @type, string bindUid, string bindRegion, string ds = default, int? limit = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(bindUid, nameof(bindUid));
             Argument.AssertNotNullOrEmpty(bindRegion, nameof(bindRegion));
 
-            ClientResult result = await GetMonthDetailAsync(cookie, ds, month, page, @type, bindUid, bindRegion, limit, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetMonthDetailAsync(cookie, month, page, @type, bindUid, bindRegion, ds, limit, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
     }

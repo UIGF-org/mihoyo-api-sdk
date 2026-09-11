@@ -15,7 +15,7 @@ namespace UIGF.Game.Genshin.Record
 
         private static PipelineMessageClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 ??= PipelineMessageClassifier.Create(stackalloc ushort[] { 200 });
 
-        internal PipelineMessage CreateGetIndexRequest(string cookie, string ds, string server, string roleId, int? avatarListType, RequestOptions options)
+        internal PipelineMessage CreateGetIndexRequest(string cookie, string server, string roleId, string ds, int? avatarListType, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -29,13 +29,16 @@ namespace UIGF.Game.Genshin.Record
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
         }
 
-        internal PipelineMessage CreateGetCharactersRequest(string cookie, string ds, BinaryContent content, RequestOptions options)
+        internal PipelineMessage CreateGetCharactersRequest(string cookie, BinaryContent content, string ds, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -43,7 +46,10 @@ namespace UIGF.Game.Genshin.Record
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "POST", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Content-Type", "application/json");
             request.Headers.Set("Accept", "application/json");
             request.Content = content;
@@ -51,7 +57,7 @@ namespace UIGF.Game.Genshin.Record
             return message;
         }
 
-        internal PipelineMessage CreateGetCharacterDetailsRequest(string cookie, string ds, BinaryContent content, RequestOptions options)
+        internal PipelineMessage CreateGetCharacterDetailsRequest(string cookie, BinaryContent content, string ds, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -59,7 +65,10 @@ namespace UIGF.Game.Genshin.Record
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "POST", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Content-Type", "application/json");
             request.Headers.Set("Accept", "application/json");
             request.Content = content;
@@ -67,7 +76,7 @@ namespace UIGF.Game.Genshin.Record
             return message;
         }
 
-        internal PipelineMessage CreateGetDailyNoteRequest(string cookie, string ds, string server, string roleId, RequestOptions options)
+        internal PipelineMessage CreateGetDailyNoteRequest(string cookie, string server, string roleId, string ds, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -77,13 +86,16 @@ namespace UIGF.Game.Genshin.Record
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
         }
 
-        internal PipelineMessage CreateGetSpiralAbyssRequest(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        internal PipelineMessage CreateGetSpiralAbyssRequest(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -105,13 +117,16 @@ namespace UIGF.Game.Genshin.Record
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
         }
 
-        internal PipelineMessage CreateGetImaginariumTheaterRequest(string cookie, string ds, string server, string roleId, int? active, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        internal PipelineMessage CreateGetImaginariumTheaterRequest(string cookie, string server, string roleId, string ds, int? active, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -137,13 +152,16 @@ namespace UIGF.Game.Genshin.Record
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
         }
 
-        internal PipelineMessage CreateGetCharacterMasterRequest(string cookie, string ds, string server, string roleId, RequestOptions options)
+        internal PipelineMessage CreateGetCharacterMasterRequest(string cookie, string server, string roleId, string ds, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -153,13 +171,16 @@ namespace UIGF.Game.Genshin.Record
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
         }
 
-        internal PipelineMessage CreateGetStygianOnslaughtRequest(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        internal PipelineMessage CreateGetStygianOnslaughtRequest(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -181,7 +202,10 @@ namespace UIGF.Game.Genshin.Record
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
@@ -201,7 +225,7 @@ namespace UIGF.Game.Genshin.Record
             return message;
         }
 
-        internal PipelineMessage CreateGetActivityCalendarRequest(string cookie, string ds, BinaryContent content, string challenge, RequestOptions options)
+        internal PipelineMessage CreateGetActivityCalendarRequest(string cookie, BinaryContent content, string ds, string challenge, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -209,7 +233,10 @@ namespace UIGF.Game.Genshin.Record
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "POST", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             if (challenge != null)
             {
                 request.Headers.Set("x-rpc-challenge", challenge);
@@ -221,7 +248,7 @@ namespace UIGF.Game.Genshin.Record
             return message;
         }
 
-        internal PipelineMessage CreateGetCharacterTpsRequest(string cookie, string ds, string server, string roleId, RequestOptions options)
+        internal PipelineMessage CreateGetCharacterTpsRequest(string cookie, string server, string roleId, string ds, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -231,7 +258,10 @@ namespace UIGF.Game.Genshin.Record
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;

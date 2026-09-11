@@ -184,7 +184,7 @@ namespace UIGF.Community
             return message;
         }
 
-        internal PipelineMessage CreateSetFavoriteRequest(string cookie, string ds, BinaryContent content, RequestOptions options)
+        internal PipelineMessage CreateSetFavoriteRequest(string cookie, BinaryContent content, string ds, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -192,7 +192,10 @@ namespace UIGF.Community
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "POST", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Content-Type", "application/json");
             request.Headers.Set("Accept", "application/json");
             request.Content = content;

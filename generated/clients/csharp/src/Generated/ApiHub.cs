@@ -203,20 +203,19 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="pointSn"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetMissions(string cookie, string ds, string pointSn, RequestOptions options)
+        public virtual ClientResult GetMissions(string cookie, string pointSn, string ds, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
 
-            using PipelineMessage message = CreateGetMissionsRequest(cookie, ds, pointSn, options);
+            using PipelineMessage message = CreateGetMissionsRequest(cookie, pointSn, ds, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -229,56 +228,53 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="pointSn"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetMissionsAsync(string cookie, string ds, string pointSn, RequestOptions options)
+        public virtual async Task<ClientResult> GetMissionsAsync(string cookie, string pointSn, string ds, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
 
-            using PipelineMessage message = CreateGetMissionsRequest(cookie, ds, pointSn, options);
+            using PipelineMessage message = CreateGetMissionsRequest(cookie, pointSn, ds, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetMissions. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="pointSn"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GetMissions(string cookie, string ds, string pointSn, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GetMissions(string cookie, string pointSn, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
 
-            ClientResult result = GetMissions(cookie, ds, pointSn, cancellationToken.ToRequestOptions());
+            ClientResult result = GetMissions(cookie, pointSn, ds, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> GetMissions. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="pointSn"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetMissionsAsync(string cookie, string ds, string pointSn, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetMissionsAsync(string cookie, string pointSn, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
 
-            ClientResult result = await GetMissionsAsync(cookie, ds, pointSn, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetMissionsAsync(cookie, pointSn, ds, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
@@ -291,21 +287,20 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="entityId"></param>
         /// <param name="entityType"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="entityId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="entityId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="entityId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="entityId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetShareConfig(string cookie, string ds, string entityId, int entityType, RequestOptions options)
+        public virtual ClientResult GetShareConfig(string cookie, string entityId, int entityType, string ds, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(entityId, nameof(entityId));
 
-            using PipelineMessage message = CreateGetShareConfigRequest(cookie, ds, entityId, entityType, options);
+            using PipelineMessage message = CreateGetShareConfigRequest(cookie, entityId, entityType, ds, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -318,59 +313,56 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="entityId"></param>
         /// <param name="entityType"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="entityId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="entityId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="entityId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="entityId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetShareConfigAsync(string cookie, string ds, string entityId, int entityType, RequestOptions options)
+        public virtual async Task<ClientResult> GetShareConfigAsync(string cookie, string entityId, int entityType, string ds, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(entityId, nameof(entityId));
 
-            using PipelineMessage message = CreateGetShareConfigRequest(cookie, ds, entityId, entityType, options);
+            using PipelineMessage message = CreateGetShareConfigRequest(cookie, entityId, entityType, ds, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetShareConfig. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="entityId"></param>
         /// <param name="entityType"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="entityId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="entityId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="entityId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="entityId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GetShareConfig(string cookie, string ds, string entityId, int entityType, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GetShareConfig(string cookie, string entityId, int entityType, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(entityId, nameof(entityId));
 
-            ClientResult result = GetShareConfig(cookie, ds, entityId, entityType, cancellationToken.ToRequestOptions());
+            ClientResult result = GetShareConfig(cookie, entityId, entityType, ds, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> GetShareConfig. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="entityId"></param>
         /// <param name="entityType"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="entityId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="entityId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="entityId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="entityId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetShareConfigAsync(string cookie, string ds, string entityId, int entityType, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetShareConfigAsync(string cookie, string entityId, int entityType, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(entityId, nameof(entityId));
 
-            ClientResult result = await GetShareConfigAsync(cookie, ds, entityId, entityType, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetShareConfigAsync(cookie, entityId, entityType, ds, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
@@ -383,20 +375,19 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="pointSn"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetMissionState(string cookie, string ds, string pointSn, RequestOptions options)
+        public virtual ClientResult GetMissionState(string cookie, string pointSn, string ds, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
 
-            using PipelineMessage message = CreateGetMissionStateRequest(cookie, ds, pointSn, options);
+            using PipelineMessage message = CreateGetMissionStateRequest(cookie, pointSn, ds, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -409,56 +400,53 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="pointSn"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetMissionStateAsync(string cookie, string ds, string pointSn, RequestOptions options)
+        public virtual async Task<ClientResult> GetMissionStateAsync(string cookie, string pointSn, string ds, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
 
-            using PipelineMessage message = CreateGetMissionStateRequest(cookie, ds, pointSn, options);
+            using PipelineMessage message = CreateGetMissionStateRequest(cookie, pointSn, ds, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetMissionState. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="pointSn"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GetMissionState(string cookie, string ds, string pointSn, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GetMissionState(string cookie, string pointSn, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
 
-            ClientResult result = GetMissionState(cookie, ds, pointSn, cancellationToken.ToRequestOptions());
+            ClientResult result = GetMissionState(cookie, pointSn, ds, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> GetMissionState. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="pointSn"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="pointSn"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetMissionStateAsync(string cookie, string ds, string pointSn, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetMissionStateAsync(string cookie, string pointSn, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(pointSn, nameof(pointSn));
 
-            ClientResult result = await GetMissionStateAsync(cookie, ds, pointSn, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetMissionStateAsync(cookie, pointSn, ds, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
@@ -687,21 +675,20 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="ds"></param>
         /// <param name="challenge"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult SignIn(string cookie, string ds, BinaryContent content, string challenge = default, RequestOptions options = null)
+        public virtual ClientResult SignIn(string cookie, BinaryContent content, string ds = default, string challenge = default, RequestOptions options = null)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(content, nameof(content));
 
-            using PipelineMessage message = CreateSignInRequest(cookie, ds, content, challenge, options);
+            using PipelineMessage message = CreateSignInRequest(cookie, content, ds, challenge, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -714,59 +701,56 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="ds"></param>
         /// <param name="challenge"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> SignInAsync(string cookie, string ds, BinaryContent content, string challenge = default, RequestOptions options = null)
+        public virtual async Task<ClientResult> SignInAsync(string cookie, BinaryContent content, string ds = default, string challenge = default, RequestOptions options = null)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(content, nameof(content));
 
-            using PipelineMessage message = CreateSignInRequest(cookie, ds, content, challenge, options);
+            using PipelineMessage message = CreateSignInRequest(cookie, content, ds, challenge, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> SignIn. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="body"></param>
+        /// <param name="ds"></param>
         /// <param name="challenge"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="body"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="body"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> SignIn(string cookie, string ds, SignInRequest body, string challenge = default, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> SignIn(string cookie, SignInRequest body, string ds = default, string challenge = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(body, nameof(body));
 
-            ClientResult result = SignIn(cookie, ds, body, challenge, cancellationToken.ToRequestOptions());
+            ClientResult result = SignIn(cookie, body, ds, challenge, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> SignIn. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="body"></param>
+        /// <param name="ds"></param>
         /// <param name="challenge"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="body"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="body"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> SignInAsync(string cookie, string ds, SignInRequest body, string challenge = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> SignInAsync(string cookie, SignInRequest body, string ds = default, string challenge = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(body, nameof(body));
 
-            ClientResult result = await SignInAsync(cookie, ds, body, challenge, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await SignInAsync(cookie, body, ds, challenge, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
@@ -779,20 +763,19 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult SetPostVote(string cookie, string ds, BinaryContent content, RequestOptions options = null)
+        public virtual ClientResult SetPostVote(string cookie, BinaryContent content, string ds = default, RequestOptions options = null)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(content, nameof(content));
 
-            using PipelineMessage message = CreateSetPostVoteRequest(cookie, ds, content, options);
+            using PipelineMessage message = CreateSetPostVoteRequest(cookie, content, ds, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -805,56 +788,53 @@ namespace UIGF.Community
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> SetPostVoteAsync(string cookie, string ds, BinaryContent content, RequestOptions options = null)
+        public virtual async Task<ClientResult> SetPostVoteAsync(string cookie, BinaryContent content, string ds = default, RequestOptions options = null)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(content, nameof(content));
 
-            using PipelineMessage message = CreateSetPostVoteRequest(cookie, ds, content, options);
+            using PipelineMessage message = CreateSetPostVoteRequest(cookie, content, ds, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> SetPostVote. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="body"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="body"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="body"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> SetPostVote(string cookie, string ds, LikePostRequest body, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> SetPostVote(string cookie, LikePostRequest body, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(body, nameof(body));
 
-            ClientResult result = SetPostVote(cookie, ds, body, cancellationToken.ToRequestOptions());
+            ClientResult result = SetPostVote(cookie, body, ds, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> SetPostVote. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="body"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="body"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="body"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> SetPostVoteAsync(string cookie, string ds, LikePostRequest body, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> SetPostVoteAsync(string cookie, LikePostRequest body, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(body, nameof(body));
 
-            ClientResult result = await SetPostVoteAsync(cookie, ds, body, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await SetPostVoteAsync(cookie, body, ds, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
     }

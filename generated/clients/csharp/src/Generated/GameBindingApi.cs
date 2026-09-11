@@ -44,20 +44,19 @@ namespace UIGF.Game.Account
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GenerateAuthKey(string cookie, string ds, BinaryContent content, RequestOptions options = null)
+        public virtual ClientResult GenerateAuthKey(string cookie, BinaryContent content, string ds = default, RequestOptions options = null)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(content, nameof(content));
 
-            using PipelineMessage message = CreateGenerateAuthKeyRequest(cookie, ds, content, options);
+            using PipelineMessage message = CreateGenerateAuthKeyRequest(cookie, content, ds, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -70,56 +69,53 @@ namespace UIGF.Game.Account
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GenerateAuthKeyAsync(string cookie, string ds, BinaryContent content, RequestOptions options = null)
+        public virtual async Task<ClientResult> GenerateAuthKeyAsync(string cookie, BinaryContent content, string ds = default, RequestOptions options = null)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(content, nameof(content));
 
-            using PipelineMessage message = CreateGenerateAuthKeyRequest(cookie, ds, content, options);
+            using PipelineMessage message = CreateGenerateAuthKeyRequest(cookie, content, ds, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> Generates an authenticated gacha authkey for a selected game role. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="body"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="body"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="body"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GenerateAuthKey(string cookie, string ds, AuthKeyRequest body, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GenerateAuthKey(string cookie, AuthKeyRequest body, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(body, nameof(body));
 
-            ClientResult result = GenerateAuthKey(cookie, ds, body, cancellationToken.ToRequestOptions());
+            ClientResult result = GenerateAuthKey(cookie, body, ds, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> Generates an authenticated gacha authkey for a selected game role. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="body"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="body"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="ds"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="body"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GenerateAuthKeyAsync(string cookie, string ds, AuthKeyRequest body, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GenerateAuthKeyAsync(string cookie, AuthKeyRequest body, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNull(body, nameof(body));
 
-            ClientResult result = await GenerateAuthKeyAsync(cookie, ds, body, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GenerateAuthKeyAsync(cookie, body, ds, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 

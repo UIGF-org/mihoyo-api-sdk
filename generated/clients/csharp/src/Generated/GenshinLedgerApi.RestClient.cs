@@ -14,7 +14,7 @@ namespace UIGF.Game.Genshin.Ledger
 
         private static PipelineMessageClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 ??= PipelineMessageClassifier.Create(stackalloc ushort[] { 200 });
 
-        internal PipelineMessage CreateGetMonthInfoRequest(string cookie, string ds, string bindUid, string bindRegion, int? month, RequestOptions options)
+        internal PipelineMessage CreateGetMonthInfoRequest(string cookie, string bindUid, string bindRegion, string ds, int? month, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -28,13 +28,16 @@ namespace UIGF.Game.Genshin.Ledger
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
         }
 
-        internal PipelineMessage CreateGetMonthDetailRequest(string cookie, string ds, int month, int page, int @type, string bindUid, string bindRegion, int? limit, RequestOptions options)
+        internal PipelineMessage CreateGetMonthDetailRequest(string cookie, int month, int page, int @type, string bindUid, string bindRegion, string ds, int? limit, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -51,7 +54,10 @@ namespace UIGF.Game.Genshin.Ledger
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;

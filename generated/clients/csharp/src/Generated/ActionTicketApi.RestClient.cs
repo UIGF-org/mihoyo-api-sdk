@@ -14,7 +14,7 @@ namespace UIGF.Game.Account
 
         private static PipelineMessageClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 ??= PipelineMessageClassifier.Create(stackalloc ushort[] { 200 });
 
-        internal PipelineMessage CreateGetBySTokenRequest(string cookie, string ds, string actionType, string stoken, string uid, RequestOptions options)
+        internal PipelineMessage CreateGetBySTokenRequest(string cookie, string actionType, string stoken, string uid, string ds, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -25,7 +25,10 @@ namespace UIGF.Game.Account
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;

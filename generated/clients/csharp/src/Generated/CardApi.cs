@@ -43,20 +43,19 @@ namespace UIGF.Game.Genshin.Record
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="uid"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="uid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="uid"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetGameRecordCard(string cookie, string ds, string uid, RequestOptions options)
+        public virtual ClientResult GetGameRecordCard(string cookie, string uid, string ds, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(uid, nameof(uid));
 
-            using PipelineMessage message = CreateGetGameRecordCardRequest(cookie, ds, uid, options);
+            using PipelineMessage message = CreateGetGameRecordCardRequest(cookie, uid, ds, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -69,56 +68,53 @@ namespace UIGF.Game.Genshin.Record
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="uid"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="uid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="uid"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetGameRecordCardAsync(string cookie, string ds, string uid, RequestOptions options)
+        public virtual async Task<ClientResult> GetGameRecordCardAsync(string cookie, string uid, string ds, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(uid, nameof(uid));
 
-            using PipelineMessage message = CreateGetGameRecordCardRequest(cookie, ds, uid, options);
+            using PipelineMessage message = CreateGetGameRecordCardRequest(cookie, uid, ds, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetGameRecordCard. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="uid"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="uid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="uid"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GetGameRecordCard(string cookie, string ds, string uid, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GetGameRecordCard(string cookie, string uid, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(uid, nameof(uid));
 
-            ClientResult result = GetGameRecordCard(cookie, ds, uid, cancellationToken.ToRequestOptions());
+            ClientResult result = GetGameRecordCard(cookie, uid, ds, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> GetGameRecordCard. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="uid"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="uid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/> or <paramref name="uid"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetGameRecordCardAsync(string cookie, string ds, string uid, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetGameRecordCardAsync(string cookie, string uid, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(uid, nameof(uid));
 
-            ClientResult result = await GetGameRecordCardAsync(cookie, ds, uid, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetGameRecordCardAsync(cookie, uid, ds, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
     }

@@ -43,24 +43,23 @@ namespace UIGF.Game.Account
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="actionType"></param>
         /// <param name="stoken"></param>
         /// <param name="uid"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetBySToken(string cookie, string ds, string actionType, string stoken, string uid, RequestOptions options)
+        public virtual ClientResult GetBySToken(string cookie, string actionType, string stoken, string uid, string ds, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(actionType, nameof(actionType));
             Argument.AssertNotNullOrEmpty(stoken, nameof(stoken));
             Argument.AssertNotNullOrEmpty(uid, nameof(uid));
 
-            using PipelineMessage message = CreateGetBySTokenRequest(cookie, ds, actionType, stoken, uid, options);
+            using PipelineMessage message = CreateGetBySTokenRequest(cookie, actionType, stoken, uid, ds, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -73,68 +72,65 @@ namespace UIGF.Game.Account
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="actionType"></param>
         /// <param name="stoken"></param>
         /// <param name="uid"></param>
+        /// <param name="ds"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetBySTokenAsync(string cookie, string ds, string actionType, string stoken, string uid, RequestOptions options)
+        public virtual async Task<ClientResult> GetBySTokenAsync(string cookie, string actionType, string stoken, string uid, string ds, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(actionType, nameof(actionType));
             Argument.AssertNotNullOrEmpty(stoken, nameof(stoken));
             Argument.AssertNotNullOrEmpty(uid, nameof(uid));
 
-            using PipelineMessage message = CreateGetBySTokenRequest(cookie, ds, actionType, stoken, uid, options);
+            using PipelineMessage message = CreateGetBySTokenRequest(cookie, actionType, stoken, uid, ds, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetBySToken. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="actionType"></param>
         /// <param name="stoken"></param>
         /// <param name="uid"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GetBySToken(string cookie, string ds, string actionType, string stoken, string uid, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GetBySToken(string cookie, string actionType, string stoken, string uid, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(actionType, nameof(actionType));
             Argument.AssertNotNullOrEmpty(stoken, nameof(stoken));
             Argument.AssertNotNullOrEmpty(uid, nameof(uid));
 
-            ClientResult result = GetBySToken(cookie, ds, actionType, stoken, uid, cancellationToken.ToRequestOptions());
+            ClientResult result = GetBySToken(cookie, actionType, stoken, uid, ds, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> GetBySToken. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="actionType"></param>
         /// <param name="stoken"></param>
         /// <param name="uid"></param>
+        /// <param name="ds"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="actionType"/>, <paramref name="stoken"/> or <paramref name="uid"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetBySTokenAsync(string cookie, string ds, string actionType, string stoken, string uid, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetBySTokenAsync(string cookie, string actionType, string stoken, string uid, string ds = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(actionType, nameof(actionType));
             Argument.AssertNotNullOrEmpty(stoken, nameof(stoken));
             Argument.AssertNotNullOrEmpty(uid, nameof(uid));
 
-            ClientResult result = await GetBySTokenAsync(cookie, ds, actionType, stoken, uid, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetBySTokenAsync(cookie, actionType, stoken, uid, ds, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
     }

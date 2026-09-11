@@ -43,25 +43,24 @@ namespace UIGF.Game.Global.CommunityRecords
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetSpiralAbyss(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        public virtual ClientResult GetSpiralAbyss(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            using PipelineMessage message = CreateGetSpiralAbyssRequest(cookie, ds, server, roleId, scheduleType, needDetail, needAll, options);
+            using PipelineMessage message = CreateGetSpiralAbyssRequest(cookie, server, roleId, ds, scheduleType, needDetail, needAll, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -74,71 +73,68 @@ namespace UIGF.Game.Global.CommunityRecords
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetSpiralAbyssAsync(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        public virtual async Task<ClientResult> GetSpiralAbyssAsync(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            using PipelineMessage message = CreateGetSpiralAbyssRequest(cookie, ds, server, roleId, scheduleType, needDetail, needAll, options);
+            using PipelineMessage message = CreateGetSpiralAbyssRequest(cookie, server, roleId, ds, scheduleType, needDetail, needAll, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetSpiralAbyss. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GetSpiralAbyss(string cookie, string ds, string server, string roleId, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GetSpiralAbyss(string cookie, string server, string roleId, string ds = default, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            ClientResult result = GetSpiralAbyss(cookie, ds, server, roleId, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions());
+            ClientResult result = GetSpiralAbyss(cookie, server, roleId, ds, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> GetSpiralAbyss. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetSpiralAbyssAsync(string cookie, string ds, string server, string roleId, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetSpiralAbyssAsync(string cookie, string server, string roleId, string ds = default, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            ClientResult result = await GetSpiralAbyssAsync(cookie, ds, server, roleId, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetSpiralAbyssAsync(cookie, server, roleId, ds, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
@@ -151,25 +147,24 @@ namespace UIGF.Game.Global.CommunityRecords
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetImaginariumTheater(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        public virtual ClientResult GetImaginariumTheater(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            using PipelineMessage message = CreateGetImaginariumTheaterRequest(cookie, ds, server, roleId, scheduleType, needDetail, needAll, options);
+            using PipelineMessage message = CreateGetImaginariumTheaterRequest(cookie, server, roleId, ds, scheduleType, needDetail, needAll, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -182,71 +177,68 @@ namespace UIGF.Game.Global.CommunityRecords
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetImaginariumTheaterAsync(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        public virtual async Task<ClientResult> GetImaginariumTheaterAsync(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            using PipelineMessage message = CreateGetImaginariumTheaterRequest(cookie, ds, server, roleId, scheduleType, needDetail, needAll, options);
+            using PipelineMessage message = CreateGetImaginariumTheaterRequest(cookie, server, roleId, ds, scheduleType, needDetail, needAll, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetImaginariumTheater. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GetImaginariumTheater(string cookie, string ds, string server, string roleId, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GetImaginariumTheater(string cookie, string server, string roleId, string ds = default, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            ClientResult result = GetImaginariumTheater(cookie, ds, server, roleId, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions());
+            ClientResult result = GetImaginariumTheater(cookie, server, roleId, ds, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> GetImaginariumTheater. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetImaginariumTheaterAsync(string cookie, string ds, string server, string roleId, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetImaginariumTheaterAsync(string cookie, string server, string roleId, string ds = default, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            ClientResult result = await GetImaginariumTheaterAsync(cookie, ds, server, roleId, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetImaginariumTheaterAsync(cookie, server, roleId, ds, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
@@ -259,25 +251,24 @@ namespace UIGF.Game.Global.CommunityRecords
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetStygianOnslaught(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        public virtual ClientResult GetStygianOnslaught(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            using PipelineMessage message = CreateGetStygianOnslaughtRequest(cookie, ds, server, roleId, scheduleType, needDetail, needAll, options);
+            using PipelineMessage message = CreateGetStygianOnslaughtRequest(cookie, server, roleId, ds, scheduleType, needDetail, needAll, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -290,71 +281,68 @@ namespace UIGF.Game.Global.CommunityRecords
         /// </list>
         /// </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetStygianOnslaughtAsync(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        public virtual async Task<ClientResult> GetStygianOnslaughtAsync(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            using PipelineMessage message = CreateGetStygianOnslaughtRequest(cookie, ds, server, roleId, scheduleType, needDetail, needAll, options);
+            using PipelineMessage message = CreateGetStygianOnslaughtRequest(cookie, server, roleId, ds, scheduleType, needDetail, needAll, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetStygianOnslaught. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseJsonObject> GetStygianOnslaught(string cookie, string ds, string server, string roleId, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseJsonObject> GetStygianOnslaught(string cookie, string server, string roleId, string ds = default, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            ClientResult result = GetStygianOnslaught(cookie, ds, server, roleId, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions());
+            ClientResult result = GetStygianOnslaught(cookie, server, roleId, ds, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
 
         /// <summary> GetStygianOnslaught. </summary>
         /// <param name="cookie"></param>
-        /// <param name="ds"></param>
         /// <param name="server"></param>
         /// <param name="roleId"></param>
+        /// <param name="ds"></param>
         /// <param name="scheduleType"></param>
         /// <param name="needDetail"></param>
         /// <param name="needAll"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="ds"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="cookie"/>, <paramref name="server"/> or <paramref name="roleId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetStygianOnslaughtAsync(string cookie, string ds, string server, string roleId, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetStygianOnslaughtAsync(string cookie, string server, string roleId, string ds = default, int? scheduleType = default, bool? needDetail = default, bool? needAll = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(cookie, nameof(cookie));
-            Argument.AssertNotNullOrEmpty(ds, nameof(ds));
             Argument.AssertNotNullOrEmpty(server, nameof(server));
             Argument.AssertNotNullOrEmpty(roleId, nameof(roleId));
 
-            ClientResult result = await GetStygianOnslaughtAsync(cookie, ds, server, roleId, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetStygianOnslaughtAsync(cookie, server, roleId, ds, scheduleType, needDetail, needAll, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
         }
     }

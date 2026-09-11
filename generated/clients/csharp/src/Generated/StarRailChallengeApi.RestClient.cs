@@ -14,7 +14,7 @@ namespace UIGF.Game.Global.CommunityRecords
 
         private static PipelineMessageClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 ??= PipelineMessageClassifier.Create(stackalloc ushort[] { 200 });
 
-        internal PipelineMessage CreateGetForgottenHallRequest(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        internal PipelineMessage CreateGetForgottenHallRequest(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -36,13 +36,16 @@ namespace UIGF.Game.Global.CommunityRecords
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
         }
 
-        internal PipelineMessage CreateGetPureFictionRequest(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        internal PipelineMessage CreateGetPureFictionRequest(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -64,13 +67,16 @@ namespace UIGF.Game.Global.CommunityRecords
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
         }
 
-        internal PipelineMessage CreateGetApocalypticShadowRequest(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        internal PipelineMessage CreateGetApocalypticShadowRequest(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -92,13 +98,16 @@ namespace UIGF.Game.Global.CommunityRecords
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;
         }
 
-        internal PipelineMessage CreateGetSimulatedUniverseRequest(string cookie, string ds, string server, string roleId, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
+        internal PipelineMessage CreateGetSimulatedUniverseRequest(string cookie, string server, string roleId, string ds, int? scheduleType, bool? needDetail, bool? needAll, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -120,7 +129,10 @@ namespace UIGF.Game.Global.CommunityRecords
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Cookie", cookie);
-            request.Headers.Set("DS", ds);
+            if (ds != null)
+            {
+                request.Headers.Set("DS", ds);
+            }
             request.Headers.Set("Accept", "application/json");
             message.Apply(options);
             return message;

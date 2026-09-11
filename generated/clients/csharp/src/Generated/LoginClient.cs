@@ -11,7 +11,7 @@ using UIGF.Passport;
 
 namespace UIGF.Game.Genshin.Login
 {
-    /// <summary> Deprecated official QR login endpoints retained for compatibility with TeyvatGuide. </summary>
+    /// <summary> CN Genshin SDK QR-login and granter-login endpoints. </summary>
     public partial class LoginClient
     {
         private readonly Uri _endpoint;
