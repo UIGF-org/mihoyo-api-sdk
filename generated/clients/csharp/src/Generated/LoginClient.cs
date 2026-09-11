@@ -16,6 +16,7 @@ namespace UIGF.Game.Genshin.Login
     {
         private readonly Uri _endpoint;
         private PandaQrApi _cachedPandaQrApi;
+        private GranterApi _cachedGranterApi;
 
         /// <summary> Initializes a new instance of LoginClient. </summary>
         public LoginClient() : this(new Uri("https://hk4e-sdk.mihoyo.com"), new UIGFMihoyoClientOptions())
@@ -65,6 +66,12 @@ namespace UIGF.Game.Genshin.Login
         public virtual PandaQrApi GetPandaQrApiClient()
         {
             return Volatile.Read(ref _cachedPandaQrApi) ?? Interlocked.CompareExchange(ref _cachedPandaQrApi, new PandaQrApi(Pipeline, _endpoint), null) ?? _cachedPandaQrApi;
+        }
+
+        /// <summary> Initializes a new instance of GranterApi. </summary>
+        public virtual GranterApi GetGranterApiClient()
+        {
+            return Volatile.Read(ref _cachedGranterApi) ?? Interlocked.CompareExchange(ref _cachedGranterApi, new GranterApi(Pipeline, _endpoint), null) ?? _cachedGranterApi;
         }
     }
 }

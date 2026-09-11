@@ -20,13 +20,14 @@ from corehttp.runtime.pipeline import PipelineResponse
 from corehttp.utils import case_insensitive_dict
 
 from .... import models as _models3, types as _types_models3
-from ..... import models as _models4
+from ..... import models as _models4, types as _types_models4
 from .....passport._utils.model_base import SdkJSONEncoder, _deserialize
 from .....passport._utils.serialization import Deserializer, Serializer
 from ...operations._operations import (
     build_shop_api_check_order_request,
     build_shop_api_create_order_request,
     build_shop_api_fetch_goods_request,
+    build_shop_api_get_currency_and_country_by_ip_request,
 )
 from .._configuration import CommerceClientConfiguration
 
@@ -204,6 +205,148 @@ class ShopApiOperations:  # pylint: disable=docstring-missing-param
             deserialized = response.iter_bytes() if _decompress else response.iter_raw()
         else:
             deserialized = _deserialize(_models4.ApiResponseShopGoods, response.json())
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})  # type: ignore
+
+        return deserialized  # type: ignore
+
+    @overload
+    async def get_currency_and_country_by_ip(
+        self,
+        game_biz: str,
+        body: Optional[_models4.JsonObject] = None,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> _models4.ApiResponseJsonObject:
+        """Returns the storefront currency and country inferred by the SDK host.
+
+        :param game_biz: Required.
+        :type game_biz: str
+        :param body: Default value is None.
+        :type body: ~uigf.models.JsonObject
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :return: ApiResponseJsonObject. The ApiResponseJsonObject is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseJsonObject
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+
+    @overload
+    async def get_currency_and_country_by_ip(
+        self,
+        game_biz: str,
+        body: Optional[_types_models4.JsonObject] = None,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> _models4.ApiResponseJsonObject:
+        """Returns the storefront currency and country inferred by the SDK host.
+
+        :param game_biz: Required.
+        :type game_biz: str
+        :param body: Default value is None.
+        :type body: ~uigf.types.JsonObject
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :return: ApiResponseJsonObject. The ApiResponseJsonObject is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseJsonObject
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+
+    @overload
+    async def get_currency_and_country_by_ip(
+        self, game_biz: str, body: Optional[IO[bytes]] = None, *, content_type: str = "application/json", **kwargs: Any
+    ) -> _models4.ApiResponseJsonObject:
+        """Returns the storefront currency and country inferred by the SDK host.
+
+        :param game_biz: Required.
+        :type game_biz: str
+        :param body: Default value is None.
+        :type body: IO[bytes]
+        :keyword content_type: Body Parameter content-type. Content type parameter for binary body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :return: ApiResponseJsonObject. The ApiResponseJsonObject is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseJsonObject
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+
+    async def get_currency_and_country_by_ip(
+        self,
+        game_biz: str,
+        body: Optional[Union[_models4.JsonObject, _types_models4.JsonObject, IO[bytes]]] = None,
+        **kwargs: Any
+    ) -> _models4.ApiResponseJsonObject:
+        """Returns the storefront currency and country inferred by the SDK host.
+
+        :param game_biz: Required.
+        :type game_biz: str
+        :param body: Is either a JsonObject type or a IO[bytes] type. Default value is None.
+        :type body: ~uigf.models.JsonObject or ~uigf.types.JsonObject or IO[bytes]
+        :return: ApiResponseJsonObject. The ApiResponseJsonObject is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseJsonObject
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+        error_map: MutableMapping = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+            304: ResourceNotModifiedError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+        _params = kwargs.pop("params", {}) or {}
+
+        content_type: Optional[str] = kwargs.pop("content_type", _headers.pop("Content-Type", None))
+        content_type = content_type if body else None
+        cls: ClsType[_models4.ApiResponseJsonObject] = kwargs.pop("cls", None)
+
+        content_type = content_type or "application/json" if body else None
+        _content = None
+        if isinstance(body, (IOBase, bytes)):
+            _content = body
+        else:
+            if body is not None:
+                _content = json.dumps(body, cls=SdkJSONEncoder, exclude_readonly=True)  # type: ignore
+            else:
+                _content = None
+
+        _request = build_shop_api_get_currency_and_country_by_ip_request(
+            game_biz=game_biz,
+            content_type=content_type,
+            content=_content,
+            headers=_headers,
+            params=_params,
+        )
+        path_format_arguments = {
+            "endpoint": self._serialize.url("self._config.endpoint", self._config.endpoint, "str", skip_quote=True),
+        }
+        _request.url = self._client.format_url(_request.url, **path_format_arguments)
+
+        _decompress = kwargs.pop("decompress", True)
+        _stream = kwargs.pop("stream", False)
+        pipeline_response: PipelineResponse = await self._client.pipeline.run(_request, stream=_stream, **kwargs)
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200]:
+            if _stream:
+                try:
+                    await response.read()  # Load the body in memory and close the socket
+                except (StreamConsumedError, StreamClosedError):
+                    pass
+            map_error(status_code=response.status_code, response=response, error_map=error_map)
+            raise HttpResponseError(response=response)
+
+        if _stream:
+            deserialized = response.iter_bytes() if _decompress else response.iter_raw()
+        else:
+            deserialized = _deserialize(_models4.ApiResponseJsonObject, response.json())
 
         if cls:
             return cls(pipeline_response, deserialized, {})  # type: ignore

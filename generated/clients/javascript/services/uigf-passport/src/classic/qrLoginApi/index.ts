@@ -2,8 +2,14 @@
 // Licensed under the MIT License.
 
 import { PassportContext } from "../../api/passportContext.js";
-import { loginByMobileCaptcha, getStatus, create } from "../../api/qrLoginApi/operations.js";
 import {
+  loginByAuthTicket,
+  loginByMobileCaptcha,
+  getStatus,
+  create,
+} from "../../api/qrLoginApi/operations.js";
+import {
+  QrLoginApiLoginByAuthTicketOptionalParams,
   QrLoginApiLoginByMobileCaptchaOptionalParams,
   QrLoginApiGetStatusOptionalParams,
   QrLoginApiCreateOptionalParams,
@@ -17,10 +23,16 @@ import {
   QrLoginCreateRequest,
   QrLoginStatusRequest,
   MobileCaptchaLoginRequest,
+  AuthTicketLoginRequest,
 } from "../../models/uigf/passport/models.js";
 
 /** Interface representing a QrLoginApi operations. */
 export interface QrLoginApiOperations {
+  /** Exchanges an official auth ticket for the associated login-session payload. */
+  loginByAuthTicket: (
+    body: AuthTicketLoginRequest,
+    options?: QrLoginApiLoginByAuthTicketOptionalParams,
+  ) => Promise<ApiResponseTokenInfo>;
   /** Logs in with a mobile-number captcha obtained through the official flow. */
   loginByMobileCaptcha: (
     body: MobileCaptchaLoginRequest,
@@ -40,6 +52,10 @@ export interface QrLoginApiOperations {
 
 function _getQrLoginApi(context: PassportContext) {
   return {
+    loginByAuthTicket: (
+      body: AuthTicketLoginRequest,
+      options?: QrLoginApiLoginByAuthTicketOptionalParams,
+    ) => loginByAuthTicket(context, body, options),
     loginByMobileCaptcha: (
       body: MobileCaptchaLoginRequest,
       options?: QrLoginApiLoginByMobileCaptchaOptionalParams,

@@ -17,6 +17,7 @@ import io.clientcore.core.instrumentation.Instrumentation;
 import java.lang.reflect.InvocationTargetException;
 import uigf.ApiResponseTokenInfo;
 import uigf.passport.GameTokenRequest;
+import uigf.passport.TokenExchangeRequest;
 
 /**
  * An instance of this class provides access to all the operations defined in PassportSessionApis.
@@ -74,6 +75,15 @@ public final class PassportSessionApisImpl {
         Response<ApiResponseTokenInfo> getTokenByGameToken(@HostParam("endpoint") String endpoint,
             @HeaderParam("Content-Type") String contentType, @HeaderParam("Accept") String accept,
             @BodyParam("application/json") GameTokenRequest body, RequestContext requestContext);
+
+        @HttpRequestInformation(
+            method = HttpMethod.POST,
+            path = "/account/ma-cn-session/app/exchange",
+            expectedStatusCodes = { 200 })
+        @UnexpectedResponseExceptionDetail
+        Response<ApiResponseTokenInfo> exchange(@HostParam("endpoint") String endpoint,
+            @HeaderParam("Content-Type") String contentType, @HeaderParam("Accept") String accept,
+            @BodyParam("application/json") TokenExchangeRequest body, RequestContext requestContext);
     }
 
     /**
@@ -95,6 +105,27 @@ public final class PassportSessionApisImpl {
                 final String accept = "application/json";
                 return service.getTokenByGameToken(this.client.getEndpoint(), contentType, accept, body,
                     updatedContext);
+            });
+    }
+
+    /**
+     * Exchanges a source token for the requested destination token type.
+     * 
+     * @param body The body parameter.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return common response wrapper returned by MiHoYo and HoYoLAB services along with {@link Response}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<ApiResponseTokenInfo> exchangeWithResponse(TokenExchangeRequest body,
+        RequestContext requestContext) {
+        return this.instrumentation.instrumentWithResponse("UIGF.Passport.SessionApi.exchange", requestContext,
+            updatedContext -> {
+                final String contentType = "application/json";
+                final String accept = "application/json";
+                return service.exchange(this.client.getEndpoint(), contentType, accept, body, updatedContext);
             });
     }
 }

@@ -11,9 +11,13 @@ import { serializeRecord } from "../../../static-helpers/serialization/serialize
 
 /** model interface DeviceFingerprintRequest */
 export interface DeviceFingerprintRequest {
+  appName: string;
+  deviceFp: string;
   seedId: string;
   deviceId: string;
+  extFields: string;
   platform: string;
+  seedTime: string;
   /** Additional properties */
   additionalProperties?: Record<string, any>;
 }
@@ -21,9 +25,13 @@ export interface DeviceFingerprintRequest {
 export function deviceFingerprintRequestSerializer(item: DeviceFingerprintRequest): any {
   return {
     ...serializeRecord(item.additionalProperties ?? {}),
+    app_name: item["appName"],
+    device_fp: item["deviceFp"],
     seed_id: item["seedId"],
     device_id: item["deviceId"],
+    ext_fields: item["extFields"],
     platform: item["platform"],
+    seed_time: item["seedTime"],
   };
 }
 

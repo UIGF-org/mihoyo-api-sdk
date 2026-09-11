@@ -64,6 +64,20 @@ public final class LoginClientImpl {
     }
 
     /**
+     * The GranterApisImpl object to access its operations.
+     */
+    private final GranterApisImpl granterApis;
+
+    /**
+     * Gets the GranterApisImpl object to access its operations.
+     * 
+     * @return the GranterApisImpl object.
+     */
+    public GranterApisImpl getGranterApis() {
+        return this.granterApis;
+    }
+
+    /**
      * Initializes an instance of LoginClient client.
      * 
      * @param httpPipeline The HTTP pipeline to send requests through.
@@ -75,5 +89,6 @@ public final class LoginClientImpl {
         this.instrumentation = instrumentation;
         this.endpoint = endpoint;
         this.pandaQrApis = new PandaQrApisImpl(this);
+        this.granterApis = new GranterApisImpl(this);
     }
 }

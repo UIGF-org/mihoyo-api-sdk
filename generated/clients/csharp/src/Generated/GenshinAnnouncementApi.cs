@@ -155,126 +155,6 @@ namespace UIGF.Game.Genshin.Announcements
         }
 
         /// <summary>
-        /// [Protocol Method] GetContent
-        /// <list type="bullet">
-        /// <item>
-        /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="game"></param>
-        /// <param name="gameBiz"></param>
-        /// <param name="lang"></param>
-        /// <param name="bundleId"></param>
-        /// <param name="platform"></param>
-        /// <param name="region"></param>
-        /// <param name="level"></param>
-        /// <param name="uid"></param>
-        /// <param name="channelId"></param>
-        /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetContent(string game, string gameBiz, string lang, string bundleId, string platform, string region, int? level = default, string uid = default, int? channelId = default, RequestOptions options = null)
-        {
-            Argument.AssertNotNullOrEmpty(game, nameof(game));
-            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
-            Argument.AssertNotNullOrEmpty(bundleId, nameof(bundleId));
-            Argument.AssertNotNullOrEmpty(region, nameof(region));
-
-            using PipelineMessage message = CreateGetContentRequest(game, gameBiz, lang, bundleId, platform, region, level, uid, channelId, options);
-            return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
-        }
-
-        /// <summary>
-        /// [Protocol Method] GetContent
-        /// <list type="bullet">
-        /// <item>
-        /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="game"></param>
-        /// <param name="gameBiz"></param>
-        /// <param name="lang"></param>
-        /// <param name="bundleId"></param>
-        /// <param name="platform"></param>
-        /// <param name="region"></param>
-        /// <param name="level"></param>
-        /// <param name="uid"></param>
-        /// <param name="channelId"></param>
-        /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetContentAsync(string game, string gameBiz, string lang, string bundleId, string platform, string region, int? level = default, string uid = default, int? channelId = default, RequestOptions options = null)
-        {
-            Argument.AssertNotNullOrEmpty(game, nameof(game));
-            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
-            Argument.AssertNotNullOrEmpty(bundleId, nameof(bundleId));
-            Argument.AssertNotNullOrEmpty(region, nameof(region));
-
-            using PipelineMessage message = CreateGetContentRequest(game, gameBiz, lang, bundleId, platform, region, level, uid, channelId, options);
-            return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
-        }
-
-        /// <summary> GetContent. </summary>
-        /// <param name="game"></param>
-        /// <param name="gameBiz"></param>
-        /// <param name="lang"></param>
-        /// <param name="bundleId"></param>
-        /// <param name="platform"></param>
-        /// <param name="region"></param>
-        /// <param name="level"></param>
-        /// <param name="uid"></param>
-        /// <param name="channelId"></param>
-        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseAnnouncementList> GetContent(string game, string gameBiz, string lang, string bundleId, ListRequestPlatform platform, string region, int? level = default, string uid = default, int? channelId = default, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(game, nameof(game));
-            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
-            Argument.AssertNotNullOrEmpty(bundleId, nameof(bundleId));
-            Argument.AssertNotNullOrEmpty(region, nameof(region));
-
-            ClientResult result = GetContent(game, gameBiz, lang, bundleId, platform.ToSerialString(), region, level, uid, channelId, cancellationToken.ToRequestOptions());
-            return ClientResult.FromValue((ApiResponseAnnouncementList)result, result.GetRawResponse());
-        }
-
-        /// <summary> GetContent. </summary>
-        /// <param name="game"></param>
-        /// <param name="gameBiz"></param>
-        /// <param name="lang"></param>
-        /// <param name="bundleId"></param>
-        /// <param name="platform"></param>
-        /// <param name="region"></param>
-        /// <param name="level"></param>
-        /// <param name="uid"></param>
-        /// <param name="channelId"></param>
-        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseAnnouncementList>> GetContentAsync(string game, string gameBiz, string lang, string bundleId, ListRequestPlatform platform, string region, int? level = default, string uid = default, int? channelId = default, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(game, nameof(game));
-            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
-            Argument.AssertNotNullOrEmpty(bundleId, nameof(bundleId));
-            Argument.AssertNotNullOrEmpty(region, nameof(region));
-
-            ClientResult result = await GetContentAsync(game, gameBiz, lang, bundleId, platform.ToSerialString(), region, level, uid, channelId, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
-            return ClientResult.FromValue((ApiResponseAnnouncementList)result, result.GetRawResponse());
-        }
-
-        /// <summary>
         /// [Protocol Method] GetAlert
         /// <list type="bullet">
         /// <item>
@@ -391,6 +271,126 @@ namespace UIGF.Game.Genshin.Announcements
             Argument.AssertNotNullOrEmpty(region, nameof(region));
 
             ClientResult result = await GetAlertAsync(game, gameBiz, lang, bundleId, platform.ToSerialString(), region, level, uid, channelId, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            return ClientResult.FromValue((ApiResponseAnnouncementList)result, result.GetRawResponse());
+        }
+
+        /// <summary>
+        /// [Protocol Method] GetAlertPicture
+        /// <list type="bullet">
+        /// <item>
+        /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="lang"></param>
+        /// <param name="bundleId"></param>
+        /// <param name="platform"></param>
+        /// <param name="region"></param>
+        /// <param name="level"></param>
+        /// <param name="uid"></param>
+        /// <param name="channelId"></param>
+        /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        public virtual ClientResult GetAlertPicture(string game, string gameBiz, string lang, string bundleId, string platform, string region, int? level = default, string uid = default, int? channelId = default, RequestOptions options = null)
+        {
+            Argument.AssertNotNullOrEmpty(game, nameof(game));
+            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(bundleId, nameof(bundleId));
+            Argument.AssertNotNullOrEmpty(region, nameof(region));
+
+            using PipelineMessage message = CreateGetAlertPictureRequest(game, gameBiz, lang, bundleId, platform, region, level, uid, channelId, options);
+            return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
+        }
+
+        /// <summary>
+        /// [Protocol Method] GetAlertPicture
+        /// <list type="bullet">
+        /// <item>
+        /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="lang"></param>
+        /// <param name="bundleId"></param>
+        /// <param name="platform"></param>
+        /// <param name="region"></param>
+        /// <param name="level"></param>
+        /// <param name="uid"></param>
+        /// <param name="channelId"></param>
+        /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        public virtual async Task<ClientResult> GetAlertPictureAsync(string game, string gameBiz, string lang, string bundleId, string platform, string region, int? level = default, string uid = default, int? channelId = default, RequestOptions options = null)
+        {
+            Argument.AssertNotNullOrEmpty(game, nameof(game));
+            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(bundleId, nameof(bundleId));
+            Argument.AssertNotNullOrEmpty(region, nameof(region));
+
+            using PipelineMessage message = CreateGetAlertPictureRequest(game, gameBiz, lang, bundleId, platform, region, level, uid, channelId, options);
+            return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
+        }
+
+        /// <summary> GetAlertPicture. </summary>
+        /// <param name="game"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="lang"></param>
+        /// <param name="bundleId"></param>
+        /// <param name="platform"></param>
+        /// <param name="region"></param>
+        /// <param name="level"></param>
+        /// <param name="uid"></param>
+        /// <param name="channelId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        public virtual ClientResult<ApiResponseAnnouncementList> GetAlertPicture(string game, string gameBiz, string lang, string bundleId, ListRequestPlatform platform, string region, int? level = default, string uid = default, int? channelId = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(game, nameof(game));
+            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(bundleId, nameof(bundleId));
+            Argument.AssertNotNullOrEmpty(region, nameof(region));
+
+            ClientResult result = GetAlertPicture(game, gameBiz, lang, bundleId, platform.ToSerialString(), region, level, uid, channelId, cancellationToken.ToRequestOptions());
+            return ClientResult.FromValue((ApiResponseAnnouncementList)result, result.GetRawResponse());
+        }
+
+        /// <summary> GetAlertPicture. </summary>
+        /// <param name="game"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="lang"></param>
+        /// <param name="bundleId"></param>
+        /// <param name="platform"></param>
+        /// <param name="region"></param>
+        /// <param name="level"></param>
+        /// <param name="uid"></param>
+        /// <param name="channelId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="game"/>, <paramref name="gameBiz"/>, <paramref name="lang"/>, <paramref name="bundleId"/> or <paramref name="region"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        public virtual async Task<ClientResult<ApiResponseAnnouncementList>> GetAlertPictureAsync(string game, string gameBiz, string lang, string bundleId, ListRequestPlatform platform, string region, int? level = default, string uid = default, int? channelId = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(game, nameof(game));
+            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(bundleId, nameof(bundleId));
+            Argument.AssertNotNullOrEmpty(region, nameof(region));
+
+            ClientResult result = await GetAlertPictureAsync(game, gameBiz, lang, bundleId, platform.ToSerialString(), region, level, uid, channelId, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseAnnouncementList)result, result.GetRawResponse());
         }
     }

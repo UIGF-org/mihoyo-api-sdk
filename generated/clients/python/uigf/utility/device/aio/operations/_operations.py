@@ -23,7 +23,10 @@ from ..... import models as _models4
 from .....game import models as _game_models5, types as _types_game_models5
 from .....passport._utils.model_base import SdkJSONEncoder, _deserialize
 from .....passport._utils.serialization import Deserializer, Serializer
-from ...operations._operations import build_fingerprint_api_get_fingerprint_request
+from ...operations._operations import (
+    build_fingerprint_api_get_extension_list_request,
+    build_fingerprint_api_get_fingerprint_request,
+)
 from .._configuration import DeviceClientConfiguration
 
 T = TypeVar("T")
@@ -47,6 +50,64 @@ class FingerprintApiOperations:  # pylint: disable=docstring-missing-param
         self._config: DeviceClientConfiguration = input_args.pop(0) if input_args else kwargs.pop("config")
         self._serialize: Serializer = input_args.pop(0) if input_args else kwargs.pop("serializer")
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
+
+    async def get_extension_list(self, *, platform: str, **kwargs: Any) -> _models4.ApiResponseDeviceExtensionList:
+        """Returns the client extension fields expected by the fingerprint registration endpoint.
+
+        :keyword platform: Required.
+        :paramtype platform: str
+        :return: ApiResponseDeviceExtensionList. The ApiResponseDeviceExtensionList is compatible with
+         MutableMapping
+        :rtype: ~uigf.models.ApiResponseDeviceExtensionList
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+        error_map: MutableMapping = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+            304: ResourceNotModifiedError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = kwargs.pop("headers", {}) or {}
+        _params = kwargs.pop("params", {}) or {}
+
+        cls: ClsType[_models4.ApiResponseDeviceExtensionList] = kwargs.pop("cls", None)
+
+        _request = build_fingerprint_api_get_extension_list_request(
+            platform=platform,
+            headers=_headers,
+            params=_params,
+        )
+        path_format_arguments = {
+            "endpoint": self._serialize.url("self._config.endpoint", self._config.endpoint, "str", skip_quote=True),
+        }
+        _request.url = self._client.format_url(_request.url, **path_format_arguments)
+
+        _decompress = kwargs.pop("decompress", True)
+        _stream = kwargs.pop("stream", False)
+        pipeline_response: PipelineResponse = await self._client.pipeline.run(_request, stream=_stream, **kwargs)
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200]:
+            if _stream:
+                try:
+                    await response.read()  # Load the body in memory and close the socket
+                except (StreamConsumedError, StreamClosedError):
+                    pass
+            map_error(status_code=response.status_code, response=response, error_map=error_map)
+            raise HttpResponseError(response=response)
+
+        if _stream:
+            deserialized = response.iter_bytes() if _decompress else response.iter_raw()
+        else:
+            deserialized = _deserialize(_models4.ApiResponseDeviceExtensionList, response.json())
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})  # type: ignore
+
+        return deserialized  # type: ignore
 
     @overload
     async def get_fingerprint(

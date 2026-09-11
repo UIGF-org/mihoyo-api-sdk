@@ -2,13 +2,21 @@
 // Licensed under the MIT License.
 
 import { PassportContext } from "../../api/passportContext.js";
-import { getTokenByGameToken } from "../../api/sessionApi/operations.js";
-import { SessionApiGetTokenByGameTokenOptionalParams } from "../../api/sessionApi/options.js";
+import { exchange, getTokenByGameToken } from "../../api/sessionApi/operations.js";
+import {
+  SessionApiExchangeOptionalParams,
+  SessionApiGetTokenByGameTokenOptionalParams,
+} from "../../api/sessionApi/options.js";
 import { ApiResponseTokenInfo } from "../../models/uigf/models.js";
-import { GameTokenRequest } from "../../models/uigf/passport/models.js";
+import { GameTokenRequest, TokenExchangeRequest } from "../../models/uigf/passport/models.js";
 
 /** Interface representing a SessionApi operations. */
 export interface SessionApiOperations {
+  /** Exchanges a source token for the requested destination token type. */
+  exchange: (
+    body: TokenExchangeRequest,
+    options?: SessionApiExchangeOptionalParams,
+  ) => Promise<ApiResponseTokenInfo>;
   /** Exchanges a game token for an SToken/session payload. */
   getTokenByGameToken: (
     body: GameTokenRequest,
@@ -18,6 +26,8 @@ export interface SessionApiOperations {
 
 function _getSessionApi(context: PassportContext) {
   return {
+    exchange: (body: TokenExchangeRequest, options?: SessionApiExchangeOptionalParams) =>
+      exchange(context, body, options),
     getTokenByGameToken: (
       body: GameTokenRequest,
       options?: SessionApiGetTokenByGameTokenOptionalParams,

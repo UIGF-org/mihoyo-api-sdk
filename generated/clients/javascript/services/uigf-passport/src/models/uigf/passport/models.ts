@@ -205,6 +205,15 @@ export function mobileCaptchaLoginRequestSerializer(item: MobileCaptchaLoginRequ
   };
 }
 
+/** model interface AuthTicketLoginRequest */
+export interface AuthTicketLoginRequest {
+  ticket: string;
+}
+
+export function authTicketLoginRequestSerializer(item: AuthTicketLoginRequest): any {
+  return { ticket: item["ticket"] };
+}
+
 /** model interface GameTokenRequest */
 export interface GameTokenRequest {
   accountId: number;
@@ -213,4 +222,15 @@ export interface GameTokenRequest {
 
 export function gameTokenRequestSerializer(item: GameTokenRequest): any {
   return { account_id: item["accountId"], game_token: item["gameToken"] };
+}
+
+/** model interface TokenExchangeRequest */
+export interface TokenExchangeRequest {
+  dstTokenType: string;
+  mid: string;
+  srcToken: string;
+}
+
+export function tokenExchangeRequestSerializer(item: TokenExchangeRequest): any {
+  return { dst_token_type: item["dstTokenType"], mid: item["mid"], src_token: item["srcToken"] };
 }

@@ -63,19 +63,35 @@ class CharacterDetailRequest(CharacterListRequest):
 class DeviceFingerprintRequest(TypedDict, total=False):
     """DeviceFingerprintRequest.
 
+    :ivar app_name: Required.
+    :vartype app_name: str
+    :ivar device_fp: Required.
+    :vartype device_fp: str
     :ivar seed_id: Required.
     :vartype seed_id: str
     :ivar device_id: Required.
     :vartype device_id: str
+    :ivar ext_fields: Required.
+    :vartype ext_fields: str
     :ivar platform: Required.
     :vartype platform: str
+    :ivar seed_time: Required.
+    :vartype seed_time: str
     """
 
+    app_name: Required[str]
+    """Required."""
+    device_fp: Required[str]
+    """Required."""
     seed_id: Required[str]
     """Required."""
     device_id: Required[str]
     """Required."""
+    ext_fields: Required[str]
+    """Required."""
     platform: Required[str]
+    """Required."""
+    seed_time: Required[str]
     """Required."""
 
 

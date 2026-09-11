@@ -36,6 +36,78 @@ namespace UIGF.Utility.Device
         public ClientPipeline Pipeline { get; }
 
         /// <summary>
+        /// [Protocol Method] Returns the client extension fields expected by the fingerprint registration endpoint.
+        /// <list type="bullet">
+        /// <item>
+        /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="platform"></param>
+        /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="platform"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="platform"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        public virtual ClientResult GetExtensionList(string platform, RequestOptions options)
+        {
+            Argument.AssertNotNullOrEmpty(platform, nameof(platform));
+
+            using PipelineMessage message = CreateGetExtensionListRequest(platform, options);
+            return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
+        }
+
+        /// <summary>
+        /// [Protocol Method] Returns the client extension fields expected by the fingerprint registration endpoint.
+        /// <list type="bullet">
+        /// <item>
+        /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="platform"></param>
+        /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="platform"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="platform"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        public virtual async Task<ClientResult> GetExtensionListAsync(string platform, RequestOptions options)
+        {
+            Argument.AssertNotNullOrEmpty(platform, nameof(platform));
+
+            using PipelineMessage message = CreateGetExtensionListRequest(platform, options);
+            return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
+        }
+
+        /// <summary> Returns the client extension fields expected by the fingerprint registration endpoint. </summary>
+        /// <param name="platform"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="platform"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="platform"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        public virtual ClientResult<ApiResponseDeviceExtensionList> GetExtensionList(string platform, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(platform, nameof(platform));
+
+            ClientResult result = GetExtensionList(platform, cancellationToken.ToRequestOptions());
+            return ClientResult.FromValue((ApiResponseDeviceExtensionList)result, result.GetRawResponse());
+        }
+
+        /// <summary> Returns the client extension fields expected by the fingerprint registration endpoint. </summary>
+        /// <param name="platform"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="platform"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="platform"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        public virtual async Task<ClientResult<ApiResponseDeviceExtensionList>> GetExtensionListAsync(string platform, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(platform, nameof(platform));
+
+            ClientResult result = await GetExtensionListAsync(platform, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            return ClientResult.FromValue((ApiResponseDeviceExtensionList)result, result.GetRawResponse());
+        }
+
+        /// <summary>
         /// [Protocol Method] Registers a legitimate client device fingerprint and returns its `device_fp` value.
         /// <list type="bullet">
         /// <item>

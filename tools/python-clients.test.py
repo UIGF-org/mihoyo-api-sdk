@@ -1,14 +1,18 @@
 """Smoke-test the installed wheel, including shared root types and async imports."""
 import importlib
 import inspect
+import json
 from pathlib import Path
 import sys
 
+client_directory = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1] / "generated" / "clients" / "python"
 if len(sys.argv) > 1:
-    sys.path.insert(0, str(Path(sys.argv[1]).resolve()))
+    sys.path.insert(0, str(client_directory))
 
 import uigf
 
+services_path = client_directory / "services.json"
+expected_count = len(json.loads(services_path.read_text(encoding="utf-8"))["services"])
 sync_count = async_count = 0
 for package_root in uigf.__path__:
     root = Path(package_root).parent
@@ -24,5 +28,5 @@ for package_root in uigf.__path__:
             client.close()
             sync_count += 1
 
-assert (sync_count, async_count) == (24, 24), (sync_count, async_count)
+assert (sync_count, async_count) == (expected_count, expected_count), (sync_count, async_count)
 print(f"Installed wheel: constructed {sync_count} synchronous clients; imported {async_count} async clients.")

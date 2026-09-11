@@ -20,23 +20,33 @@ import {
 
 export function _getBeyondHistorySend(
   context: Client,
-  authkey: string,
   gachaType: string,
-  lang: string,
+  authkey: string,
   authAppid: string,
+  lang: string,
   options: GachaLogApiGetBeyondHistoryOptionalParams = { requestOptions: {} },
 ): StreamableMethod {
   const path = expandUrlTemplate(
-    "/gacha_info/api/getBeyondGachaLog{?authkey,gacha_type,end_id,lang,auth_appid,authkey_ver,sign_type,size}",
+    "/gacha_info/api/getBeyondGachaLog{?gacha_type,gacha_id,end_id,page,size,region,game_biz,device_type,game_version,init_type,no_joypad_close,timestamp,win_mode,authkey,auth_appid,authkey_ver,sign_type,lang}",
     {
-      authkey: authkey,
       gacha_type: gachaType,
+      gacha_id: options?.gachaId,
       end_id: options?.endId,
-      lang: lang,
+      page: options?.page,
+      size: options?.size,
+      region: options?.region,
+      game_biz: options?.gameBiz,
+      device_type: options?.deviceType,
+      game_version: options?.gameVersion,
+      init_type: options?.initType,
+      no_joypad_close: options?.noJoypadClose,
+      timestamp: options?.timestamp,
+      win_mode: options?.winMode,
+      authkey: authkey,
       auth_appid: authAppid,
       authkey_ver: "1",
       sign_type: "2",
-      size: options?.size,
+      lang: lang,
     },
     {
       allowReserved: options?.requestOptions?.skipUrlEncoding,
@@ -63,35 +73,45 @@ export async function _getBeyondHistoryDeserialize(
 
 export async function getBeyondHistory(
   context: Client,
-  authkey: string,
   gachaType: string,
-  lang: string,
+  authkey: string,
   authAppid: string,
+  lang: string,
   options: GachaLogApiGetBeyondHistoryOptionalParams = { requestOptions: {} },
 ): Promise<ApiResponseGachaLogPage> {
-  const result = await _getBeyondHistorySend(context, authkey, gachaType, lang, authAppid, options);
+  const result = await _getBeyondHistorySend(context, gachaType, authkey, authAppid, lang, options);
   return _getBeyondHistoryDeserialize(result);
 }
 
 export function _getHistorySend(
   context: Client,
-  authkey: string,
   gachaType: string,
-  lang: string,
+  authkey: string,
   authAppid: string,
+  lang: string,
   options: GachaLogApiGetHistoryOptionalParams = { requestOptions: {} },
 ): StreamableMethod {
   const path = expandUrlTemplate(
-    "/gacha_info/api/getGachaLog{?authkey,gacha_type,end_id,lang,auth_appid,authkey_ver,sign_type,size}",
+    "/gacha_info/api/getGachaLog{?gacha_type,gacha_id,end_id,page,size,region,game_biz,device_type,game_version,init_type,no_joypad_close,timestamp,win_mode,authkey,auth_appid,authkey_ver,sign_type,lang}",
     {
-      authkey: authkey,
       gacha_type: gachaType,
+      gacha_id: options?.gachaId,
       end_id: options?.endId,
-      lang: lang,
+      page: options?.page,
+      size: options?.size,
+      region: options?.region,
+      game_biz: options?.gameBiz,
+      device_type: options?.deviceType,
+      game_version: options?.gameVersion,
+      init_type: options?.initType,
+      no_joypad_close: options?.noJoypadClose,
+      timestamp: options?.timestamp,
+      win_mode: options?.winMode,
+      authkey: authkey,
       auth_appid: authAppid,
       authkey_ver: "1",
       sign_type: "2",
-      size: options?.size,
+      lang: lang,
     },
     {
       allowReserved: options?.requestOptions?.skipUrlEncoding,
@@ -118,12 +138,12 @@ export async function _getHistoryDeserialize(
 
 export async function getHistory(
   context: Client,
-  authkey: string,
   gachaType: string,
-  lang: string,
+  authkey: string,
   authAppid: string,
+  lang: string,
   options: GachaLogApiGetHistoryOptionalParams = { requestOptions: {} },
 ): Promise<ApiResponseGachaLogPage> {
-  const result = await _getHistorySend(context, authkey, gachaType, lang, authAppid, options);
+  const result = await _getHistorySend(context, gachaType, authkey, authAppid, lang, options);
   return _getHistoryDeserialize(result);
 }

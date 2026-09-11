@@ -7,10 +7,16 @@ import {
   deviceFingerprintRequestSerializer,
 } from "../../models/uigf/game/models.js";
 import {
+  ApiResponseDeviceExtensionList,
+  apiResponseDeviceExtensionListDeserializer,
   ApiResponseDeviceFingerprint,
   apiResponseDeviceFingerprintDeserializer,
 } from "../../models/uigf/models.js";
-import { FingerprintApiGetFingerprintOptionalParams } from "./options.js";
+import { expandUrlTemplate } from "../../static-helpers/urlTemplate.js";
+import {
+  FingerprintApiGetFingerprintOptionalParams,
+  FingerprintApiGetExtensionListOptionalParams,
+} from "./options.js";
 import {
   StreamableMethod,
   PathUncheckedResponse,
@@ -71,4 +77,47 @@ export async function getFingerprint(
     options,
   );
   return _getFingerprintDeserialize(result);
+}
+
+export function _getExtensionListSend(
+  context: Client,
+  platform: string,
+  options: FingerprintApiGetExtensionListOptionalParams = { requestOptions: {} },
+): StreamableMethod {
+  const path = expandUrlTemplate(
+    "/device-fp/api/getExtList{?platform}",
+    {
+      platform: platform,
+    },
+    {
+      allowReserved: options?.requestOptions?.skipUrlEncoding,
+    },
+  );
+  return context
+    .path(path)
+    .get({
+      ...operationOptionsToRequestParameters(options),
+      headers: { accept: "application/json", ...options.requestOptions?.headers },
+    });
+}
+
+export async function _getExtensionListDeserialize(
+  result: PathUncheckedResponse,
+): Promise<ApiResponseDeviceExtensionList> {
+  const expectedStatuses = ["200"];
+  if (!expectedStatuses.includes(result.status)) {
+    throw createRestError(result);
+  }
+
+  return apiResponseDeviceExtensionListDeserializer(result.body);
+}
+
+/** Returns the client extension fields expected by the fingerprint registration endpoint. */
+export async function getExtensionList(
+  context: Client,
+  platform: string,
+  options: FingerprintApiGetExtensionListOptionalParams = { requestOptions: {} },
+): Promise<ApiResponseDeviceExtensionList> {
+  const result = await _getExtensionListSend(context, platform, options);
+  return _getExtensionListDeserialize(result);
 }

@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from ..game import models as _game_models2
     from ..launcher import models as _launcher_models2
     from ..passport import models as _passport_models2
+    from ..utility.device import models as _utility_device_models3
 List = list
 
 
@@ -142,6 +143,44 @@ class ApiResponseAnnouncementList(_Model):  # pylint: disable=docstring-keyword-
         super().__init__(*args, **kwargs)
 
 
+class ApiResponseArray(_Model):  # pylint: disable=docstring-keyword-should-match-keyword-only
+    """Common response wrapper returned by MiHoYo and HoYoLAB services.
+
+    :ivar retcode: Vendor result code. ``0`` normally represents success. Required.
+    :vartype retcode: int
+    :ivar message: Vendor diagnostic message. Required.
+    :vartype message: str
+    :ivar data: Endpoint-specific payload. Required.
+    :vartype data: list[~uigf.models.JsonObject]
+    """
+
+    retcode: int = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Vendor result code. ``0`` normally represents success. Required."""
+    message: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Vendor diagnostic message. Required."""
+    data: list["_models.JsonObject"] = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Endpoint-specific payload. Required."""
+
+    @overload
+    def __init__(
+        self,
+        *,
+        retcode: int,
+        message: str,
+        data: list["_models.JsonObject"],
+    ) -> None: ...
+
+    @overload
+    def __init__(self, mapping: Mapping[str, Any]) -> None:
+        """
+        :param mapping: raw JSON to initialize the model.
+        :type mapping: Mapping[str, Any]
+        """
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+
+
 class ApiResponseCharacterList(_Model):  # pylint: disable=docstring-keyword-should-match-keyword-only
     """Common response wrapper returned by MiHoYo and HoYoLAB services.
 
@@ -205,6 +244,46 @@ class ApiResponseCommunityUser(_Model):  # pylint: disable=docstring-keyword-sho
         retcode: int,
         message: str,
         data: "_models.CommunityUser",
+    ) -> None: ...
+
+    @overload
+    def __init__(self, mapping: Mapping[str, Any]) -> None:
+        """
+        :param mapping: raw JSON to initialize the model.
+        :type mapping: Mapping[str, Any]
+        """
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+
+
+class ApiResponseDeviceExtensionList(_Model):  # pylint: disable=docstring-keyword-should-match-keyword-only
+    """Common response wrapper returned by MiHoYo and HoYoLAB services.
+
+    :ivar retcode: Vendor result code. ``0`` normally represents success. Required.
+    :vartype retcode: int
+    :ivar message: Vendor diagnostic message. Required.
+    :vartype message: str
+    :ivar data: Endpoint-specific payload. Required.
+    :vartype data: ~uigf.utility.device.models.DeviceExtensionList
+    """
+
+    retcode: int = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Vendor result code. ``0`` normally represents success. Required."""
+    message: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Vendor diagnostic message. Required."""
+    data: "_utility_device_models3.DeviceExtensionList" = rest_field(
+        visibility=["read", "create", "update", "delete", "query"]
+    )
+    """Endpoint-specific payload. Required."""
+
+    @overload
+    def __init__(
+        self,
+        *,
+        retcode: int,
+        message: str,
+        data: "_utility_device_models3.DeviceExtensionList",
     ) -> None: ...
 
     @overload

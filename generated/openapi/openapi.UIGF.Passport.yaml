@@ -108,6 +108,41 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/QrLoginCreateRequest'
+  /account/ma-cn-passport/app/loginByAuthTicket:
+    post:
+      operationId: QrLoginApi_loginByAuthTicket
+      description: Exchanges an official auth ticket for the associated login-session payload.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/TokenInfo'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthTicketLoginRequest'
   /account/ma-cn-passport/app/loginByMobileCaptcha:
     post:
       operationId: QrLoginApi_loginByMobileCaptcha
@@ -178,6 +213,41 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/QrLoginStatusRequest'
+  /account/ma-cn-session/app/exchange:
+    post:
+      operationId: SessionApi_exchange
+      description: Exchanges a source token for the requested destination token type.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/TokenInfo'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenExchangeRequest'
   /account/ma-cn-session/app/getTokenByGameToken:
     post:
       operationId: SessionApi_getTokenByGameToken
@@ -285,6 +355,13 @@ paths:
               $ref: '#/components/schemas/LoginCaptchaRequest'
 components:
   schemas:
+    AuthTicketLoginRequest:
+      type: object
+      required:
+        - ticket
+      properties:
+        ticket:
+          type: string
     AuthTicketRequest:
       type: object
       required:
@@ -406,6 +483,19 @@ components:
         account_id:
           type: integer
           format: int64
+    TokenExchangeRequest:
+      type: object
+      required:
+        - dst_token_type
+        - mid
+        - src_token
+      properties:
+        dst_token_type:
+          type: string
+        mid:
+          type: string
+        src_token:
+          type: string
     TokenInfo:
       type: object
       properties:
@@ -799,15 +889,27 @@ components:
     UIGF.Game.DeviceFingerprintRequest:
       type: object
       required:
+        - app_name
+        - device_fp
         - seed_id
         - device_id
+        - ext_fields
         - platform
+        - seed_time
       properties:
+        app_name:
+          type: string
+        device_fp:
+          type: string
         seed_id:
           type: string
         device_id:
           type: string
+        ext_fields:
+          type: string
         platform:
+          type: string
+        seed_time:
           type: string
       allOf:
         - type: object
@@ -865,6 +967,27 @@ components:
         device_id:
           type: integer
           format: int32
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Utility.Device.DeviceExtensionList:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        ext_list:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        pkg_list:
+          type: array
+          items:
+            type: string
+        pkg_str:
+          type: string
       allOf:
         - type: object
           additionalProperties: {}

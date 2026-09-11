@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: UIGF Genshin CN Region List Dispatch API
+  description: Returns the encrypted CN Genshin region list delivered by the global dispatcher.
+  version: 0.0.0
+tags: []
+paths:
+  /query_region_list:
+    get:
+      operationId: RegionListApi_query
+      parameters:
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.RegionListQuery.binary'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.RegionListQuery.channel_id'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.RegionListQuery.lang'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.RegionListQuery.platform'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.RegionListQuery.sub_channel_id'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.RegionListQuery.time'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.RegionListQuery.version'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+components:
+  parameters:
+    UIGF.Game.Genshin.Dispatch.RegionListQuery.binary:
+      name: binary
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.RegionListQuery.channel_id:
+      name: channel_id
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.RegionListQuery.lang:
+      name: lang
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.RegionListQuery.platform:
+      name: platform
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.RegionListQuery.sub_channel_id:
+      name: sub_channel_id
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.RegionListQuery.time:
+      name: time
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.RegionListQuery.version:
+      name: version
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+servers:
+  - url: https://dispatchcnglobal.yuanshen.com
+    description: CN Genshin region-list dispatch API
+    variables: {}

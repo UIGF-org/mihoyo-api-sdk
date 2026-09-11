@@ -674,15 +674,27 @@ components:
     UIGF.Game.DeviceFingerprintRequest:
       type: object
       required:
+        - app_name
+        - device_fp
         - seed_id
         - device_id
+        - ext_fields
         - platform
+        - seed_time
       properties:
+        app_name:
+          type: string
+        device_fp:
+          type: string
         seed_id:
           type: string
         device_id:
           type: string
+        ext_fields:
+          type: string
         platform:
+          type: string
+        seed_time:
           type: string
       allOf:
         - type: object
@@ -866,6 +878,27 @@ components:
         cookie_token:
           type: string
         mid:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Utility.Device.DeviceExtensionList:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        ext_list:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        pkg_list:
+          type: array
+          items:
+            type: string
+        pkg_str:
           type: string
       allOf:
         - type: object

@@ -20,6 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import uigf.ApiResponseJsonObject;
 import uigf.ApiResponseOrderStatus;
 import uigf.ApiResponseShopGoods;
+import uigf.JsonObject;
 import uigf.commerce.CreateOrderRequest;
 import uigf.commerce.ShopGoodsRequest;
 
@@ -82,6 +83,15 @@ public final class ShopApisImpl {
 
         @HttpRequestInformation(
             method = HttpMethod.POST,
+            path = "/{gameBiz}/mdk/shopwindow/shopwindow/getCurrencyAndCountryByIp",
+            expectedStatusCodes = { 200 })
+        @UnexpectedResponseExceptionDetail
+        Response<ApiResponseJsonObject> getCurrencyAndCountryByIp(@HostParam("endpoint") String endpoint,
+            @PathParam("gameBiz") String gameBiz, @HeaderParam("Accept") String accept,
+            @BodyParam("application/json") JsonObject body, RequestContext requestContext);
+
+        @HttpRequestInformation(
+            method = HttpMethod.POST,
             path = "/{gameBiz}/mdk/atropos/api/createOrder",
             expectedStatusCodes = { 200 })
         @UnexpectedResponseExceptionDetail
@@ -123,6 +133,28 @@ public final class ShopApisImpl {
                 final String contentType = "application/json";
                 final String accept = "application/json";
                 return service.fetchGoods(this.client.getEndpoint(), gameBiz, cookie, contentType, accept, body,
+                    updatedContext);
+            });
+    }
+
+    /**
+     * Returns the storefront currency and country inferred by the SDK host.
+     * 
+     * @param gameBiz The gameBiz parameter.
+     * @param body The body parameter.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return common response wrapper returned by MiHoYo and HoYoLAB services along with {@link Response}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<ApiResponseJsonObject> getCurrencyAndCountryByIpWithResponse(String gameBiz, JsonObject body,
+        RequestContext requestContext) {
+        return this.instrumentation.instrumentWithResponse("UIGF.Commerce.CN.ShopApi.getCurrencyAndCountryByIp",
+            requestContext, updatedContext -> {
+                final String accept = "application/json";
+                return service.getCurrencyAndCountryByIp(this.client.getEndpoint(), gameBiz, accept, body,
                     updatedContext);
             });
     }

@@ -2,10 +2,16 @@
 // Licensed under the MIT License.
 
 import { UtilityDeviceContext } from "../../api/utilityDeviceContext.js";
-import { getFingerprint } from "../../api/fingerprintApi/operations.js";
-import { FingerprintApiGetFingerprintOptionalParams } from "../../api/fingerprintApi/options.js";
+import { getFingerprint, getExtensionList } from "../../api/fingerprintApi/operations.js";
+import {
+  FingerprintApiGetFingerprintOptionalParams,
+  FingerprintApiGetExtensionListOptionalParams,
+} from "../../api/fingerprintApi/options.js";
 import { DeviceFingerprintRequest } from "../../models/uigf/game/models.js";
-import { ApiResponseDeviceFingerprint } from "../../models/uigf/models.js";
+import {
+  ApiResponseDeviceExtensionList,
+  ApiResponseDeviceFingerprint,
+} from "../../models/uigf/models.js";
 
 /** Interface representing a FingerprintApi operations. */
 export interface FingerprintApiOperations {
@@ -17,6 +23,11 @@ export interface FingerprintApiOperations {
     body: DeviceFingerprintRequest,
     options?: FingerprintApiGetFingerprintOptionalParams,
   ) => Promise<ApiResponseDeviceFingerprint>;
+  /** Returns the client extension fields expected by the fingerprint registration endpoint. */
+  getExtensionList: (
+    platform: string,
+    options?: FingerprintApiGetExtensionListOptionalParams,
+  ) => Promise<ApiResponseDeviceExtensionList>;
 }
 
 function _getFingerprintApi(context: UtilityDeviceContext) {
@@ -28,6 +39,8 @@ function _getFingerprintApi(context: UtilityDeviceContext) {
       body: DeviceFingerprintRequest,
       options?: FingerprintApiGetFingerprintOptionalParams,
     ) => getFingerprint(context, appVersion, clientType, requestedWith, body, options),
+    getExtensionList: (platform: string, options?: FingerprintApiGetExtensionListOptionalParams) =>
+      getExtensionList(context, platform, options),
   };
 }
 

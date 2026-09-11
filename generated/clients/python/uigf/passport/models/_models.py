@@ -10,6 +10,34 @@ if TYPE_CHECKING:
 List = list
 
 
+class AuthTicketLoginRequest(_Model):  # pylint: disable=docstring-keyword-should-match-keyword-only
+    """AuthTicketLoginRequest.
+
+    :ivar ticket: Required.
+    :vartype ticket: str
+    """
+
+    ticket: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Required."""
+
+    @overload
+    def __init__(
+        self,
+        *,
+        ticket: str,
+    ) -> None: ...
+
+    @overload
+    def __init__(self, mapping: Mapping[str, Any]) -> None:
+        """
+        :param mapping: raw JSON to initialize the model.
+        :type mapping: Mapping[str, Any]
+        """
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+
+
 class DeviceContext(_Model):  # pylint: disable=docstring-keyword-should-match-keyword-only
     """DeviceContext.
 
@@ -395,6 +423,44 @@ class QrLoginTicket(_Model):  # pylint: disable=docstring-keyword-should-match-k
         ticket: str,
         url: Optional[str] = None,
         expires_in: Optional[int] = None,
+    ) -> None: ...
+
+    @overload
+    def __init__(self, mapping: Mapping[str, Any]) -> None:
+        """
+        :param mapping: raw JSON to initialize the model.
+        :type mapping: Mapping[str, Any]
+        """
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+
+
+class TokenExchangeRequest(_Model):  # pylint: disable=docstring-keyword-should-match-keyword-only
+    """TokenExchangeRequest.
+
+    :ivar dst_token_type: Required.
+    :vartype dst_token_type: str
+    :ivar mid: Required.
+    :vartype mid: str
+    :ivar src_token: Required.
+    :vartype src_token: str
+    """
+
+    dst_token_type: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Required."""
+    mid: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Required."""
+    src_token: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Required."""
+
+    @overload
+    def __init__(
+        self,
+        *,
+        dst_token_type: str,
+        mid: str,
+        src_token: str,
     ) -> None: ...
 
     @overload

@@ -1,4 +1,4 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-export type { ApiResponseDeviceFingerprint } from "./models.js";
+export type { ApiResponseDeviceExtensionList, ApiResponseDeviceFingerprint } from "./models.js";

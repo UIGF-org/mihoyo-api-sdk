@@ -1,8 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-export { loginByMobileCaptcha, getStatus, create } from "./operations.js";
+export { loginByAuthTicket, loginByMobileCaptcha, getStatus, create } from "./operations.js";
 export type {
+  QrLoginApiLoginByAuthTicketOptionalParams,
   QrLoginApiLoginByMobileCaptchaOptionalParams,
   QrLoginApiGetStatusOptionalParams,
   QrLoginApiCreateOptionalParams,

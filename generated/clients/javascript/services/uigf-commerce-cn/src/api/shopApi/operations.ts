@@ -11,6 +11,7 @@ import {
 import {
   ApiResponseShopGoods,
   apiResponseShopGoodsDeserializer,
+  jsonObjectSerializer,
   ApiResponseJsonObject,
   apiResponseJsonObjectDeserializer,
   ApiResponseOrderStatus,
@@ -20,6 +21,7 @@ import { expandUrlTemplate } from "../../static-helpers/urlTemplate.js";
 import {
   ShopApiCheckOrderOptionalParams,
   ShopApiCreateOrderOptionalParams,
+  ShopApiGetCurrencyAndCountryByIpOptionalParams,
   ShopApiFetchGoodsOptionalParams,
 } from "./options.js";
 import {
@@ -141,6 +143,51 @@ export async function createOrder(
 ): Promise<ApiResponseJsonObject> {
   const result = await _createOrderSend(context, gameBiz, cookie, deviceId, body, options);
   return _createOrderDeserialize(result);
+}
+
+export function _getCurrencyAndCountryByIpSend(
+  context: Client,
+  gameBiz: string,
+  options: ShopApiGetCurrencyAndCountryByIpOptionalParams = { requestOptions: {} },
+): StreamableMethod {
+  const path = expandUrlTemplate(
+    "/{gameBiz}/mdk/shopwindow/shopwindow/getCurrencyAndCountryByIp",
+    {
+      gameBiz: gameBiz,
+    },
+    {
+      allowReserved: options?.requestOptions?.skipUrlEncoding,
+    },
+  );
+  return context
+    .path(path)
+    .post({
+      ...operationOptionsToRequestParameters(options),
+      contentType: "application/json",
+      headers: { accept: "application/json", ...options.requestOptions?.headers },
+      body: !options?.body ? options?.body : jsonObjectSerializer(options?.body),
+    });
+}
+
+export async function _getCurrencyAndCountryByIpDeserialize(
+  result: PathUncheckedResponse,
+): Promise<ApiResponseJsonObject> {
+  const expectedStatuses = ["200"];
+  if (!expectedStatuses.includes(result.status)) {
+    throw createRestError(result);
+  }
+
+  return apiResponseJsonObjectDeserializer(result.body);
+}
+
+/** Returns the storefront currency and country inferred by the SDK host. */
+export async function getCurrencyAndCountryByIp(
+  context: Client,
+  gameBiz: string,
+  options: ShopApiGetCurrencyAndCountryByIpOptionalParams = { requestOptions: {} },
+): Promise<ApiResponseJsonObject> {
+  const result = await _getCurrencyAndCountryByIpSend(context, gameBiz, options);
+  return _getCurrencyAndCountryByIpDeserialize(result);
 }
 
 export function _fetchGoodsSend(

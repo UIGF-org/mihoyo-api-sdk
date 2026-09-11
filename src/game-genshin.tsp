@@ -146,11 +146,44 @@ namespace UIGF.Game.Genshin.Announcements {
     list(...UIGF.AnnouncementQuery): UIGF.ApiResponse<UIGF.AnnouncementList>;
 
     @get
-    @route("/getAnnContent")
-    getContent(
+    @route("/getAlertAnn")
+    getAlert(
       ...UIGF.AnnouncementQuery,
     ): UIGF.ApiResponse<UIGF.AnnouncementList>;
 
+    @get
+    @route("/getAlertPic")
+    getAlertPicture(
+      ...UIGF.AnnouncementQuery,
+    ): UIGF.ApiResponse<UIGF.AnnouncementList>;
+  }
+}
+
+/** CN announcement detail content is served by the static announcement origin. */
+@service(#{ title: "UIGF Genshin CN Announcement Content API" })
+@server("https://hk4e-ann-static.mihoyo.com", "CN Genshin announcement content API")
+namespace UIGF.Game.Genshin.AnnouncementContent {
+  model ContentQuery extends UIGF.AnnouncementQuery {
+    @query
+    t?: string;
+  }
+
+  @route("/common/hk4e_cn/announcement/api")
+  interface ContentApi {
+    @get
+    @route("/getAnnContent")
+    get(
+      ...ContentQuery,
+    ): UIGF.ApiResponse<UIGF.AnnouncementList>;
+  }
+}
+
+/** CN UGC announcement alerts use a distinct route on the announcement host. */
+@service(#{ title: "UIGF Genshin CN UGC Announcement API" })
+@server("https://hk4e-ann-api.mihoyo.com", "CN Genshin UGC announcement API")
+namespace UIGF.Game.Genshin.UgcAnnouncements {
+  @route("/common/hk4eugc_cn/announcement/api")
+  interface UgcApi {
     @get
     @route("/getAlertAnn")
     getAlert(
@@ -159,8 +192,8 @@ namespace UIGF.Game.Genshin.Announcements {
   }
 }
 
-/** Deprecated official QR login endpoints retained for compatibility with TeyvatGuide. */
-@service(#{ title: "UIGF Genshin CN QR Login API" })
+/** CN Genshin SDK QR-login and granter-login endpoints. */
+@service(#{ title: "UIGF Genshin CN SDK Login API" })
 @server("https://hk4e-sdk.mihoyo.com", "CN Genshin SDK API")
 namespace UIGF.Game.Genshin.Login {
   @route("/hk4e_cn/combo/panda/qrcode")
@@ -178,6 +211,17 @@ namespace UIGF.Game.Genshin.Login {
     getStatus(
       @body body: UIGF.Game.PandaQrRequest,
     ): UIGF.ApiResponse<UIGF.Game.PandaQrResponse>;
+  }
+
+  @route("/hk4e_cn/combo/granter/login/v2")
+  interface GranterApi {
+    /** Submits the caller-provided official granter login payload. */
+    @post
+    @route("/login")
+    login(
+      ...UIGF.Game.Genshin.SDK.ClientHeaders,
+      @body body: UIGF.Game.Genshin.SDK.GranterLoginRequest,
+    ): UIGF.ApiResponse<UIGF.JsonObject>;
   }
 }
 

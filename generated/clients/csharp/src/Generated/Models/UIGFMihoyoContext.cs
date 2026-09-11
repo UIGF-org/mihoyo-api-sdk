@@ -7,8 +7,12 @@ using UIGF;
 using UIGF.Commerce;
 using UIGF.Community;
 using UIGF.Game;
+using UIGF.Game.Genshin.Dispatch;
+using UIGF.Game.Genshin.SDK;
 using UIGF.Launcher;
 using UIGF.Passport;
+using UIGF.Uncategorized;
+using UIGF.Utility.Device;
 
 namespace UIGF.Mihoyo
 {
@@ -19,8 +23,10 @@ namespace UIGF.Mihoyo
     [ModelReaderWriterBuildable(typeof(Announcement))]
     [ModelReaderWriterBuildable(typeof(AnnouncementList))]
     [ModelReaderWriterBuildable(typeof(ApiResponseAnnouncementList))]
+    [ModelReaderWriterBuildable(typeof(ApiResponseArray))]
     [ModelReaderWriterBuildable(typeof(ApiResponseCharacterList))]
     [ModelReaderWriterBuildable(typeof(ApiResponseCommunityUser))]
+    [ModelReaderWriterBuildable(typeof(ApiResponseDeviceExtensionList))]
     [ModelReaderWriterBuildable(typeof(ApiResponseDeviceFingerprint))]
     [ModelReaderWriterBuildable(typeof(ApiResponseForumList))]
     [ModelReaderWriterBuildable(typeof(ApiResponseGachaLogPage))]
@@ -35,6 +41,7 @@ namespace UIGF.Mihoyo
     [ModelReaderWriterBuildable(typeof(ApiResponseShopGoods))]
     [ModelReaderWriterBuildable(typeof(ApiResponseTokenInfo))]
     [ModelReaderWriterBuildable(typeof(AuthKeyRequest))]
+    [ModelReaderWriterBuildable(typeof(AuthTicketLoginRequest))]
     [ModelReaderWriterBuildable(typeof(AuthTicketRequest))]
     [ModelReaderWriterBuildable(typeof(BonusDescription))]
     [ModelReaderWriterBuildable(typeof(CalculateRequest))]
@@ -42,12 +49,17 @@ namespace UIGF.Mihoyo
     [ModelReaderWriterBuildable(typeof(CharacterDetailRequest))]
     [ModelReaderWriterBuildable(typeof(CharacterList))]
     [ModelReaderWriterBuildable(typeof(CharacterListRequest))]
+    [ModelReaderWriterBuildable(typeof(ComboTokenRequest))]
     [ModelReaderWriterBuildable(typeof(CommunityUser))]
     [ModelReaderWriterBuildable(typeof(CreateOrderRequest))]
     [ModelReaderWriterBuildable(typeof(DeviceContext))]
+    [ModelReaderWriterBuildable(typeof(DeviceExtensionList))]
     [ModelReaderWriterBuildable(typeof(DeviceFingerprint))]
     [ModelReaderWriterBuildable(typeof(DeviceFingerprintRequest))]
     [ModelReaderWriterBuildable(typeof(DxConfigRequest))]
+    [ModelReaderWriterBuildable(typeof(ExperimentListRequest))]
+    [ModelReaderWriterBuildable(typeof(ExperimentListResponse))]
+    [ModelReaderWriterBuildable(typeof(ExperimentParameter))]
     [ModelReaderWriterBuildable(typeof(FavoritePostRequest))]
     [ModelReaderWriterBuildable(typeof(Forum))]
     [ModelReaderWriterBuildable(typeof(ForumList))]
@@ -58,6 +70,8 @@ namespace UIGF.Mihoyo
     [ModelReaderWriterBuildable(typeof(GameRoleList))]
     [ModelReaderWriterBuildable(typeof(GameTokenRequest))]
     [ModelReaderWriterBuildable(typeof(GpuInfo))]
+    [ModelReaderWriterBuildable(typeof(GranterLoginRequest))]
+    [ModelReaderWriterBuildable(typeof(H5LogRequest))]
     [ModelReaderWriterBuildable(typeof(JsonObject))]
     [ModelReaderWriterBuildable(typeof(LauncherResponseGameBasicInfo))]
     [ModelReaderWriterBuildable(typeof(LauncherResponseJsonObject))]
@@ -70,15 +84,20 @@ namespace UIGF.Mihoyo
     [ModelReaderWriterBuildable(typeof(PandaQrResponse))]
     [ModelReaderWriterBuildable(typeof(Post))]
     [ModelReaderWriterBuildable(typeof(PostList))]
+    [ModelReaderWriterBuildable(typeof(ProtocolVersionRequest))]
     [ModelReaderWriterBuildable(typeof(QrLoginCreateRequest))]
     [ModelReaderWriterBuildable(typeof(QrLoginStatus))]
     [ModelReaderWriterBuildable(typeof(QrLoginStatusRequest))]
     [ModelReaderWriterBuildable(typeof(QrLoginTicket))]
+    [ModelReaderWriterBuildable(typeof(RedDotRequest))]
     [ModelReaderWriterBuildable(typeof(ShopGood))]
     [ModelReaderWriterBuildable(typeof(ShopGoods))]
     [ModelReaderWriterBuildable(typeof(ShopGoodsRequest))]
+    [ModelReaderWriterBuildable(typeof(SignedDispatchResponse))]
     [ModelReaderWriterBuildable(typeof(SignInRequest))]
+    [ModelReaderWriterBuildable(typeof(TokenExchangeRequest))]
     [ModelReaderWriterBuildable(typeof(TokenInfo))]
+    [ModelReaderWriterBuildable(typeof(UploadResponse))]
     [ModelReaderWriterBuildable(typeof(VerificationCreateRequest))]
     [ModelReaderWriterBuildable(typeof(VerificationSubmitRequest))]
     public partial class UIGFMihoyoContext : ModelReaderWriterContext

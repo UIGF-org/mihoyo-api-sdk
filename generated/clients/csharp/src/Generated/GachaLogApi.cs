@@ -42,25 +42,35 @@ namespace UIGF.Game.Genshin.Gacha
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="authkey"></param>
         /// <param name="gachaType"></param>
-        /// <param name="lang"></param>
+        /// <param name="authkey"></param>
         /// <param name="authAppid"></param>
+        /// <param name="lang"></param>
+        /// <param name="gachaId"></param>
         /// <param name="endId"></param>
+        /// <param name="page"></param>
         /// <param name="size"></param>
+        /// <param name="region"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="deviceType"></param>
+        /// <param name="gameVersion"></param>
+        /// <param name="initType"></param>
+        /// <param name="noJoypadClose"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="winMode"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetHistory(string authkey, string gachaType, string lang, string authAppid, string endId, int? size, RequestOptions options)
+        public virtual ClientResult GetHistory(string gachaType, string authkey, string authAppid, string lang, string gachaId, string endId, int? page, int? size, string region, string gameBiz, string deviceType, string gameVersion, string initType, string noJoypadClose, string timestamp, string winMode, RequestOptions options)
         {
-            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(gachaType, nameof(gachaType));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(authAppid, nameof(authAppid));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
 
-            using PipelineMessage message = CreateGetHistoryRequest(authkey, gachaType, lang, authAppid, endId, size, options);
+            using PipelineMessage message = CreateGetHistoryRequest(gachaType, authkey, authAppid, lang, gachaId, endId, page, size, region, gameBiz, deviceType, gameVersion, initType, noJoypadClose, timestamp, winMode, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -72,69 +82,99 @@ namespace UIGF.Game.Genshin.Gacha
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="authkey"></param>
         /// <param name="gachaType"></param>
-        /// <param name="lang"></param>
+        /// <param name="authkey"></param>
         /// <param name="authAppid"></param>
+        /// <param name="lang"></param>
+        /// <param name="gachaId"></param>
         /// <param name="endId"></param>
+        /// <param name="page"></param>
         /// <param name="size"></param>
+        /// <param name="region"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="deviceType"></param>
+        /// <param name="gameVersion"></param>
+        /// <param name="initType"></param>
+        /// <param name="noJoypadClose"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="winMode"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetHistoryAsync(string authkey, string gachaType, string lang, string authAppid, string endId, int? size, RequestOptions options)
+        public virtual async Task<ClientResult> GetHistoryAsync(string gachaType, string authkey, string authAppid, string lang, string gachaId, string endId, int? page, int? size, string region, string gameBiz, string deviceType, string gameVersion, string initType, string noJoypadClose, string timestamp, string winMode, RequestOptions options)
         {
-            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(gachaType, nameof(gachaType));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(authAppid, nameof(authAppid));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
 
-            using PipelineMessage message = CreateGetHistoryRequest(authkey, gachaType, lang, authAppid, endId, size, options);
+            using PipelineMessage message = CreateGetHistoryRequest(gachaType, authkey, authAppid, lang, gachaId, endId, page, size, region, gameBiz, deviceType, gameVersion, initType, noJoypadClose, timestamp, winMode, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetHistory. </summary>
-        /// <param name="authkey"></param>
         /// <param name="gachaType"></param>
-        /// <param name="lang"></param>
+        /// <param name="authkey"></param>
         /// <param name="authAppid"></param>
+        /// <param name="lang"></param>
+        /// <param name="gachaId"></param>
         /// <param name="endId"></param>
+        /// <param name="page"></param>
         /// <param name="size"></param>
+        /// <param name="region"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="deviceType"></param>
+        /// <param name="gameVersion"></param>
+        /// <param name="initType"></param>
+        /// <param name="noJoypadClose"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="winMode"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseGachaLogPage> GetHistory(string authkey, string gachaType, string lang, string authAppid, string endId = default, int? size = default, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseGachaLogPage> GetHistory(string gachaType, string authkey, string authAppid, string lang, string gachaId = default, string endId = default, int? page = default, int? size = default, string region = default, string gameBiz = default, string deviceType = default, string gameVersion = default, string initType = default, string noJoypadClose = default, string timestamp = default, string winMode = default, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(gachaType, nameof(gachaType));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(authAppid, nameof(authAppid));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
 
-            ClientResult result = GetHistory(authkey, gachaType, lang, authAppid, endId, size, cancellationToken.ToRequestOptions());
+            ClientResult result = GetHistory(gachaType, authkey, authAppid, lang, gachaId, endId, page, size, region, gameBiz, deviceType, gameVersion, initType, noJoypadClose, timestamp, winMode, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseGachaLogPage)result, result.GetRawResponse());
         }
 
         /// <summary> GetHistory. </summary>
-        /// <param name="authkey"></param>
         /// <param name="gachaType"></param>
-        /// <param name="lang"></param>
+        /// <param name="authkey"></param>
         /// <param name="authAppid"></param>
+        /// <param name="lang"></param>
+        /// <param name="gachaId"></param>
         /// <param name="endId"></param>
+        /// <param name="page"></param>
         /// <param name="size"></param>
+        /// <param name="region"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="deviceType"></param>
+        /// <param name="gameVersion"></param>
+        /// <param name="initType"></param>
+        /// <param name="noJoypadClose"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="winMode"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseGachaLogPage>> GetHistoryAsync(string authkey, string gachaType, string lang, string authAppid, string endId = default, int? size = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseGachaLogPage>> GetHistoryAsync(string gachaType, string authkey, string authAppid, string lang, string gachaId = default, string endId = default, int? page = default, int? size = default, string region = default, string gameBiz = default, string deviceType = default, string gameVersion = default, string initType = default, string noJoypadClose = default, string timestamp = default, string winMode = default, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(gachaType, nameof(gachaType));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(authAppid, nameof(authAppid));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
 
-            ClientResult result = await GetHistoryAsync(authkey, gachaType, lang, authAppid, endId, size, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetHistoryAsync(gachaType, authkey, authAppid, lang, gachaId, endId, page, size, region, gameBiz, deviceType, gameVersion, initType, noJoypadClose, timestamp, winMode, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseGachaLogPage)result, result.GetRawResponse());
         }
 
@@ -146,25 +186,35 @@ namespace UIGF.Game.Genshin.Gacha
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="authkey"></param>
         /// <param name="gachaType"></param>
-        /// <param name="lang"></param>
+        /// <param name="authkey"></param>
         /// <param name="authAppid"></param>
+        /// <param name="lang"></param>
+        /// <param name="gachaId"></param>
         /// <param name="endId"></param>
+        /// <param name="page"></param>
         /// <param name="size"></param>
+        /// <param name="region"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="deviceType"></param>
+        /// <param name="gameVersion"></param>
+        /// <param name="initType"></param>
+        /// <param name="noJoypadClose"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="winMode"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult GetBeyondHistory(string authkey, string gachaType, string lang, string authAppid, string endId, int? size, RequestOptions options)
+        public virtual ClientResult GetBeyondHistory(string gachaType, string authkey, string authAppid, string lang, string gachaId, string endId, int? page, int? size, string region, string gameBiz, string deviceType, string gameVersion, string initType, string noJoypadClose, string timestamp, string winMode, RequestOptions options)
         {
-            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(gachaType, nameof(gachaType));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(authAppid, nameof(authAppid));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
 
-            using PipelineMessage message = CreateGetBeyondHistoryRequest(authkey, gachaType, lang, authAppid, endId, size, options);
+            using PipelineMessage message = CreateGetBeyondHistoryRequest(gachaType, authkey, authAppid, lang, gachaId, endId, page, size, region, gameBiz, deviceType, gameVersion, initType, noJoypadClose, timestamp, winMode, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
@@ -176,69 +226,99 @@ namespace UIGF.Game.Genshin.Gacha
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="authkey"></param>
         /// <param name="gachaType"></param>
-        /// <param name="lang"></param>
+        /// <param name="authkey"></param>
         /// <param name="authAppid"></param>
+        /// <param name="lang"></param>
+        /// <param name="gachaId"></param>
         /// <param name="endId"></param>
+        /// <param name="page"></param>
         /// <param name="size"></param>
+        /// <param name="region"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="deviceType"></param>
+        /// <param name="gameVersion"></param>
+        /// <param name="initType"></param>
+        /// <param name="noJoypadClose"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="winMode"></param>
         /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> GetBeyondHistoryAsync(string authkey, string gachaType, string lang, string authAppid, string endId, int? size, RequestOptions options)
+        public virtual async Task<ClientResult> GetBeyondHistoryAsync(string gachaType, string authkey, string authAppid, string lang, string gachaId, string endId, int? page, int? size, string region, string gameBiz, string deviceType, string gameVersion, string initType, string noJoypadClose, string timestamp, string winMode, RequestOptions options)
         {
-            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(gachaType, nameof(gachaType));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(authAppid, nameof(authAppid));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
 
-            using PipelineMessage message = CreateGetBeyondHistoryRequest(authkey, gachaType, lang, authAppid, endId, size, options);
+            using PipelineMessage message = CreateGetBeyondHistoryRequest(gachaType, authkey, authAppid, lang, gachaId, endId, page, size, region, gameBiz, deviceType, gameVersion, initType, noJoypadClose, timestamp, winMode, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary> GetBeyondHistory. </summary>
-        /// <param name="authkey"></param>
         /// <param name="gachaType"></param>
-        /// <param name="lang"></param>
+        /// <param name="authkey"></param>
         /// <param name="authAppid"></param>
+        /// <param name="lang"></param>
+        /// <param name="gachaId"></param>
         /// <param name="endId"></param>
+        /// <param name="page"></param>
         /// <param name="size"></param>
+        /// <param name="region"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="deviceType"></param>
+        /// <param name="gameVersion"></param>
+        /// <param name="initType"></param>
+        /// <param name="noJoypadClose"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="winMode"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ApiResponseGachaLogPage> GetBeyondHistory(string authkey, string gachaType, string lang, string authAppid, string endId = default, int? size = default, CancellationToken cancellationToken = default)
+        public virtual ClientResult<ApiResponseGachaLogPage> GetBeyondHistory(string gachaType, string authkey, string authAppid, string lang, string gachaId = default, string endId = default, int? page = default, int? size = default, string region = default, string gameBiz = default, string deviceType = default, string gameVersion = default, string initType = default, string noJoypadClose = default, string timestamp = default, string winMode = default, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(gachaType, nameof(gachaType));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(authAppid, nameof(authAppid));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
 
-            ClientResult result = GetBeyondHistory(authkey, gachaType, lang, authAppid, endId, size, cancellationToken.ToRequestOptions());
+            ClientResult result = GetBeyondHistory(gachaType, authkey, authAppid, lang, gachaId, endId, page, size, region, gameBiz, deviceType, gameVersion, initType, noJoypadClose, timestamp, winMode, cancellationToken.ToRequestOptions());
             return ClientResult.FromValue((ApiResponseGachaLogPage)result, result.GetRawResponse());
         }
 
         /// <summary> GetBeyondHistory. </summary>
-        /// <param name="authkey"></param>
         /// <param name="gachaType"></param>
-        /// <param name="lang"></param>
+        /// <param name="authkey"></param>
         /// <param name="authAppid"></param>
+        /// <param name="lang"></param>
+        /// <param name="gachaId"></param>
         /// <param name="endId"></param>
+        /// <param name="page"></param>
         /// <param name="size"></param>
+        /// <param name="region"></param>
+        /// <param name="gameBiz"></param>
+        /// <param name="deviceType"></param>
+        /// <param name="gameVersion"></param>
+        /// <param name="initType"></param>
+        /// <param name="noJoypadClose"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="winMode"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="authkey"/>, <paramref name="gachaType"/>, <paramref name="lang"/> or <paramref name="authAppid"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gachaType"/>, <paramref name="authkey"/>, <paramref name="authAppid"/> or <paramref name="lang"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<ApiResponseGachaLogPage>> GetBeyondHistoryAsync(string authkey, string gachaType, string lang, string authAppid, string endId = default, int? size = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<ApiResponseGachaLogPage>> GetBeyondHistoryAsync(string gachaType, string authkey, string authAppid, string lang, string gachaId = default, string endId = default, int? page = default, int? size = default, string region = default, string gameBiz = default, string deviceType = default, string gameVersion = default, string initType = default, string noJoypadClose = default, string timestamp = default, string winMode = default, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(gachaType, nameof(gachaType));
-            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
+            Argument.AssertNotNullOrEmpty(authkey, nameof(authkey));
             Argument.AssertNotNullOrEmpty(authAppid, nameof(authAppid));
+            Argument.AssertNotNullOrEmpty(lang, nameof(lang));
 
-            ClientResult result = await GetBeyondHistoryAsync(authkey, gachaType, lang, authAppid, endId, size, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            ClientResult result = await GetBeyondHistoryAsync(gachaType, authkey, authAppid, lang, gachaId, endId, page, size, region, gameBiz, deviceType, gameVersion, initType, noJoypadClose, timestamp, winMode, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             return ClientResult.FromValue((ApiResponseGachaLogPage)result, result.GetRawResponse());
         }
     }

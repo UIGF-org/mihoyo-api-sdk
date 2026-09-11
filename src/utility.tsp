@@ -6,8 +6,23 @@ using TypeSpec.Http;
 @service(#{ title: "UIGF Device Fingerprint API" })
 @server("https://public-data-api.mihoyo.com", "MiHoYo Public Data API")
 namespace UIGF.Utility.Device {
+  model DeviceExtensionList extends Record<unknown> {
+    code?: int32;
+    ext_list?: string[];
+    msg?: string;
+    pkg_list?: string[];
+    pkg_str?: string;
+  }
+
   @route("/device-fp/api")
   interface FingerprintApi {
+    /** Returns the client extension fields expected by the fingerprint registration endpoint. */
+    @get
+    @route("/getExtList")
+    getExtensionList(
+      @query platform: string,
+    ): UIGF.ApiResponse<DeviceExtensionList>;
+
     /** Registers a legitimate client device fingerprint and returns its `device_fp` value. */
     @post
     @route("/getFp")

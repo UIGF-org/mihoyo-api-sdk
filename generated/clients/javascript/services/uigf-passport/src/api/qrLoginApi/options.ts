@@ -4,6 +4,9 @@
 import { OperationOptions } from "@azure-rest/core-client";
 
 /** Optional parameters. */
+export interface QrLoginApiLoginByAuthTicketOptionalParams extends OperationOptions {}
+
+/** Optional parameters. */
 export interface QrLoginApiLoginByMobileCaptchaOptionalParams extends OperationOptions {}
 
 /** Optional parameters. */

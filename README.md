@@ -78,7 +78,18 @@ npm run test:clients
 
 客户端测试使用模拟 HTTP transport，检查全部服务和方法的 JS 导出、服务地址、Cookie/DS、查询参数名称、`false`/`0`、JSON 请求体、错误响应；不访问真实账号或业务接口。
 
-安装生成的 Python wheel 后，可运行 `python tools/python-clients.test.py` 验证 24 个同步客户端及 24 个异步模块的导入。异步网络调用需安装 `uigf-mihoyo[aio]` 的附加依赖。
+安装生成的 Python wheel 后，可运行 `python tools/python-clients.test.py` 验证清单中全部同步客户端及异步模块的导入。异步网络调用需安装 `uigf-mihoyo[aio]` 的附加依赖。
+
+## HAR 对比
+
+先生成当前 OpenAPI，再传入新的 HAR 文件：
+
+```powershell
+npm run build:spec
+npm run compare:har -- "C:\path\to\capture.har"
+```
+
+该工具仅保留方法、域名、路径、参数名、请求体顶层字段名和状态码；不会输出 Cookie、鉴权头、查询值或请求体值。报告会标记已覆盖、可配置宿主覆盖、宿主不一致和未收录的 API。需要机器可读结果时追加 `--json`；指定其他 OpenAPI 目录时使用 `--openapi <directory>`。
 
 ## 说明
 

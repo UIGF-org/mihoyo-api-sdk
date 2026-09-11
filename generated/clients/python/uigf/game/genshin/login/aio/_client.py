@@ -9,7 +9,7 @@ from corehttp.runtime import AsyncPipelineClient, policies
 
 from .....passport._utils.serialization import Deserializer, Serializer
 from ._configuration import LoginClientConfiguration
-from .operations import PandaQrApiOperations
+from .operations import GranterApiOperations, PandaQrApiOperations
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -22,6 +22,8 @@ class LoginClient:  # pylint: disable=client-accepts-api-version-keyword
 
     :ivar panda_qr_api: PandaQrApiOperations operations
     :vartype panda_qr_api: uigf.passport.aio.operations.PandaQrApiOperations
+    :ivar granter_api: GranterApiOperations operations
+    :vartype granter_api: uigf.passport.aio.operations.GranterApiOperations
     :keyword endpoint: Service host. Default value is "https://hk4e-sdk.mihoyo.com".
     :paramtype endpoint: str
     """
@@ -49,6 +51,7 @@ class LoginClient:  # pylint: disable=client-accepts-api-version-keyword
         self._deserialize = Deserializer()
         self._serialize.client_side_validation = False
         self.panda_qr_api = PandaQrApiOperations(self._client, self._config, self._serialize, self._deserialize)
+        self.granter_api = GranterApiOperations(self._client, self._config, self._serialize, self._deserialize)
 
     def send_request(
         self, request: HttpRequest, *, stream: bool = False, **kwargs: Any

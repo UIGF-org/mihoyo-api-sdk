@@ -140,6 +140,40 @@
             }
           }
         },
+        "AnnouncementContentClient": {
+          "type": "object",
+          "description": "Configuration for AnnouncementContentClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "UgcAnnouncementsClient": {
+          "type": "object",
+          "description": "Configuration for UgcAnnouncementsClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
         "LoginClient": {
           "type": "object",
           "description": "Configuration for LoginClient.",
@@ -160,6 +194,91 @@
         "LedgerClient": {
           "type": "object",
           "description": "Configuration for LedgerClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "CurrentRegionClient": {
+          "type": "object",
+          "description": "Configuration for CurrentRegionClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "RegionListClient": {
+          "type": "object",
+          "description": "Configuration for RegionListClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "GateClient": {
+          "type": "object",
+          "description": "Configuration for GateClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "ConfigClient": {
+          "type": "object",
+          "description": "Configuration for ConfigClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "SecureClient": {
+          "type": "object",
+          "description": "Configuration for SecureClient.",
           "properties": {
             "Endpoint": {
               "type": "string",
@@ -398,6 +517,125 @@
         "CommerceClient": {
           "type": "object",
           "description": "Configuration for CommerceClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "ComboTokenClient": {
+          "type": "object",
+          "description": "Configuration for ComboTokenClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "UGCClient": {
+          "type": "object",
+          "description": "Configuration for UGCClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "ExperimentationClient": {
+          "type": "object",
+          "description": "Configuration for ExperimentationClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "GameClient": {
+          "type": "object",
+          "description": "Configuration for GameClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "SDKClient": {
+          "type": "object",
+          "description": "Configuration for SDKClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "H5Client": {
+          "type": "object",
+          "description": "Configuration for H5Client.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/uIGFMihoyoClientOptions"
+            }
+          }
+        },
+        "CrashClient": {
+          "type": "object",
+          "description": "Configuration for CrashClient.",
           "properties": {
             "Endpoint": {
               "type": "string",

@@ -9,14 +9,24 @@ paths:
     get:
       operationId: GachaLogApi_getBeyondHistory
       parameters:
-        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.authkey'
         - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.gacha_type'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.gacha_id'
         - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.end_id'
-        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.lang'
-        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.auth_appid'
-        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.authkey_ver'
-        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.sign_type'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.page'
         - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.size'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.region'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.game_biz'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.device_type'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.game_version'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.init_type'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.no_joypad_close'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.timestamp'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.win_mode'
+        - $ref: '#/components/parameters/UIGF.Game.AuthKeyQuery.authkey'
+        - $ref: '#/components/parameters/UIGF.Game.AuthKeyQuery.auth_appid'
+        - $ref: '#/components/parameters/UIGF.Game.AuthKeyQuery.authkey_ver'
+        - $ref: '#/components/parameters/UIGF.Game.AuthKeyQuery.sign_type'
+        - $ref: '#/components/parameters/UIGF.Game.AuthKeyQuery.lang'
       responses:
         '200':
           description: The request has succeeded.
@@ -45,14 +55,24 @@ paths:
     get:
       operationId: GachaLogApi_getHistory
       parameters:
-        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.authkey'
         - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.gacha_type'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.gacha_id'
         - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.end_id'
-        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.lang'
-        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.auth_appid'
-        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.authkey_ver'
-        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.sign_type'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.page'
         - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.size'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.region'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.game_biz'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.device_type'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.game_version'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.init_type'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.no_joypad_close'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.timestamp'
+        - $ref: '#/components/parameters/UIGF.Game.GenshinGachaQuery.win_mode'
+        - $ref: '#/components/parameters/UIGF.Game.AuthKeyQuery.authkey'
+        - $ref: '#/components/parameters/UIGF.Game.AuthKeyQuery.auth_appid'
+        - $ref: '#/components/parameters/UIGF.Game.AuthKeyQuery.authkey_ver'
+        - $ref: '#/components/parameters/UIGF.Game.AuthKeyQuery.sign_type'
+        - $ref: '#/components/parameters/UIGF.Game.AuthKeyQuery.lang'
       responses:
         '200':
           description: The request has succeeded.
@@ -79,7 +99,7 @@ paths:
                 description: Common response wrapper returned by MiHoYo and HoYoLAB services.
 components:
   parameters:
-    UIGF.Game.GenshinGachaQuery.auth_appid:
+    UIGF.Game.AuthKeyQuery.auth_appid:
       name: auth_appid
       in: query
       required: true
@@ -87,14 +107,14 @@ components:
         type: string
         default: webview_gacha
       explode: false
-    UIGF.Game.GenshinGachaQuery.authkey:
+    UIGF.Game.AuthKeyQuery.authkey:
       name: authkey
       in: query
       required: true
       schema:
         type: string
       explode: false
-    UIGF.Game.GenshinGachaQuery.authkey_ver:
+    UIGF.Game.AuthKeyQuery.authkey_ver:
       name: authkey_ver
       in: query
       required: true
@@ -104,8 +124,40 @@ components:
           - '1'
         default: '1'
       explode: false
+    UIGF.Game.AuthKeyQuery.lang:
+      name: lang
+      in: query
+      required: true
+      schema:
+        type: string
+        default: zh-cn
+      explode: false
+    UIGF.Game.AuthKeyQuery.sign_type:
+      name: sign_type
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+          - '2'
+        default: '2'
+      explode: false
+    UIGF.Game.GenshinGachaQuery.device_type:
+      name: device_type
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
     UIGF.Game.GenshinGachaQuery.end_id:
       name: end_id
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.GenshinGachaQuery.gacha_id:
+      name: gacha_id
       in: query
       required: false
       schema:
@@ -118,23 +170,48 @@ components:
       schema:
         type: string
       explode: false
-    UIGF.Game.GenshinGachaQuery.lang:
-      name: lang
+    UIGF.Game.GenshinGachaQuery.game_biz:
+      name: game_biz
       in: query
-      required: true
+      required: false
       schema:
         type: string
-        default: zh-cn
       explode: false
-    UIGF.Game.GenshinGachaQuery.sign_type:
-      name: sign_type
+    UIGF.Game.GenshinGachaQuery.game_version:
+      name: game_version
       in: query
-      required: true
+      required: false
       schema:
         type: string
-        enum:
-          - '2'
-        default: '2'
+      explode: false
+    UIGF.Game.GenshinGachaQuery.init_type:
+      name: init_type
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.GenshinGachaQuery.no_joypad_close:
+      name: no_joypad_close
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.GenshinGachaQuery.page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      explode: false
+    UIGF.Game.GenshinGachaQuery.region:
+      name: region
+      in: query
+      required: false
+      schema:
+        type: string
       explode: false
     UIGF.Game.GenshinGachaQuery.size:
       name: size
@@ -143,6 +220,20 @@ components:
       schema:
         type: integer
         format: int32
+      explode: false
+    UIGF.Game.GenshinGachaQuery.timestamp:
+      name: timestamp
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.GenshinGachaQuery.win_mode:
+      name: win_mode
+      in: query
+      required: false
+      schema:
+        type: string
       explode: false
   schemas:
     UIGF.Announcement:
@@ -515,15 +606,27 @@ components:
     UIGF.Game.DeviceFingerprintRequest:
       type: object
       required:
+        - app_name
+        - device_fp
         - seed_id
         - device_id
+        - ext_fields
         - platform
+        - seed_time
       properties:
+        app_name:
+          type: string
+        device_fp:
+          type: string
         seed_id:
           type: string
         device_id:
           type: string
+        ext_fields:
+          type: string
         platform:
+          type: string
+        seed_time:
           type: string
       allOf:
         - type: object
@@ -707,6 +810,27 @@ components:
         cookie_token:
           type: string
         mid:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Utility.Device.DeviceExtensionList:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        ext_list:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        pkg_list:
+          type: array
+          items:
+            type: string
+        pkg_str:
           type: string
       allOf:
         - type: object

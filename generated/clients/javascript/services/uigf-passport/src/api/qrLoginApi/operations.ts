@@ -17,8 +17,11 @@ import {
   qrLoginStatusRequestSerializer,
   MobileCaptchaLoginRequest,
   mobileCaptchaLoginRequestSerializer,
+  AuthTicketLoginRequest,
+  authTicketLoginRequestSerializer,
 } from "../../models/uigf/passport/models.js";
 import {
+  QrLoginApiLoginByAuthTicketOptionalParams,
   QrLoginApiLoginByMobileCaptchaOptionalParams,
   QrLoginApiGetStatusOptionalParams,
   QrLoginApiCreateOptionalParams,
@@ -29,6 +32,42 @@ import {
   createRestError,
   operationOptionsToRequestParameters,
 } from "@azure-rest/core-client";
+
+export function _loginByAuthTicketSend(
+  context: Client,
+  body: AuthTicketLoginRequest,
+  options: QrLoginApiLoginByAuthTicketOptionalParams = { requestOptions: {} },
+): StreamableMethod {
+  return context
+    .path("/account/ma-cn-passport/app/loginByAuthTicket")
+    .post({
+      ...operationOptionsToRequestParameters(options),
+      contentType: "application/json",
+      headers: { accept: "application/json", ...options.requestOptions?.headers },
+      body: authTicketLoginRequestSerializer(body),
+    });
+}
+
+export async function _loginByAuthTicketDeserialize(
+  result: PathUncheckedResponse,
+): Promise<ApiResponseTokenInfo> {
+  const expectedStatuses = ["200"];
+  if (!expectedStatuses.includes(result.status)) {
+    throw createRestError(result);
+  }
+
+  return apiResponseTokenInfoDeserializer(result.body);
+}
+
+/** Exchanges an official auth ticket for the associated login-session payload. */
+export async function loginByAuthTicket(
+  context: Client,
+  body: AuthTicketLoginRequest,
+  options: QrLoginApiLoginByAuthTicketOptionalParams = { requestOptions: {} },
+): Promise<ApiResponseTokenInfo> {
+  const result = await _loginByAuthTicketSend(context, body, options);
+  return _loginByAuthTicketDeserialize(result);
+}
 
 export function _loginByMobileCaptchaSend(
   context: Client,

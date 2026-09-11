@@ -6,6 +6,7 @@ import {
   GameGenshinLoginClientOptionalParams,
   createGameGenshinLogin,
 } from "./api/index.js";
+import { GranterApiOperations, _getGranterApiOperations } from "./classic/granterApi/index.js";
 import { PandaQrApiOperations, _getPandaQrApiOperations } from "./classic/pandaQrApi/index.js";
 import { Pipeline } from "@azure/core-rest-pipeline";
 
@@ -19,9 +20,12 @@ export class GameGenshinLoginClient {
   constructor(options: GameGenshinLoginClientOptionalParams = {}) {
     this._client = createGameGenshinLogin(options);
     this.pipeline = this._client.pipeline;
+    this.granterApi = _getGranterApiOperations(this._client);
     this.pandaQrApi = _getPandaQrApiOperations(this._client);
   }
 
+  /** The operation groups for granterApi */
+  public readonly granterApi: GranterApiOperations;
   /** The operation groups for pandaQrApi */
   public readonly pandaQrApi: PandaQrApiOperations;
 }

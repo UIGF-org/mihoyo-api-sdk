@@ -20,6 +20,7 @@ export type { CommerceCNClientOptionalParams } from "./api/index.js";
 export type {
   ShopApiCheckOrderOptionalParams,
   ShopApiCreateOrderOptionalParams,
+  ShopApiGetCurrencyAndCountryByIpOptionalParams,
   ShopApiFetchGoodsOptionalParams,
 } from "./api/shopApi/index.js";
 export type { ShopApiOperations } from "./classic/index.js";

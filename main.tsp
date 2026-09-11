@@ -11,11 +11,14 @@ import "./src/luna.tsp";
 import "./src/game.tsp";
 import "./src/game-account.tsp";
 import "./src/game-genshin.tsp";
+import "./src/game-genshin-dispatch.tsp";
+import "./src/game-genshin-sdk.tsp";
 import "./src/game-global.tsp";
 import "./src/game-records-cn.tsp";
 import "./src/launcher.tsp";
 import "./src/utility.tsp";
 import "./src/commerce.tsp";
+import "./src/uncategorized.tsp";
 
 using TypeSpec.Http;
 

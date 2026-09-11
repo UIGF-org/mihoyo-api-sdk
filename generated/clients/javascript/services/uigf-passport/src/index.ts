@@ -19,7 +19,9 @@ export type {
   QrLoginStatusRequest,
   QrLoginStatus,
   MobileCaptchaLoginRequest,
+  AuthTicketLoginRequest,
   GameTokenRequest,
+  TokenExchangeRequest,
 } from "./models/uigf/passport/index.js";
 export type { PassportClientOptionalParams } from "./api/index.js";
 export type {
@@ -29,11 +31,15 @@ export type {
 export type { AuthTicketApiCreateByGameBizOptionalParams } from "./api/authTicketApi/index.js";
 export type { CaptchaApiCreateOptionalParams } from "./api/captchaApi/index.js";
 export type {
+  QrLoginApiLoginByAuthTicketOptionalParams,
   QrLoginApiLoginByMobileCaptchaOptionalParams,
   QrLoginApiGetStatusOptionalParams,
   QrLoginApiCreateOptionalParams,
 } from "./api/qrLoginApi/index.js";
-export type { SessionApiGetTokenByGameTokenOptionalParams } from "./api/sessionApi/index.js";
+export type {
+  SessionApiExchangeOptionalParams,
+  SessionApiGetTokenByGameTokenOptionalParams,
+} from "./api/sessionApi/index.js";
 export type {
   AccountTokenApiOperations,
   AuthTicketApiOperations,

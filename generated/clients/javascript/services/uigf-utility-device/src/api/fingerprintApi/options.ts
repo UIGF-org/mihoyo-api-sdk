@@ -5,3 +5,6 @@ import { OperationOptions } from "@azure-rest/core-client";
 
 /** Optional parameters. */
 export interface FingerprintApiGetFingerprintOptionalParams extends OperationOptions {}
+
+/** Optional parameters. */
+export interface FingerprintApiGetExtensionListOptionalParams extends OperationOptions {}

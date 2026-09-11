@@ -66,4 +66,37 @@ public final class PassportSessionApiClient {
     public ApiResponseTokenInfo getTokenByGameToken(GameTokenRequest body) {
         return getTokenByGameTokenWithResponse(body, RequestContext.none()).getValue();
     }
+
+    /**
+     * Exchanges a source token for the requested destination token type.
+     * 
+     * @param body The body parameter.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return common response wrapper returned by MiHoYo and HoYoLAB services along with {@link Response}.
+     */
+    @Metadata(properties = { MetadataProperties.GENERATED })
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<ApiResponseTokenInfo> exchangeWithResponse(TokenExchangeRequest body,
+        RequestContext requestContext) {
+        return this.instrumentation.instrumentWithResponse("UIGF.Passport.SessionApi.exchange", requestContext,
+            updatedContext -> this.serviceClient.exchangeWithResponse(body, updatedContext));
+    }
+
+    /**
+     * Exchanges a source token for the requested destination token type.
+     * 
+     * @param body The body parameter.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return common response wrapper returned by MiHoYo and HoYoLAB services.
+     */
+    @Metadata(properties = { MetadataProperties.GENERATED })
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public ApiResponseTokenInfo exchange(TokenExchangeRequest body) {
+        return exchangeWithResponse(body, RequestContext.none()).getValue();
+    }
 }

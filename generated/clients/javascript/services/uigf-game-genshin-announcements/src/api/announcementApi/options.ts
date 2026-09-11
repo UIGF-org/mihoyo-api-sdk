@@ -4,14 +4,14 @@
 import { OperationOptions } from "@azure-rest/core-client";
 
 /** Optional parameters. */
-export interface AnnouncementApiGetAlertOptionalParams extends OperationOptions {
+export interface AnnouncementApiGetAlertPictureOptionalParams extends OperationOptions {
   level?: number;
   uid?: string;
   channelId?: number;
 }
 
 /** Optional parameters. */
-export interface AnnouncementApiGetContentOptionalParams extends OperationOptions {
+export interface AnnouncementApiGetAlertOptionalParams extends OperationOptions {
   level?: number;
   uid?: string;
   channelId?: number;

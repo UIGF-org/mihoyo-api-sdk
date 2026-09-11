@@ -9,8 +9,8 @@ export type {
 } from "./models/uigf/index.js";
 export type { GameGenshinAnnouncementsClientOptionalParams } from "./api/index.js";
 export type {
+  AnnouncementApiGetAlertPictureOptionalParams,
   AnnouncementApiGetAlertOptionalParams,
-  AnnouncementApiGetContentOptionalParams,
   AnnouncementApiListOptionalParams,
 } from "./api/announcementApi/index.js";
 export type { AnnouncementApiOperations } from "./classic/index.js";

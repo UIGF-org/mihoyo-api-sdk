@@ -18,6 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import uigf.ApiResponseQrLoginStatus;
 import uigf.ApiResponseQrLoginTicket;
 import uigf.ApiResponseTokenInfo;
+import uigf.passport.AuthTicketLoginRequest;
 import uigf.passport.MobileCaptchaLoginRequest;
 import uigf.passport.QrLoginCreateRequest;
 import uigf.passport.QrLoginStatusRequest;
@@ -96,6 +97,15 @@ public final class QrLoginApisImpl {
         Response<ApiResponseTokenInfo> loginByMobileCaptcha(@HostParam("endpoint") String endpoint,
             @HeaderParam("Content-Type") String contentType, @HeaderParam("Accept") String accept,
             @BodyParam("application/json") MobileCaptchaLoginRequest body, RequestContext requestContext);
+
+        @HttpRequestInformation(
+            method = HttpMethod.POST,
+            path = "/account/ma-cn-passport/app/loginByAuthTicket",
+            expectedStatusCodes = { 200 })
+        @UnexpectedResponseExceptionDetail
+        Response<ApiResponseTokenInfo> loginByAuthTicket(@HostParam("endpoint") String endpoint,
+            @HeaderParam("Content-Type") String contentType, @HeaderParam("Accept") String accept,
+            @BodyParam("application/json") AuthTicketLoginRequest body, RequestContext requestContext);
     }
 
     /**
@@ -159,6 +169,27 @@ public final class QrLoginApisImpl {
                 final String accept = "application/json";
                 return service.loginByMobileCaptcha(this.client.getEndpoint(), contentType, accept, body,
                     updatedContext);
+            });
+    }
+
+    /**
+     * Exchanges an official auth ticket for the associated login-session payload.
+     * 
+     * @param body The body parameter.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return common response wrapper returned by MiHoYo and HoYoLAB services along with {@link Response}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<ApiResponseTokenInfo> loginByAuthTicketWithResponse(AuthTicketLoginRequest body,
+        RequestContext requestContext) {
+        return this.instrumentation.instrumentWithResponse("UIGF.Passport.QrLoginApi.loginByAuthTicket", requestContext,
+            updatedContext -> {
+                final String contentType = "application/json";
+                final String accept = "application/json";
+                return service.loginByAuthTicket(this.client.getEndpoint(), contentType, accept, body, updatedContext);
             });
     }
 }

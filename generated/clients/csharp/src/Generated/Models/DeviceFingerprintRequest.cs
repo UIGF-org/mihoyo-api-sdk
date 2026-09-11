@@ -15,34 +15,60 @@ namespace UIGF.Game
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="DeviceFingerprintRequest"/>. </summary>
+        /// <param name="appName"></param>
+        /// <param name="deviceFp"></param>
         /// <param name="seedId"></param>
         /// <param name="deviceId"></param>
+        /// <param name="extFields"></param>
         /// <param name="platform"></param>
-        /// <exception cref="ArgumentNullException"> <paramref name="seedId"/>, <paramref name="deviceId"/> or <paramref name="platform"/> is null. </exception>
-        public DeviceFingerprintRequest(string seedId, string deviceId, string platform)
+        /// <param name="seedTime"></param>
+        /// <exception cref="ArgumentNullException"> <paramref name="appName"/>, <paramref name="deviceFp"/>, <paramref name="seedId"/>, <paramref name="deviceId"/>, <paramref name="extFields"/>, <paramref name="platform"/> or <paramref name="seedTime"/> is null. </exception>
+        public DeviceFingerprintRequest(string appName, string deviceFp, string seedId, string deviceId, string extFields, string platform, string seedTime)
         {
+            Argument.AssertNotNull(appName, nameof(appName));
+            Argument.AssertNotNull(deviceFp, nameof(deviceFp));
             Argument.AssertNotNull(seedId, nameof(seedId));
             Argument.AssertNotNull(deviceId, nameof(deviceId));
+            Argument.AssertNotNull(extFields, nameof(extFields));
             Argument.AssertNotNull(platform, nameof(platform));
+            Argument.AssertNotNull(seedTime, nameof(seedTime));
 
+            AppName = appName;
+            DeviceFp = deviceFp;
             SeedId = seedId;
             DeviceId = deviceId;
+            ExtFields = extFields;
             Platform = platform;
+            SeedTime = seedTime;
             _additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="DeviceFingerprintRequest"/>. </summary>
+        /// <param name="appName"></param>
+        /// <param name="deviceFp"></param>
         /// <param name="seedId"></param>
         /// <param name="deviceId"></param>
+        /// <param name="extFields"></param>
         /// <param name="platform"></param>
+        /// <param name="seedTime"></param>
         /// <param name="additionalProperties"></param>
-        internal DeviceFingerprintRequest(string seedId, string deviceId, string platform, IDictionary<string, BinaryData> additionalProperties)
+        internal DeviceFingerprintRequest(string appName, string deviceFp, string seedId, string deviceId, string extFields, string platform, string seedTime, IDictionary<string, BinaryData> additionalProperties)
         {
+            AppName = appName;
+            DeviceFp = deviceFp;
             SeedId = seedId;
             DeviceId = deviceId;
+            ExtFields = extFields;
             Platform = platform;
+            SeedTime = seedTime;
             _additionalBinaryDataProperties = additionalProperties;
         }
+
+        /// <summary> Gets the AppName. </summary>
+        public string AppName { get; }
+
+        /// <summary> Gets the DeviceFp. </summary>
+        public string DeviceFp { get; }
 
         /// <summary> Gets the SeedId. </summary>
         public string SeedId { get; }
@@ -50,8 +76,14 @@ namespace UIGF.Game
         /// <summary> Gets the DeviceId. </summary>
         public string DeviceId { get; }
 
+        /// <summary> Gets the ExtFields. </summary>
+        public string ExtFields { get; }
+
         /// <summary> Gets the Platform. </summary>
         public string Platform { get; }
+
+        /// <summary> Gets the SeedTime. </summary>
+        public string SeedTime { get; }
 
         /// <summary> Gets the AdditionalProperties. </summary>
         public IDictionary<string, BinaryData> AdditionalProperties => _additionalBinaryDataProperties;

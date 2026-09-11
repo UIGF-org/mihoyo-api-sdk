@@ -7,6 +7,7 @@ import io.clientcore.core.http.annotations.BodyParam;
 import io.clientcore.core.http.annotations.HeaderParam;
 import io.clientcore.core.http.annotations.HostParam;
 import io.clientcore.core.http.annotations.HttpRequestInformation;
+import io.clientcore.core.http.annotations.QueryParam;
 import io.clientcore.core.http.annotations.UnexpectedResponseExceptionDetail;
 import io.clientcore.core.http.models.HttpMethod;
 import io.clientcore.core.http.models.HttpResponseException;
@@ -15,6 +16,7 @@ import io.clientcore.core.http.models.Response;
 import io.clientcore.core.http.pipeline.HttpPipeline;
 import io.clientcore.core.instrumentation.Instrumentation;
 import java.lang.reflect.InvocationTargetException;
+import uigf.ApiResponseDeviceExtensionList;
 import uigf.ApiResponseDeviceFingerprint;
 import uigf.game.DeviceFingerprintRequest;
 
@@ -66,6 +68,15 @@ public final class FingerprintApisImpl {
 
         }
 
+        @HttpRequestInformation(
+            method = HttpMethod.GET,
+            path = "/device-fp/api/getExtList",
+            expectedStatusCodes = { 200 })
+        @UnexpectedResponseExceptionDetail
+        Response<ApiResponseDeviceExtensionList> getExtensionList(@HostParam("endpoint") String endpoint,
+            @QueryParam("platform") String platform, @HeaderParam("Accept") String accept,
+            RequestContext requestContext);
+
         @HttpRequestInformation(method = HttpMethod.POST, path = "/device-fp/api/getFp", expectedStatusCodes = { 200 })
         @UnexpectedResponseExceptionDetail
         Response<ApiResponseDeviceFingerprint> getFingerprint(@HostParam("endpoint") String endpoint,
@@ -73,6 +84,26 @@ public final class FingerprintApisImpl {
             @HeaderParam("x-requested-with") String requestedWith, @HeaderParam("Content-Type") String contentType,
             @HeaderParam("Accept") String accept, @BodyParam("application/json") DeviceFingerprintRequest body,
             RequestContext requestContext);
+    }
+
+    /**
+     * Returns the client extension fields expected by the fingerprint registration endpoint.
+     * 
+     * @param platform The platform parameter.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return common response wrapper returned by MiHoYo and HoYoLAB services along with {@link Response}.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<ApiResponseDeviceExtensionList> getExtensionListWithResponse(String platform,
+        RequestContext requestContext) {
+        return this.instrumentation.instrumentWithResponse("UIGF.Utility.Device.FingerprintApi.getExtensionList",
+            requestContext, updatedContext -> {
+                final String accept = "application/json";
+                return service.getExtensionList(this.client.getEndpoint(), platform, accept, updatedContext);
+            });
     }
 
     /**

@@ -44,11 +44,11 @@ namespace UIGF.Game.Genshin.Announcements
             return message;
         }
 
-        internal PipelineMessage CreateGetContentRequest(string game, string gameBiz, string lang, string bundleId, string platform, string region, int? level, string uid, int? channelId, RequestOptions options)
+        internal PipelineMessage CreateGetAlertRequest(string game, string gameBiz, string lang, string bundleId, string platform, string region, int? level, string uid, int? channelId, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/common/hk4e_cn/announcement/api/getAnnContent", false);
+            uri.AppendPath("/common/hk4e_cn/announcement/api/getAlertAnn", false);
             uri.AppendQuery("game", game, true);
             uri.AppendQuery("game_biz", gameBiz, true);
             uri.AppendQuery("lang", lang, true);
@@ -74,11 +74,11 @@ namespace UIGF.Game.Genshin.Announcements
             return message;
         }
 
-        internal PipelineMessage CreateGetAlertRequest(string game, string gameBiz, string lang, string bundleId, string platform, string region, int? level, string uid, int? channelId, RequestOptions options)
+        internal PipelineMessage CreateGetAlertPictureRequest(string game, string gameBiz, string lang, string bundleId, string platform, string region, int? level, string uid, int? channelId, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/common/hk4e_cn/announcement/api/getAlertAnn", false);
+            uri.AppendPath("/common/hk4e_cn/announcement/api/getAlertPic", false);
             uri.AppendQuery("game", game, true);
             uri.AppendQuery("game_biz", gameBiz, true);
             uri.AppendQuery("lang", lang, true);

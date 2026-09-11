@@ -47,31 +47,61 @@ class GachaLogApiOperations:  # pylint: disable=docstring-missing-param
         self._serialize: Serializer = input_args.pop(0) if input_args else kwargs.pop("serializer")
         self._deserialize: Deserializer = input_args.pop(0) if input_args else kwargs.pop("deserializer")
 
-    async def get_history(
+    async def get_history(  # pylint: disable=too-many-locals
         self,
         *,
-        authkey: str,
         gacha_type: str,
-        lang: str,
+        authkey: str,
         auth_appid: str,
+        lang: str,
+        gacha_id: Optional[str] = None,
         end_id: Optional[str] = None,
+        page: Optional[int] = None,
         size: Optional[int] = None,
+        region: Optional[str] = None,
+        game_biz: Optional[str] = None,
+        device_type: Optional[str] = None,
+        game_version: Optional[str] = None,
+        init_type: Optional[str] = None,
+        no_joypad_close: Optional[str] = None,
+        timestamp: Optional[str] = None,
+        win_mode: Optional[str] = None,
         **kwargs: Any
     ) -> _models5.ApiResponseGachaLogPage:
         """get_history.
 
-        :keyword authkey: Required.
-        :paramtype authkey: str
         :keyword gacha_type: Required.
         :paramtype gacha_type: str
-        :keyword lang: Required.
-        :paramtype lang: str
+        :keyword authkey: Required.
+        :paramtype authkey: str
         :keyword auth_appid: Required.
         :paramtype auth_appid: str
+        :keyword lang: Required.
+        :paramtype lang: str
+        :keyword gacha_id: Default value is None.
+        :paramtype gacha_id: str
         :keyword end_id: Default value is None.
         :paramtype end_id: str
+        :keyword page: Default value is None.
+        :paramtype page: int
         :keyword size: Default value is None.
         :paramtype size: int
+        :keyword region: Default value is None.
+        :paramtype region: str
+        :keyword game_biz: Default value is None.
+        :paramtype game_biz: str
+        :keyword device_type: Default value is None.
+        :paramtype device_type: str
+        :keyword game_version: Default value is None.
+        :paramtype game_version: str
+        :keyword init_type: Default value is None.
+        :paramtype init_type: str
+        :keyword no_joypad_close: Default value is None.
+        :paramtype no_joypad_close: str
+        :keyword timestamp: Default value is None.
+        :paramtype timestamp: str
+        :keyword win_mode: Default value is None.
+        :paramtype win_mode: str
         :return: ApiResponseGachaLogPage. The ApiResponseGachaLogPage is compatible with MutableMapping
         :rtype: ~uigf.models.ApiResponseGachaLogPage
         :raises ~corehttp.exceptions.HttpResponseError:
@@ -92,12 +122,22 @@ class GachaLogApiOperations:  # pylint: disable=docstring-missing-param
         cls: ClsType[_models5.ApiResponseGachaLogPage] = kwargs.pop("cls", None)
 
         _request = build_gacha_log_api_get_history_request(
-            authkey=authkey,
             gacha_type=gacha_type,
-            lang=lang,
+            authkey=authkey,
             auth_appid=auth_appid,
+            lang=lang,
+            gacha_id=gacha_id,
             end_id=end_id,
+            page=page,
             size=size,
+            region=region,
+            game_biz=game_biz,
+            device_type=device_type,
+            game_version=game_version,
+            init_type=init_type,
+            no_joypad_close=no_joypad_close,
+            timestamp=timestamp,
+            win_mode=win_mode,
             authkey_ver=authkey_ver,
             sign_type=sign_type,
             headers=_headers,
@@ -133,31 +173,61 @@ class GachaLogApiOperations:  # pylint: disable=docstring-missing-param
 
         return deserialized  # type: ignore
 
-    async def get_beyond_history(
+    async def get_beyond_history(  # pylint: disable=too-many-locals
         self,
         *,
-        authkey: str,
         gacha_type: str,
-        lang: str,
+        authkey: str,
         auth_appid: str,
+        lang: str,
+        gacha_id: Optional[str] = None,
         end_id: Optional[str] = None,
+        page: Optional[int] = None,
         size: Optional[int] = None,
+        region: Optional[str] = None,
+        game_biz: Optional[str] = None,
+        device_type: Optional[str] = None,
+        game_version: Optional[str] = None,
+        init_type: Optional[str] = None,
+        no_joypad_close: Optional[str] = None,
+        timestamp: Optional[str] = None,
+        win_mode: Optional[str] = None,
         **kwargs: Any
     ) -> _models5.ApiResponseGachaLogPage:
         """get_beyond_history.
 
-        :keyword authkey: Required.
-        :paramtype authkey: str
         :keyword gacha_type: Required.
         :paramtype gacha_type: str
-        :keyword lang: Required.
-        :paramtype lang: str
+        :keyword authkey: Required.
+        :paramtype authkey: str
         :keyword auth_appid: Required.
         :paramtype auth_appid: str
+        :keyword lang: Required.
+        :paramtype lang: str
+        :keyword gacha_id: Default value is None.
+        :paramtype gacha_id: str
         :keyword end_id: Default value is None.
         :paramtype end_id: str
+        :keyword page: Default value is None.
+        :paramtype page: int
         :keyword size: Default value is None.
         :paramtype size: int
+        :keyword region: Default value is None.
+        :paramtype region: str
+        :keyword game_biz: Default value is None.
+        :paramtype game_biz: str
+        :keyword device_type: Default value is None.
+        :paramtype device_type: str
+        :keyword game_version: Default value is None.
+        :paramtype game_version: str
+        :keyword init_type: Default value is None.
+        :paramtype init_type: str
+        :keyword no_joypad_close: Default value is None.
+        :paramtype no_joypad_close: str
+        :keyword timestamp: Default value is None.
+        :paramtype timestamp: str
+        :keyword win_mode: Default value is None.
+        :paramtype win_mode: str
         :return: ApiResponseGachaLogPage. The ApiResponseGachaLogPage is compatible with MutableMapping
         :rtype: ~uigf.models.ApiResponseGachaLogPage
         :raises ~corehttp.exceptions.HttpResponseError:
@@ -178,12 +248,22 @@ class GachaLogApiOperations:  # pylint: disable=docstring-missing-param
         cls: ClsType[_models5.ApiResponseGachaLogPage] = kwargs.pop("cls", None)
 
         _request = build_gacha_log_api_get_beyond_history_request(
-            authkey=authkey,
             gacha_type=gacha_type,
-            lang=lang,
+            authkey=authkey,
             auth_appid=auth_appid,
+            lang=lang,
+            gacha_id=gacha_id,
             end_id=end_id,
+            page=page,
             size=size,
+            region=region,
+            game_biz=game_biz,
+            device_type=device_type,
+            game_version=game_version,
+            init_type=init_type,
+            no_joypad_close=no_joypad_close,
+            timestamp=timestamp,
+            win_mode=win_mode,
             authkey_ver=authkey_ver,
             sign_type=sign_type,
             headers=_headers,

@@ -25,8 +25,9 @@
     "generate:python": "node tools/generate-clients.mjs python",
     "generate:js": "node tools/generate-clients.mjs javascript",
     "build:clients": "node tools/build-clients.mjs",
+    "compare:har": "node tools/compare-har.mjs",
     "test:clients": "node --test tools/clients.test.mjs",
-    "test": "npm run build:runtime && node --test dist/ds.test.js && npm run test:emitter",
+    "test": "npm run build:runtime && node --test dist/ds.test.js tools/compare-har.test.mjs && npm run test:emitter",
     "test:emitter": "npm run build:spec && node tools/verify-ds-openapi.mjs generated"
   },
   "devDependencies": {

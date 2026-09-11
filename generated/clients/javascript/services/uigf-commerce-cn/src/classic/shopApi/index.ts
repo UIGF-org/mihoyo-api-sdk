@@ -2,10 +2,16 @@
 // Licensed under the MIT License.
 
 import { CommerceCNContext } from "../../api/commerceCNContext.js";
-import { checkOrder, createOrder, fetchGoods } from "../../api/shopApi/operations.js";
+import {
+  checkOrder,
+  createOrder,
+  getCurrencyAndCountryByIp,
+  fetchGoods,
+} from "../../api/shopApi/operations.js";
 import {
   ShopApiCheckOrderOptionalParams,
   ShopApiCreateOrderOptionalParams,
+  ShopApiGetCurrencyAndCountryByIpOptionalParams,
   ShopApiFetchGoodsOptionalParams,
 } from "../../api/shopApi/options.js";
 import { ShopGoodsRequest, CreateOrderRequest } from "../../models/uigf/commerce/models.js";
@@ -33,6 +39,11 @@ export interface ShopApiOperations {
     body: CreateOrderRequest,
     options?: ShopApiCreateOrderOptionalParams,
   ) => Promise<ApiResponseJsonObject>;
+  /** Returns the storefront currency and country inferred by the SDK host. */
+  getCurrencyAndCountryByIp: (
+    gameBiz: string,
+    options?: ShopApiGetCurrencyAndCountryByIpOptionalParams,
+  ) => Promise<ApiResponseJsonObject>;
   /** Returns purchasable catalogue entries for the authenticated game account. */
   fetchGoods: (
     gameBiz: string,
@@ -58,6 +69,10 @@ function _getShopApi(context: CommerceCNContext) {
       body: CreateOrderRequest,
       options?: ShopApiCreateOrderOptionalParams,
     ) => createOrder(context, gameBiz, cookie, deviceId, body, options),
+    getCurrencyAndCountryByIp: (
+      gameBiz: string,
+      options?: ShopApiGetCurrencyAndCountryByIpOptionalParams,
+    ) => getCurrencyAndCountryByIp(context, gameBiz, options),
     fetchGoods: (
       gameBiz: string,
       body: ShopGoodsRequest,

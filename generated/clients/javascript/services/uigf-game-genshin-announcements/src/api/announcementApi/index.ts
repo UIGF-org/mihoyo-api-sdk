@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-export { getAlert, getContent, list } from "./operations.js";
+export { getAlertPicture, getAlert, list } from "./operations.js";
 export type {
+  AnnouncementApiGetAlertPictureOptionalParams,
   AnnouncementApiGetAlertOptionalParams,
-  AnnouncementApiGetContentOptionalParams,
   AnnouncementApiListOptionalParams,
 } from "./options.js";

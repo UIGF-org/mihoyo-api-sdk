@@ -9,8 +9,12 @@ using UIGF;
 using UIGF.Commerce;
 using UIGF.Community;
 using UIGF.Game;
+using UIGF.Game.Genshin.Dispatch;
+using UIGF.Game.Genshin.SDK;
 using UIGF.Launcher;
 using UIGF.Passport;
+using UIGF.Uncategorized;
+using UIGF.Utility.Device;
 
 namespace UIGF.Mihoyo
 {
@@ -274,6 +278,14 @@ namespace UIGF.Mihoyo
                 gameBiz);
         }
 
+        /// <summary> The AuthTicketLoginRequest. </summary>
+        /// <param name="ticket"></param>
+        /// <returns> A new <see cref="Passport.AuthTicketLoginRequest"/> instance for mocking. </returns>
+        public static AuthTicketLoginRequest AuthTicketLoginRequest(string ticket = default)
+        {
+            return new AuthTicketLoginRequest(ticket, additionalBinaryDataProperties: null);
+        }
+
         /// <summary> The GameTokenRequest. </summary>
         /// <param name="accountId"></param>
         /// <param name="gameToken"></param>
@@ -281,6 +293,16 @@ namespace UIGF.Mihoyo
         public static GameTokenRequest GameTokenRequest(long accountId = default, string gameToken = default)
         {
             return new GameTokenRequest(accountId, gameToken, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The TokenExchangeRequest. </summary>
+        /// <param name="dstTokenType"></param>
+        /// <param name="mid"></param>
+        /// <param name="srcToken"></param>
+        /// <returns> A new <see cref="Passport.TokenExchangeRequest"/> instance for mocking. </returns>
+        public static TokenExchangeRequest TokenExchangeRequest(string dstTokenType = default, string mid = default, string srcToken = default)
+        {
+            return new TokenExchangeRequest(dstTokenType, mid, srcToken, additionalBinaryDataProperties: null);
         }
 
         /// <summary> Common response wrapper returned by MiHoYo and HoYoLAB services. </summary>
@@ -754,6 +776,62 @@ namespace UIGF.Mihoyo
             return new PandaQrResponse(ticket, url, stat, additionalProperties);
         }
 
+        /// <summary> The GranterLoginRequest. </summary>
+        /// <param name="appId"></param>
+        /// <param name="channelId"></param>
+        /// <param name="data"></param>
+        /// <param name="device"></param>
+        /// <param name="sign"></param>
+        /// <returns> A new <see cref="Game.Genshin.SDK.GranterLoginRequest"/> instance for mocking. </returns>
+        public static GranterLoginRequest GranterLoginRequest(string appId = default, string channelId = default, string data = default, string device = default, string sign = default)
+        {
+            return new GranterLoginRequest(
+                appId,
+                channelId,
+                data,
+                device,
+                sign,
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The SignedDispatchResponse. </summary>
+        /// <param name="content"></param>
+        /// <param name="sign"></param>
+        /// <returns> A new <see cref="Game.Genshin.Dispatch.SignedDispatchResponse"/> instance for mocking. </returns>
+        public static SignedDispatchResponse SignedDispatchResponse(string content = default, string sign = default)
+        {
+            return new SignedDispatchResponse(content, sign, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The ProtocolVersionRequest. </summary>
+        /// <param name="appId"></param>
+        /// <param name="channelId"></param>
+        /// <param name="language"></param>
+        /// <param name="major"></param>
+        /// <param name="minimum"></param>
+        /// <returns> A new <see cref="Game.Genshin.SDK.ProtocolVersionRequest"/> instance for mocking. </returns>
+        public static ProtocolVersionRequest ProtocolVersionRequest(string appId = default, string channelId = default, string language = default, string major = default, string minimum = default)
+        {
+            return new ProtocolVersionRequest(
+                appId,
+                channelId,
+                language,
+                major,
+                minimum,
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The RedDotRequest. </summary>
+        /// <param name="gameBiz"></param>
+        /// <param name="playerLevel"></param>
+        /// <param name="region"></param>
+        /// <param name="uid"></param>
+        /// <returns> A new <see cref="Game.Genshin.SDK.RedDotRequest"/> instance for mocking. </returns>
+        public static RedDotRequest RedDotRequest(string gameBiz = default, int playerLevel = default, string region = default, string uid = default)
+        {
+            return new RedDotRequest(gameBiz, playerLevel, region, uid, additionalBinaryDataProperties: null);
+        }
+
         /// <summary> Common envelope used by the HoYoPlay and Sophon APIs. </summary>
         /// <param name="retcode"></param>
         /// <param name="message"></param>
@@ -813,17 +891,62 @@ namespace UIGF.Mihoyo
             return new GpuInfo(name, vendorId, deviceId, additionalProperties);
         }
 
+        /// <summary> Common response wrapper returned by MiHoYo and HoYoLAB services. </summary>
+        /// <param name="retcode"> Vendor result code. `0` normally represents success. </param>
+        /// <param name="message"> Vendor diagnostic message. </param>
+        /// <param name="data"> Endpoint-specific payload. </param>
+        /// <returns> A new <see cref="UIGF.ApiResponseDeviceExtensionList"/> instance for mocking. </returns>
+        public static ApiResponseDeviceExtensionList ApiResponseDeviceExtensionList(int retcode = default, string message = default, DeviceExtensionList data = default)
+        {
+            return new ApiResponseDeviceExtensionList(retcode, message, data, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The DeviceExtensionList. </summary>
+        /// <param name="code"></param>
+        /// <param name="extList"></param>
+        /// <param name="msg"></param>
+        /// <param name="pkgList"></param>
+        /// <param name="pkgStr"></param>
+        /// <param name="additionalProperties"></param>
+        /// <returns> A new <see cref="Utility.Device.DeviceExtensionList"/> instance for mocking. </returns>
+        public static DeviceExtensionList DeviceExtensionList(int? code = default, IEnumerable<string> extList = default, string msg = default, IEnumerable<string> pkgList = default, string pkgStr = default, IReadOnlyDictionary<string, BinaryData> additionalProperties = default)
+        {
+            extList ??= new ChangeTrackingList<string>();
+            pkgList ??= new ChangeTrackingList<string>();
+            additionalProperties ??= new ChangeTrackingDictionary<string, BinaryData>();
+
+            return new DeviceExtensionList(
+                code,
+                extList.ToList(),
+                msg,
+                pkgList.ToList(),
+                pkgStr,
+                additionalProperties);
+        }
+
         /// <summary> The DeviceFingerprintRequest. </summary>
+        /// <param name="appName"></param>
+        /// <param name="deviceFp"></param>
         /// <param name="seedId"></param>
         /// <param name="deviceId"></param>
+        /// <param name="extFields"></param>
         /// <param name="platform"></param>
+        /// <param name="seedTime"></param>
         /// <param name="additionalProperties"></param>
         /// <returns> A new <see cref="Game.DeviceFingerprintRequest"/> instance for mocking. </returns>
-        public static DeviceFingerprintRequest DeviceFingerprintRequest(string seedId = default, string deviceId = default, string platform = default, IDictionary<string, BinaryData> additionalProperties = default)
+        public static DeviceFingerprintRequest DeviceFingerprintRequest(string appName = default, string deviceFp = default, string seedId = default, string deviceId = default, string extFields = default, string platform = default, string seedTime = default, IDictionary<string, BinaryData> additionalProperties = default)
         {
             additionalProperties ??= new ChangeTrackingDictionary<string, BinaryData>();
 
-            return new DeviceFingerprintRequest(seedId, deviceId, platform, additionalProperties);
+            return new DeviceFingerprintRequest(
+                appName,
+                deviceFp,
+                seedId,
+                deviceId,
+                extFields,
+                platform,
+                seedTime,
+                additionalProperties);
         }
 
         /// <summary> Common response wrapper returned by MiHoYo and HoYoLAB services. </summary>
@@ -987,6 +1110,85 @@ namespace UIGF.Mihoyo
                 orderNo,
                 payPlat,
                 additionalProperties);
+        }
+
+        /// <summary> The ComboTokenRequest. </summary>
+        /// <param name="biz"></param>
+        /// <returns> A new <see cref="Uncategorized.ComboTokenRequest"/> instance for mocking. </returns>
+        public static ComboTokenRequest ComboTokenRequest(string biz = default)
+        {
+            return new ComboTokenRequest(biz, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The ExperimentListRequest. </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSign"></param>
+        /// <param name="params"></param>
+        /// <param name="sceneId"></param>
+        /// <param name="uid"></param>
+        /// <returns> A new <see cref="Uncategorized.ExperimentListRequest"/> instance for mocking. </returns>
+        public static ExperimentListRequest ExperimentListRequest(int appId = default, string appSign = default, IEnumerable<ExperimentParameter> @params = default, string sceneId = default, string uid = default)
+        {
+            @params ??= new ChangeTrackingList<ExperimentParameter>();
+
+            return new ExperimentListRequest(
+                appId,
+                appSign,
+                @params.ToList(),
+                sceneId,
+                uid,
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The ExperimentParameter. </summary>
+        /// <param name="k"></param>
+        /// <param name="v"></param>
+        /// <returns> A new <see cref="Uncategorized.ExperimentParameter"/> instance for mocking. </returns>
+        public static ExperimentParameter ExperimentParameter(string k = default, string v = default)
+        {
+            return new ExperimentParameter(k, v, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The ExperimentListResponse. </summary>
+        /// <param name="retcode"> Vendor result code. `0` normally represents success. </param>
+        /// <param name="message"> Vendor diagnostic message. </param>
+        /// <param name="data"> Endpoint-specific payload. </param>
+        /// <param name="success"></param>
+        /// <returns> A new <see cref="Uncategorized.ExperimentListResponse"/> instance for mocking. </returns>
+        public static ExperimentListResponse ExperimentListResponse(int retcode = default, string message = default, IEnumerable<JsonObject> data = default, bool? success = default)
+        {
+            data ??= new ChangeTrackingList<JsonObject>();
+
+            return new ExperimentListResponse(retcode, message, data.ToList(), additionalBinaryDataProperties: null, success);
+        }
+
+        /// <summary> Common response wrapper returned by MiHoYo and HoYoLAB services. </summary>
+        /// <param name="retcode"> Vendor result code. `0` normally represents success. </param>
+        /// <param name="message"> Vendor diagnostic message. </param>
+        /// <param name="data"> Endpoint-specific payload. </param>
+        /// <returns> A new <see cref="UIGF.ApiResponseArray"/> instance for mocking. </returns>
+        public static ApiResponseArray ApiResponseArray(int retcode = default, string message = default, IEnumerable<JsonObject> data = default)
+        {
+            data ??= new ChangeTrackingList<JsonObject>();
+
+            return new ApiResponseArray(retcode, message, data.ToList(), additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The UploadResponse. </summary>
+        /// <param name="code"></param>
+        /// <param name="message"></param>
+        /// <returns> A new <see cref="Uncategorized.UploadResponse"/> instance for mocking. </returns>
+        public static UploadResponse UploadResponse(int code = default, string message = default)
+        {
+            return new UploadResponse(code, message, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The H5LogRequest. </summary>
+        /// <param name="data"></param>
+        /// <returns> A new <see cref="Uncategorized.H5LogRequest"/> instance for mocking. </returns>
+        public static H5LogRequest H5LogRequest(string data = default)
+        {
+            return new H5LogRequest(data, additionalBinaryDataProperties: null);
         }
     }
 }

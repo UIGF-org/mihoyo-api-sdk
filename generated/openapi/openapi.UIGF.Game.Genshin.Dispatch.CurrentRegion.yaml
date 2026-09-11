@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: UIGF Genshin CN Current Region Dispatch API
+  description: Resolves the current Genshin region from the CN game dispatch service.
+  version: 0.0.0
+tags: []
+paths:
+  /query_cur_region:
+    get:
+      operationId: CurrentRegionApi_query
+      parameters:
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.account_type'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.aid'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.binary'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.channel_id'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.dispatchSeed'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.key_id'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.lang'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.platform'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.sub_channel_id'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.time'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.version'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIGF.Game.Genshin.Dispatch.SignedDispatchResponse'
+components:
+  parameters:
+    UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.account_type:
+      name: account_type
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.aid:
+      name: aid
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.binary:
+      name: binary
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.channel_id:
+      name: channel_id
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.dispatchSeed:
+      name: dispatchSeed
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.key_id:
+      name: key_id
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.lang:
+      name: lang
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.platform:
+      name: platform
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.sub_channel_id:
+      name: sub_channel_id
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.time:
+      name: time
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+    UIGF.Game.Genshin.Dispatch.CurrentRegionQuery.version:
+      name: version
+      in: query
+      required: false
+      schema:
+        type: string
+      explode: false
+  schemas:
+    UIGF.Game.Genshin.Dispatch.SignedDispatchResponse:
+      type: object
+      required:
+        - content
+        - sign
+      properties:
+        content:
+          type: string
+        sign:
+          type: string
+servers:
+  - url: https://cngfdispatch.yuanshen.com
+    description: CN Genshin current-region dispatch API
+    variables: {}

@@ -71,11 +71,15 @@ public final class GachaLogApisImpl {
             expectedStatusCodes = { 200 })
         @UnexpectedResponseExceptionDetail
         Response<ApiResponseGachaLogPage> getHistory(@HostParam("endpoint") String endpoint,
-            @QueryParam("authkey") String authkey, @QueryParam("gacha_type") String gachaType,
-            @QueryParam("end_id") String endId, @QueryParam("lang") String lang,
-            @QueryParam("auth_appid") String authAppid, @QueryParam("authkey_ver") String authkeyVer,
-            @QueryParam("sign_type") String signType, @QueryParam("size") Integer size,
-            @HeaderParam("Accept") String accept, RequestContext requestContext);
+            @QueryParam("gacha_type") String gachaType, @QueryParam("gacha_id") String gachaId,
+            @QueryParam("end_id") String endId, @QueryParam("page") Integer page, @QueryParam("size") Integer size,
+            @QueryParam("region") String region, @QueryParam("game_biz") String gameBiz,
+            @QueryParam("device_type") String deviceType, @QueryParam("game_version") String gameVersion,
+            @QueryParam("init_type") String initType, @QueryParam("no_joypad_close") String noJoypadClose,
+            @QueryParam("timestamp") String timestamp, @QueryParam("win_mode") String winMode,
+            @QueryParam("authkey") String authkey, @QueryParam("auth_appid") String authAppid,
+            @QueryParam("authkey_ver") String authkeyVer, @QueryParam("sign_type") String signType,
+            @QueryParam("lang") String lang, @HeaderParam("Accept") String accept, RequestContext requestContext);
 
         @HttpRequestInformation(
             method = HttpMethod.GET,
@@ -83,22 +87,36 @@ public final class GachaLogApisImpl {
             expectedStatusCodes = { 200 })
         @UnexpectedResponseExceptionDetail
         Response<ApiResponseGachaLogPage> getBeyondHistory(@HostParam("endpoint") String endpoint,
-            @QueryParam("authkey") String authkey, @QueryParam("gacha_type") String gachaType,
-            @QueryParam("end_id") String endId, @QueryParam("lang") String lang,
-            @QueryParam("auth_appid") String authAppid, @QueryParam("authkey_ver") String authkeyVer,
-            @QueryParam("sign_type") String signType, @QueryParam("size") Integer size,
-            @HeaderParam("Accept") String accept, RequestContext requestContext);
+            @QueryParam("gacha_type") String gachaType, @QueryParam("gacha_id") String gachaId,
+            @QueryParam("end_id") String endId, @QueryParam("page") Integer page, @QueryParam("size") Integer size,
+            @QueryParam("region") String region, @QueryParam("game_biz") String gameBiz,
+            @QueryParam("device_type") String deviceType, @QueryParam("game_version") String gameVersion,
+            @QueryParam("init_type") String initType, @QueryParam("no_joypad_close") String noJoypadClose,
+            @QueryParam("timestamp") String timestamp, @QueryParam("win_mode") String winMode,
+            @QueryParam("authkey") String authkey, @QueryParam("auth_appid") String authAppid,
+            @QueryParam("authkey_ver") String authkeyVer, @QueryParam("sign_type") String signType,
+            @QueryParam("lang") String lang, @HeaderParam("Accept") String accept, RequestContext requestContext);
     }
 
     /**
      * The getHistory operation.
      * 
-     * @param authkey The authkey parameter.
      * @param gachaType The gachaType parameter.
-     * @param lang The lang parameter.
+     * @param authkey The authkey parameter.
      * @param authAppid The authAppid parameter.
+     * @param lang The lang parameter.
+     * @param gachaId The gachaId parameter.
      * @param endId The endId parameter.
+     * @param page The page parameter.
      * @param size The size parameter.
+     * @param region The region parameter.
+     * @param gameBiz The gameBiz parameter.
+     * @param deviceType The deviceType parameter.
+     * @param gameVersion The gameVersion parameter.
+     * @param initType The initType parameter.
+     * @param noJoypadClose The noJoypadClose parameter.
+     * @param timestamp The timestamp parameter.
+     * @param winMode The winMode parameter.
      * @param requestContext The context to configure the HTTP request before HTTP client sends it.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws HttpResponseException thrown if the service returns an error.
@@ -106,27 +124,40 @@ public final class GachaLogApisImpl {
      * @return common response wrapper returned by MiHoYo and HoYoLAB services along with {@link Response}.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<ApiResponseGachaLogPage> getHistoryWithResponse(String authkey, String gachaType, String lang,
-        String authAppid, String endId, Integer size, RequestContext requestContext) {
+    public Response<ApiResponseGachaLogPage> getHistoryWithResponse(String gachaType, String authkey, String authAppid,
+        String lang, String gachaId, String endId, Integer page, Integer size, String region, String gameBiz,
+        String deviceType, String gameVersion, String initType, String noJoypadClose, String timestamp, String winMode,
+        RequestContext requestContext) {
         return this.instrumentation.instrumentWithResponse("UIGF.Game.Genshin.Gacha.GachaLogApi.getHistory",
             requestContext, updatedContext -> {
                 final String authkeyVer = "1";
                 final String signType = "2";
                 final String accept = "application/json";
-                return service.getHistory(this.client.getEndpoint(), authkey, gachaType, endId, lang, authAppid,
-                    authkeyVer, signType, size, accept, updatedContext);
+                return service.getHistory(this.client.getEndpoint(), gachaType, gachaId, endId, page, size, region,
+                    gameBiz, deviceType, gameVersion, initType, noJoypadClose, timestamp, winMode, authkey, authAppid,
+                    authkeyVer, signType, lang, accept, updatedContext);
             });
     }
 
     /**
      * The getBeyondHistory operation.
      * 
-     * @param authkey The authkey parameter.
      * @param gachaType The gachaType parameter.
-     * @param lang The lang parameter.
+     * @param authkey The authkey parameter.
      * @param authAppid The authAppid parameter.
+     * @param lang The lang parameter.
+     * @param gachaId The gachaId parameter.
      * @param endId The endId parameter.
+     * @param page The page parameter.
      * @param size The size parameter.
+     * @param region The region parameter.
+     * @param gameBiz The gameBiz parameter.
+     * @param deviceType The deviceType parameter.
+     * @param gameVersion The gameVersion parameter.
+     * @param initType The initType parameter.
+     * @param noJoypadClose The noJoypadClose parameter.
+     * @param timestamp The timestamp parameter.
+     * @param winMode The winMode parameter.
      * @param requestContext The context to configure the HTTP request before HTTP client sends it.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws HttpResponseException thrown if the service returns an error.
@@ -134,15 +165,18 @@ public final class GachaLogApisImpl {
      * @return common response wrapper returned by MiHoYo and HoYoLAB services along with {@link Response}.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<ApiResponseGachaLogPage> getBeyondHistoryWithResponse(String authkey, String gachaType, String lang,
-        String authAppid, String endId, Integer size, RequestContext requestContext) {
+    public Response<ApiResponseGachaLogPage> getBeyondHistoryWithResponse(String gachaType, String authkey,
+        String authAppid, String lang, String gachaId, String endId, Integer page, Integer size, String region,
+        String gameBiz, String deviceType, String gameVersion, String initType, String noJoypadClose, String timestamp,
+        String winMode, RequestContext requestContext) {
         return this.instrumentation.instrumentWithResponse("UIGF.Game.Genshin.Gacha.GachaLogApi.getBeyondHistory",
             requestContext, updatedContext -> {
                 final String authkeyVer = "1";
                 final String signType = "2";
                 final String accept = "application/json";
-                return service.getBeyondHistory(this.client.getEndpoint(), authkey, gachaType, endId, lang, authAppid,
-                    authkeyVer, signType, size, accept, updatedContext);
+                return service.getBeyondHistory(this.client.getEndpoint(), gachaType, gachaId, endId, page, size,
+                    region, gameBiz, deviceType, gameVersion, initType, noJoypadClose, timestamp, winMode, authkey,
+                    authAppid, authkeyVer, signType, lang, accept, updatedContext);
             });
     }
 }

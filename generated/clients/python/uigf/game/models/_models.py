@@ -249,28 +249,48 @@ class DeviceFingerprint(_Model):  # pylint: disable=docstring-keyword-should-mat
 class DeviceFingerprintRequest(_Model):  # pylint: disable=docstring-keyword-should-match-keyword-only
     """DeviceFingerprintRequest.
 
+    :ivar app_name: Required.
+    :vartype app_name: str
+    :ivar device_fp: Required.
+    :vartype device_fp: str
     :ivar seed_id: Required.
     :vartype seed_id: str
     :ivar device_id: Required.
     :vartype device_id: str
+    :ivar ext_fields: Required.
+    :vartype ext_fields: str
     :ivar platform: Required.
     :vartype platform: str
+    :ivar seed_time: Required.
+    :vartype seed_time: str
     """
 
+    app_name: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Required."""
+    device_fp: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Required."""
     seed_id: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
     """Required."""
     device_id: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
     """Required."""
+    ext_fields: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Required."""
     platform: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
+    """Required."""
+    seed_time: str = rest_field(visibility=["read", "create", "update", "delete", "query"])
     """Required."""
 
     @overload
     def __init__(
         self,
         *,
+        app_name: str,
+        device_fp: str,
         seed_id: str,
         device_id: str,
+        ext_fields: str,
         platform: str,
+        seed_time: str,
     ) -> None: ...
 
     @overload

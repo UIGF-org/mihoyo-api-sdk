@@ -87,12 +87,20 @@ namespace UIGF.Game
             {
                 throw new FormatException($"The model {nameof(DeviceFingerprintRequest)} does not support writing '{format}' format.");
             }
+            writer.WritePropertyName("app_name"u8);
+            writer.WriteStringValue(AppName);
+            writer.WritePropertyName("device_fp"u8);
+            writer.WriteStringValue(DeviceFp);
             writer.WritePropertyName("seed_id"u8);
             writer.WriteStringValue(SeedId);
             writer.WritePropertyName("device_id"u8);
             writer.WriteStringValue(DeviceId);
+            writer.WritePropertyName("ext_fields"u8);
+            writer.WriteStringValue(ExtFields);
             writer.WritePropertyName("platform"u8);
             writer.WriteStringValue(Platform);
+            writer.WritePropertyName("seed_time"u8);
+            writer.WriteStringValue(SeedTime);
             foreach (var item in AdditionalProperties)
             {
                 writer.WritePropertyName(item.Key);
@@ -132,12 +140,26 @@ namespace UIGF.Game
             {
                 return null;
             }
+            string appName = default;
+            string deviceFp = default;
             string seedId = default;
             string deviceId = default;
+            string extFields = default;
             string platform = default;
+            string seedTime = default;
             IDictionary<string, BinaryData> additionalProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
+                if (prop.NameEquals("app_name"u8))
+                {
+                    appName = prop.Value.GetString();
+                    continue;
+                }
+                if (prop.NameEquals("device_fp"u8))
+                {
+                    deviceFp = prop.Value.GetString();
+                    continue;
+                }
                 if (prop.NameEquals("seed_id"u8))
                 {
                     seedId = prop.Value.GetString();
@@ -148,14 +170,32 @@ namespace UIGF.Game
                     deviceId = prop.Value.GetString();
                     continue;
                 }
+                if (prop.NameEquals("ext_fields"u8))
+                {
+                    extFields = prop.Value.GetString();
+                    continue;
+                }
                 if (prop.NameEquals("platform"u8))
                 {
                     platform = prop.Value.GetString();
                     continue;
                 }
+                if (prop.NameEquals("seed_time"u8))
+                {
+                    seedTime = prop.Value.GetString();
+                    continue;
+                }
                 additionalProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
             }
-            return new DeviceFingerprintRequest(seedId, deviceId, platform, additionalProperties);
+            return new DeviceFingerprintRequest(
+                appName,
+                deviceFp,
+                seedId,
+                deviceId,
+                extFields,
+                platform,
+                seedTime,
+                additionalProperties);
         }
     }
 }

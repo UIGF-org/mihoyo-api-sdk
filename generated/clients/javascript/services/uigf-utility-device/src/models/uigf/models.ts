@@ -8,6 +8,27 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { DeviceFingerprint, deviceFingerprintDeserializer } from "./game/models.js";
+import { DeviceExtensionList, deviceExtensionListDeserializer } from "./utility/device/models.js";
+
+/** Common response wrapper returned by MiHoYo and HoYoLAB services. */
+export interface ApiResponseDeviceExtensionList {
+  /** Vendor result code. `0` normally represents success. */
+  retcode: number;
+  /** Vendor diagnostic message. */
+  message: string;
+  /** Endpoint-specific payload. */
+  data: DeviceExtensionList;
+}
+
+export function apiResponseDeviceExtensionListDeserializer(
+  item: any,
+): ApiResponseDeviceExtensionList {
+  return {
+    retcode: item["retcode"],
+    message: item["message"],
+    data: deviceExtensionListDeserializer(item["data"]),
+  };
+}
 
 /** Common response wrapper returned by MiHoYo and HoYoLAB services. */
 export interface ApiResponseDeviceFingerprint {

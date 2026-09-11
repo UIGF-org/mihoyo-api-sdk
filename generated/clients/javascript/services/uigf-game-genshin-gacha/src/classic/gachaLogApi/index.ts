@@ -12,17 +12,17 @@ import { ApiResponseGachaLogPage } from "../../models/uigf/models.js";
 /** Interface representing a GachaLogApi operations. */
 export interface GachaLogApiOperations {
   getBeyondHistory: (
-    authkey: string,
     gachaType: string,
-    lang: string,
+    authkey: string,
     authAppid: string,
+    lang: string,
     options?: GachaLogApiGetBeyondHistoryOptionalParams,
   ) => Promise<ApiResponseGachaLogPage>;
   getHistory: (
-    authkey: string,
     gachaType: string,
-    lang: string,
+    authkey: string,
     authAppid: string,
+    lang: string,
     options?: GachaLogApiGetHistoryOptionalParams,
   ) => Promise<ApiResponseGachaLogPage>;
 }
@@ -30,19 +30,19 @@ export interface GachaLogApiOperations {
 function _getGachaLogApi(context: GameGenshinGachaContext) {
   return {
     getBeyondHistory: (
-      authkey: string,
       gachaType: string,
-      lang: string,
+      authkey: string,
       authAppid: string,
+      lang: string,
       options?: GachaLogApiGetBeyondHistoryOptionalParams,
-    ) => getBeyondHistory(context, authkey, gachaType, lang, authAppid, options),
+    ) => getBeyondHistory(context, gachaType, authkey, authAppid, lang, options),
     getHistory: (
-      authkey: string,
       gachaType: string,
-      lang: string,
+      authkey: string,
       authAppid: string,
+      lang: string,
       options?: GachaLogApiGetHistoryOptionalParams,
-    ) => getHistory(context, authkey, gachaType, lang, authAppid, options),
+    ) => getHistory(context, gachaType, authkey, authAppid, lang, options),
   };
 }
 

@@ -1,10 +1,63 @@
 openapi: 3.0.0
 info:
-  title: UIGF Genshin CN QR Login API
-  description: Deprecated official QR login endpoints retained for compatibility with TeyvatGuide.
+  title: UIGF Genshin CN SDK Login API
+  description: CN Genshin SDK QR-login and granter-login endpoints.
   version: 0.0.0
 tags: []
 paths:
+  /hk4e_cn/combo/granter/login/v2/login:
+    post:
+      operationId: GranterApi_login
+      description: Submits the caller-provided official granter login payload.
+      parameters:
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcAppId'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcAppVersion'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcChannelId'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcChannelVersion'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcClientType'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcComboVersion'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcDeviceFingerprint'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcDeviceId'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcDeviceModel'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcDeviceName'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcGameBiz'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcGoodsThirdParty'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcLanguage'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcMdkVersion'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcPaymentVersion'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcSdkVersion'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcSubChannelId'
+        - $ref: '#/components/parameters/UIGF.Game.Genshin.SDK.ClientHeaders.rpcSystemVersion'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - retcode
+                  - message
+                  - data
+                properties:
+                  retcode:
+                    type: integer
+                    format: int32
+                    description: Vendor result code. `0` normally represents success.
+                  message:
+                    type: string
+                    description: Vendor diagnostic message.
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/UIGF.JsonObject'
+                    description: Endpoint-specific payload.
+                description: Common response wrapper returned by MiHoYo and HoYoLAB services.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UIGF.Game.Genshin.SDK.GranterLoginRequest'
   /hk4e_cn/combo/panda/qrcode/fetch:
     post:
       operationId: PandaQrApi_create
@@ -76,6 +129,115 @@ paths:
             schema:
               $ref: '#/components/schemas/UIGF.Game.PandaQrRequest'
 components:
+  parameters:
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcAppId:
+      name: x-rpc-app_id
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcAppVersion:
+      name: x-rpc-app_version
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcChannelId:
+      name: x-rpc-channel_id
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcChannelVersion:
+      name: x-rpc-channel_version
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcClientType:
+      name: x-rpc-client_type
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcComboVersion:
+      name: x-rpc-combo_version
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcDeviceFingerprint:
+      name: x-rpc-device_fp
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcDeviceId:
+      name: x-rpc-device_id
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcDeviceModel:
+      name: x-rpc-device_model
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcDeviceName:
+      name: x-rpc-device_name
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcGameBiz:
+      name: x-rpc-game_biz
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcGoodsThirdParty:
+      name: x-rpc-goods_third_party
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcLanguage:
+      name: x-rpc-language
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcMdkVersion:
+      name: x-rpc-mdk_version
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcPaymentVersion:
+      name: x-rpc-payment_version
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcSdkVersion:
+      name: x-rpc-sdk_version
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcSubChannelId:
+      name: x-rpc-sub_channel_id
+      in: header
+      required: false
+      schema:
+        type: string
+    UIGF.Game.Genshin.SDK.ClientHeaders.rpcSystemVersion:
+      name: x-rpc-sys_version
+      in: header
+      required: false
+      schema:
+        type: string
   schemas:
     UIGF.Announcement:
       type: object
@@ -447,19 +609,50 @@ components:
     UIGF.Game.DeviceFingerprintRequest:
       type: object
       required:
+        - app_name
+        - device_fp
         - seed_id
         - device_id
+        - ext_fields
         - platform
+        - seed_time
       properties:
+        app_name:
+          type: string
+        device_fp:
+          type: string
         seed_id:
           type: string
         device_id:
           type: string
+        ext_fields:
+          type: string
         platform:
+          type: string
+        seed_time:
           type: string
       allOf:
         - type: object
           additionalProperties: {}
+    UIGF.Game.Genshin.SDK.GranterLoginRequest:
+      type: object
+      required:
+        - app_id
+        - channel_id
+        - data
+        - device
+        - sign
+      properties:
+        app_id:
+          type: string
+        channel_id:
+          type: string
+        data:
+          type: string
+        device:
+          type: string
+        sign:
+          type: string
     UIGF.Game.PandaQrRequest:
       type: object
       required:
@@ -652,6 +845,27 @@ components:
         cookie_token:
           type: string
         mid:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    UIGF.Utility.Device.DeviceExtensionList:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        ext_list:
+          type: array
+          items:
+            type: string
+        msg:
+          type: string
+        pkg_list:
+          type: array
+          items:
+            type: string
+        pkg_str:
           type: string
       allOf:
         - type: object

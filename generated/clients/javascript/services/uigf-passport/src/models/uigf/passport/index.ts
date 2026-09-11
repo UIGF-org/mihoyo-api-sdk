@@ -11,5 +11,7 @@ export type {
   QrLoginStatusRequest,
   QrLoginStatus,
   MobileCaptchaLoginRequest,
+  AuthTicketLoginRequest,
   GameTokenRequest,
+  TokenExchangeRequest,
 } from "./models.js";

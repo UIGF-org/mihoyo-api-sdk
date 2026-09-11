@@ -3,6 +3,17 @@
 from typing_extensions import Required, TypedDict
 
 
+class AuthTicketLoginRequest(TypedDict, total=False):
+    """AuthTicketLoginRequest.
+
+    :ivar ticket: Required.
+    :vartype ticket: str
+    """
+
+    ticket: Required[str]
+    """Required."""
+
+
 class DeviceContext(TypedDict, total=False):
     """DeviceContext.
 
@@ -181,4 +192,23 @@ class QrLoginStatusRequest(TypedDict, total=False):
     ticket: Required[str]
     """Required."""
     app_id: Required[str]
+    """Required."""
+
+
+class TokenExchangeRequest(TypedDict, total=False):
+    """TokenExchangeRequest.
+
+    :ivar dst_token_type: Required.
+    :vartype dst_token_type: str
+    :ivar mid: Required.
+    :vartype mid: str
+    :ivar src_token: Required.
+    :vartype src_token: str
+    """
+
+    dst_token_type: Required[str]
+    """Required."""
+    mid: Required[str]
+    """Required."""
+    src_token: Required[str]
     """Required."""

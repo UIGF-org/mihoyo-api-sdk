@@ -120,6 +120,82 @@ namespace UIGF.Commerce.CN
         }
 
         /// <summary>
+        /// [Protocol Method] Returns the storefront currency and country inferred by the SDK host.
+        /// <list type="bullet">
+        /// <item>
+        /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="gameBiz"></param>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="gameBiz"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gameBiz"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        public virtual ClientResult GetCurrencyAndCountryByIp(string gameBiz, BinaryContent content, RequestOptions options = null)
+        {
+            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
+
+            using PipelineMessage message = CreateGetCurrencyAndCountryByIpRequest(gameBiz, content, options);
+            return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
+        }
+
+        /// <summary>
+        /// [Protocol Method] Returns the storefront currency and country inferred by the SDK host.
+        /// <list type="bullet">
+        /// <item>
+        /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="gameBiz"></param>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="gameBiz"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gameBiz"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        public virtual async Task<ClientResult> GetCurrencyAndCountryByIpAsync(string gameBiz, BinaryContent content, RequestOptions options = null)
+        {
+            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
+
+            using PipelineMessage message = CreateGetCurrencyAndCountryByIpRequest(gameBiz, content, options);
+            return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
+        }
+
+        /// <summary> Returns the storefront currency and country inferred by the SDK host. </summary>
+        /// <param name="gameBiz"></param>
+        /// <param name="body"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="gameBiz"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gameBiz"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        public virtual ClientResult<ApiResponseJsonObject> GetCurrencyAndCountryByIp(string gameBiz, JsonObject body = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
+
+            ClientResult result = GetCurrencyAndCountryByIp(gameBiz, body, cancellationToken.ToRequestOptions());
+            return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
+        }
+
+        /// <summary> Returns the storefront currency and country inferred by the SDK host. </summary>
+        /// <param name="gameBiz"></param>
+        /// <param name="body"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="gameBiz"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="gameBiz"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        public virtual async Task<ClientResult<ApiResponseJsonObject>> GetCurrencyAndCountryByIpAsync(string gameBiz, JsonObject body = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(gameBiz, nameof(gameBiz));
+
+            ClientResult result = await GetCurrencyAndCountryByIpAsync(gameBiz, body, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            return ClientResult.FromValue((ApiResponseJsonObject)result, result.GetRawResponse());
+        }
+
+        /// <summary>
         /// [Protocol Method] Sends a vendor-signed order request; no payment signing is generated by this SDK.
         /// <list type="bullet">
         /// <item>

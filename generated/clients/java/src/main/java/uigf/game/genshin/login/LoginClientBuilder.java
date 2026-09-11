@@ -31,7 +31,7 @@ import uigf.checkin.implementation.LoginClientImpl;
 /**
  * A builder for creating a new instance of the LoginClient type.
  */
-@ServiceClientBuilder(serviceClients = { LoginClient.class })
+@ServiceClientBuilder(serviceClients = { PandaQrApiClient.class, GranterApiClient.class })
 public final class LoginClientBuilder implements HttpTrait<LoginClientBuilder>, ProxyTrait<LoginClientBuilder>,
     ConfigurationTrait<LoginClientBuilder>, EndpointTrait<LoginClientBuilder> {
     @Metadata(properties = { MetadataProperties.GENERATED })
@@ -223,13 +223,24 @@ public final class LoginClientBuilder implements HttpTrait<LoginClientBuilder>, 
     }
 
     /**
-     * Builds an instance of LoginClient class.
+     * Builds an instance of PandaQrApiClient class.
      * 
-     * @return an instance of LoginClient.
+     * @return an instance of PandaQrApiClient.
      */
     @Metadata(properties = { MetadataProperties.GENERATED })
-    public LoginClient buildLoginClient() {
+    public PandaQrApiClient buildPandaQrApiClient() {
         LoginClientImpl innerClient = buildInnerClient();
-        return new LoginClient(innerClient.getPandaQrApis(), innerClient.getInstrumentation());
+        return new PandaQrApiClient(innerClient.getPandaQrApis(), innerClient.getInstrumentation());
+    }
+
+    /**
+     * Builds an instance of GranterApiClient class.
+     * 
+     * @return an instance of GranterApiClient.
+     */
+    @Metadata(properties = { MetadataProperties.GENERATED })
+    public GranterApiClient buildGranterApiClient() {
+        LoginClientImpl innerClient = buildInnerClient();
+        return new GranterApiClient(innerClient.getGranterApis(), innerClient.getInstrumentation());
     }
 }

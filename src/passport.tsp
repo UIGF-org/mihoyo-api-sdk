@@ -46,6 +46,16 @@ model GameTokenRequest {
   game_token: string;
 }
 
+model AuthTicketLoginRequest {
+  ticket: string;
+}
+
+model TokenExchangeRequest {
+  dst_token_type: string;
+  mid: string;
+  src_token: string;
+}
+
 model STokenTokenRequest {
   account_id?: int64;
 
@@ -108,6 +118,11 @@ interface QrLoginApi {
   loginByMobileCaptcha(
     @body body: MobileCaptchaLoginRequest,
   ): ApiResponse<TokenInfo>;
+
+  /** Exchanges an official auth ticket for the associated login-session payload. */
+  @post
+  @route("/loginByAuthTicket")
+  loginByAuthTicket(@body body: AuthTicketLoginRequest): ApiResponse<TokenInfo>;
 }
 
 @route("/account/ma-cn-session/app")
@@ -116,6 +131,11 @@ interface SessionApi {
   @post
   @route("/getTokenByGameToken")
   getTokenByGameToken(@body body: GameTokenRequest): ApiResponse<TokenInfo>;
+
+  /** Exchanges a source token for the requested destination token type. */
+  @post
+  @route("/exchange")
+  exchange(@body body: TokenExchangeRequest): ApiResponse<TokenInfo>;
 }
 
 @route("/account/auth/api")

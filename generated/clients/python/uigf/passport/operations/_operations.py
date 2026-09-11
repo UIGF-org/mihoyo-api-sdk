@@ -119,6 +119,23 @@ def build_qr_login_api_login_by_mobile_captcha_request(**kwargs: Any) -> HttpReq
     return HttpRequest(method="POST", url=_url, headers=_headers, **kwargs)
 
 
+def build_qr_login_api_login_by_auth_ticket_request(**kwargs: Any) -> HttpRequest:  # pylint: disable=name-too-long
+    _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+
+    content_type: Optional[str] = kwargs.pop("content_type", _headers.pop("Content-Type", None))
+    accept = _headers.pop("Accept", "application/json")
+
+    # Construct URL
+    _url = "/account/ma-cn-passport/app/loginByAuthTicket"
+
+    # Construct headers
+    if content_type is not None:
+        _headers["Content-Type"] = _SERIALIZER.header("content_type", content_type, "str")
+    _headers["Accept"] = _SERIALIZER.header("accept", accept, "str")
+
+    return HttpRequest(method="POST", url=_url, headers=_headers, **kwargs)
+
+
 def build_session_api_get_token_by_game_token_request(**kwargs: Any) -> HttpRequest:  # pylint: disable=name-too-long
     _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
 
@@ -127,6 +144,23 @@ def build_session_api_get_token_by_game_token_request(**kwargs: Any) -> HttpRequ
 
     # Construct URL
     _url = "/account/ma-cn-session/app/getTokenByGameToken"
+
+    # Construct headers
+    if content_type is not None:
+        _headers["Content-Type"] = _SERIALIZER.header("content_type", content_type, "str")
+    _headers["Accept"] = _SERIALIZER.header("accept", accept, "str")
+
+    return HttpRequest(method="POST", url=_url, headers=_headers, **kwargs)
+
+
+def build_session_api_exchange_request(**kwargs: Any) -> HttpRequest:
+    _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+
+    content_type: Optional[str] = kwargs.pop("content_type", _headers.pop("Content-Type", None))
+    accept = _headers.pop("Accept", "application/json")
+
+    # Construct URL
+    _url = "/account/ma-cn-session/app/exchange"
 
     # Construct headers
     if content_type is not None:
@@ -818,6 +852,125 @@ class QrLoginApiOperations:  # pylint: disable=docstring-missing-param
 
         return deserialized  # type: ignore
 
+    @overload
+    def login_by_auth_ticket(
+        self, body: _models1.AuthTicketLoginRequest, *, content_type: str = "application/json", **kwargs: Any
+    ) -> _models2.ApiResponseTokenInfo:
+        """Exchanges an official auth ticket for the associated login-session payload.
+
+        :param body: Required.
+        :type body: ~uigf.passport.models.AuthTicketLoginRequest
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :return: ApiResponseTokenInfo. The ApiResponseTokenInfo is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseTokenInfo
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+
+    @overload
+    def login_by_auth_ticket(
+        self, body: _types_models1.AuthTicketLoginRequest, *, content_type: str = "application/json", **kwargs: Any
+    ) -> _models2.ApiResponseTokenInfo:
+        """Exchanges an official auth ticket for the associated login-session payload.
+
+        :param body: Required.
+        :type body: ~uigf.passport.types.AuthTicketLoginRequest
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :return: ApiResponseTokenInfo. The ApiResponseTokenInfo is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseTokenInfo
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+
+    @overload
+    def login_by_auth_ticket(
+        self, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+    ) -> _models2.ApiResponseTokenInfo:
+        """Exchanges an official auth ticket for the associated login-session payload.
+
+        :param body: Required.
+        :type body: IO[bytes]
+        :keyword content_type: Body Parameter content-type. Content type parameter for binary body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :return: ApiResponseTokenInfo. The ApiResponseTokenInfo is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseTokenInfo
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+
+    def login_by_auth_ticket(
+        self,
+        body: Union[_models1.AuthTicketLoginRequest, _types_models1.AuthTicketLoginRequest, IO[bytes]],
+        **kwargs: Any
+    ) -> _models2.ApiResponseTokenInfo:
+        """Exchanges an official auth ticket for the associated login-session payload.
+
+        :param body: Is either a AuthTicketLoginRequest type or a IO[bytes] type. Required.
+        :type body: ~uigf.passport.models.AuthTicketLoginRequest or
+         ~uigf.passport.types.AuthTicketLoginRequest or IO[bytes]
+        :return: ApiResponseTokenInfo. The ApiResponseTokenInfo is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseTokenInfo
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+        error_map: MutableMapping = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+            304: ResourceNotModifiedError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+        _params = kwargs.pop("params", {}) or {}
+
+        content_type: Optional[str] = kwargs.pop("content_type", _headers.pop("Content-Type", None))
+        cls: ClsType[_models2.ApiResponseTokenInfo] = kwargs.pop("cls", None)
+
+        content_type = content_type or "application/json"
+        _content = None
+        if isinstance(body, (IOBase, bytes)):
+            _content = body
+        else:
+            _content = json.dumps(body, cls=SdkJSONEncoder, exclude_readonly=True)  # type: ignore
+
+        _request = build_qr_login_api_login_by_auth_ticket_request(
+            content_type=content_type,
+            content=_content,
+            headers=_headers,
+            params=_params,
+        )
+        path_format_arguments = {
+            "endpoint": self._serialize.url("self._config.endpoint", self._config.endpoint, "str", skip_quote=True),
+        }
+        _request.url = self._client.format_url(_request.url, **path_format_arguments)
+
+        _decompress = kwargs.pop("decompress", True)
+        _stream = kwargs.pop("stream", False)
+        pipeline_response: PipelineResponse = self._client.pipeline.run(_request, stream=_stream, **kwargs)
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200]:
+            if _stream:
+                try:
+                    response.read()  # Load the body in memory and close the socket
+                except (StreamConsumedError, StreamClosedError):
+                    pass
+            map_error(status_code=response.status_code, response=response, error_map=error_map)
+            raise HttpResponseError(response=response)
+
+        if _stream:
+            deserialized = response.iter_bytes() if _decompress else response.iter_raw()
+        else:
+            deserialized = _deserialize(_models2.ApiResponseTokenInfo, response.json())
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})  # type: ignore
+
+        return deserialized  # type: ignore
+
 
 class SessionApiOperations:  # pylint: disable=docstring-missing-param
     """
@@ -918,6 +1071,123 @@ class SessionApiOperations:  # pylint: disable=docstring-missing-param
             _content = json.dumps(body, cls=SdkJSONEncoder, exclude_readonly=True)  # type: ignore
 
         _request = build_session_api_get_token_by_game_token_request(
+            content_type=content_type,
+            content=_content,
+            headers=_headers,
+            params=_params,
+        )
+        path_format_arguments = {
+            "endpoint": self._serialize.url("self._config.endpoint", self._config.endpoint, "str", skip_quote=True),
+        }
+        _request.url = self._client.format_url(_request.url, **path_format_arguments)
+
+        _decompress = kwargs.pop("decompress", True)
+        _stream = kwargs.pop("stream", False)
+        pipeline_response: PipelineResponse = self._client.pipeline.run(_request, stream=_stream, **kwargs)
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200]:
+            if _stream:
+                try:
+                    response.read()  # Load the body in memory and close the socket
+                except (StreamConsumedError, StreamClosedError):
+                    pass
+            map_error(status_code=response.status_code, response=response, error_map=error_map)
+            raise HttpResponseError(response=response)
+
+        if _stream:
+            deserialized = response.iter_bytes() if _decompress else response.iter_raw()
+        else:
+            deserialized = _deserialize(_models2.ApiResponseTokenInfo, response.json())
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})  # type: ignore
+
+        return deserialized  # type: ignore
+
+    @overload
+    def exchange(
+        self, body: _models1.TokenExchangeRequest, *, content_type: str = "application/json", **kwargs: Any
+    ) -> _models2.ApiResponseTokenInfo:
+        """Exchanges a source token for the requested destination token type.
+
+        :param body: Required.
+        :type body: ~uigf.passport.models.TokenExchangeRequest
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :return: ApiResponseTokenInfo. The ApiResponseTokenInfo is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseTokenInfo
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+
+    @overload
+    def exchange(
+        self, body: _types_models1.TokenExchangeRequest, *, content_type: str = "application/json", **kwargs: Any
+    ) -> _models2.ApiResponseTokenInfo:
+        """Exchanges a source token for the requested destination token type.
+
+        :param body: Required.
+        :type body: ~uigf.passport.types.TokenExchangeRequest
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :return: ApiResponseTokenInfo. The ApiResponseTokenInfo is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseTokenInfo
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+
+    @overload
+    def exchange(
+        self, body: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
+    ) -> _models2.ApiResponseTokenInfo:
+        """Exchanges a source token for the requested destination token type.
+
+        :param body: Required.
+        :type body: IO[bytes]
+        :keyword content_type: Body Parameter content-type. Content type parameter for binary body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :return: ApiResponseTokenInfo. The ApiResponseTokenInfo is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseTokenInfo
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+
+    def exchange(
+        self, body: Union[_models1.TokenExchangeRequest, _types_models1.TokenExchangeRequest, IO[bytes]], **kwargs: Any
+    ) -> _models2.ApiResponseTokenInfo:
+        """Exchanges a source token for the requested destination token type.
+
+        :param body: Is either a TokenExchangeRequest type or a IO[bytes] type. Required.
+        :type body: ~uigf.passport.models.TokenExchangeRequest or
+         ~uigf.passport.types.TokenExchangeRequest or IO[bytes]
+        :return: ApiResponseTokenInfo. The ApiResponseTokenInfo is compatible with MutableMapping
+        :rtype: ~uigf.models.ApiResponseTokenInfo
+        :raises ~corehttp.exceptions.HttpResponseError:
+        """
+        error_map: MutableMapping = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+            304: ResourceNotModifiedError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+        _params = kwargs.pop("params", {}) or {}
+
+        content_type: Optional[str] = kwargs.pop("content_type", _headers.pop("Content-Type", None))
+        cls: ClsType[_models2.ApiResponseTokenInfo] = kwargs.pop("cls", None)
+
+        content_type = content_type or "application/json"
+        _content = None
+        if isinstance(body, (IOBase, bytes)):
+            _content = body
+        else:
+            _content = json.dumps(body, cls=SdkJSONEncoder, exclude_readonly=True)  # type: ignore
+
+        _request = build_session_api_exchange_request(
             content_type=content_type,
             content=_content,
             headers=_headers,

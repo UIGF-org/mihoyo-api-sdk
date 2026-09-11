@@ -14,25 +14,65 @@ namespace UIGF.Game.Genshin.Gacha
 
         private static PipelineMessageClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 ??= PipelineMessageClassifier.Create(stackalloc ushort[] { 200 });
 
-        internal PipelineMessage CreateGetHistoryRequest(string authkey, string gachaType, string lang, string authAppid, string endId, int? size, RequestOptions options)
+        internal PipelineMessage CreateGetHistoryRequest(string gachaType, string authkey, string authAppid, string lang, string gachaId, string endId, int? page, int? size, string region, string gameBiz, string deviceType, string gameVersion, string initType, string noJoypadClose, string timestamp, string winMode, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/gacha_info/api/getGachaLog", false);
-            uri.AppendQuery("authkey", authkey, true);
             uri.AppendQuery("gacha_type", gachaType, true);
+            if (gachaId != null)
+            {
+                uri.AppendQuery("gacha_id", gachaId, true);
+            }
             if (endId != null)
             {
                 uri.AppendQuery("end_id", endId, true);
             }
-            uri.AppendQuery("lang", lang, true);
-            uri.AppendQuery("auth_appid", authAppid, true);
-            uri.AppendQuery("authkey_ver", "1", true);
-            uri.AppendQuery("sign_type", "2", true);
+            if (page != null)
+            {
+                uri.AppendQuery("page", TypeFormatters.ConvertToString(page), true);
+            }
             if (size != null)
             {
                 uri.AppendQuery("size", TypeFormatters.ConvertToString(size), true);
             }
+            if (region != null)
+            {
+                uri.AppendQuery("region", region, true);
+            }
+            if (gameBiz != null)
+            {
+                uri.AppendQuery("game_biz", gameBiz, true);
+            }
+            if (deviceType != null)
+            {
+                uri.AppendQuery("device_type", deviceType, true);
+            }
+            if (gameVersion != null)
+            {
+                uri.AppendQuery("game_version", gameVersion, true);
+            }
+            if (initType != null)
+            {
+                uri.AppendQuery("init_type", initType, true);
+            }
+            if (noJoypadClose != null)
+            {
+                uri.AppendQuery("no_joypad_close", noJoypadClose, true);
+            }
+            if (timestamp != null)
+            {
+                uri.AppendQuery("timestamp", timestamp, true);
+            }
+            if (winMode != null)
+            {
+                uri.AppendQuery("win_mode", winMode, true);
+            }
+            uri.AppendQuery("authkey", authkey, true);
+            uri.AppendQuery("auth_appid", authAppid, true);
+            uri.AppendQuery("authkey_ver", "1", true);
+            uri.AppendQuery("sign_type", "2", true);
+            uri.AppendQuery("lang", lang, true);
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Accept", "application/json");
@@ -40,25 +80,65 @@ namespace UIGF.Game.Genshin.Gacha
             return message;
         }
 
-        internal PipelineMessage CreateGetBeyondHistoryRequest(string authkey, string gachaType, string lang, string authAppid, string endId, int? size, RequestOptions options)
+        internal PipelineMessage CreateGetBeyondHistoryRequest(string gachaType, string authkey, string authAppid, string lang, string gachaId, string endId, int? page, int? size, string region, string gameBiz, string deviceType, string gameVersion, string initType, string noJoypadClose, string timestamp, string winMode, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/gacha_info/api/getBeyondGachaLog", false);
-            uri.AppendQuery("authkey", authkey, true);
             uri.AppendQuery("gacha_type", gachaType, true);
+            if (gachaId != null)
+            {
+                uri.AppendQuery("gacha_id", gachaId, true);
+            }
             if (endId != null)
             {
                 uri.AppendQuery("end_id", endId, true);
             }
-            uri.AppendQuery("lang", lang, true);
-            uri.AppendQuery("auth_appid", authAppid, true);
-            uri.AppendQuery("authkey_ver", "1", true);
-            uri.AppendQuery("sign_type", "2", true);
+            if (page != null)
+            {
+                uri.AppendQuery("page", TypeFormatters.ConvertToString(page), true);
+            }
             if (size != null)
             {
                 uri.AppendQuery("size", TypeFormatters.ConvertToString(size), true);
             }
+            if (region != null)
+            {
+                uri.AppendQuery("region", region, true);
+            }
+            if (gameBiz != null)
+            {
+                uri.AppendQuery("game_biz", gameBiz, true);
+            }
+            if (deviceType != null)
+            {
+                uri.AppendQuery("device_type", deviceType, true);
+            }
+            if (gameVersion != null)
+            {
+                uri.AppendQuery("game_version", gameVersion, true);
+            }
+            if (initType != null)
+            {
+                uri.AppendQuery("init_type", initType, true);
+            }
+            if (noJoypadClose != null)
+            {
+                uri.AppendQuery("no_joypad_close", noJoypadClose, true);
+            }
+            if (timestamp != null)
+            {
+                uri.AppendQuery("timestamp", timestamp, true);
+            }
+            if (winMode != null)
+            {
+                uri.AppendQuery("win_mode", winMode, true);
+            }
+            uri.AppendQuery("authkey", authkey, true);
+            uri.AppendQuery("auth_appid", authAppid, true);
+            uri.AppendQuery("authkey_ver", "1", true);
+            uri.AppendQuery("sign_type", "2", true);
+            uri.AppendQuery("lang", lang, true);
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
             request.Headers.Set("Accept", "application/json");

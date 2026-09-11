@@ -9,8 +9,15 @@ module uigf.checkin {
     exports uigf.game.genshin.record;
     exports uigf.game.genshin.gacha;
     exports uigf.game.genshin.announcements;
+    exports uigf.game.genshin.announcementcontent;
+    exports uigf.game.genshin.ugcannouncements;
     exports uigf.game.genshin.login;
     exports uigf.game.genshin.ledger;
+    exports uigf.game.genshin.dispatch.currentregion;
+    exports uigf.game.genshin.dispatch.regionlist;
+    exports uigf.game.genshin.dispatch.gate;
+    exports uigf.game.genshin.sdk.config;
+    exports uigf.game.genshin.sdk.secure;
     exports uigf.game.global.account;
     exports uigf.game.global.records;
     exports uigf.game.global.genshin;
@@ -25,15 +32,29 @@ module uigf.checkin {
     exports uigf.utility.device;
     exports uigf.utility.livestream;
     exports uigf.commerce.cn;
+    exports uigf.uncategorized.combotoken;
+    exports uigf.uncategorized.ugc;
+    exports uigf.uncategorized.experimentation;
+    exports uigf.uncategorized.telemetry.game;
+    exports uigf.uncategorized.telemetry.sdk;
+    exports uigf.uncategorized.telemetry.h5;
+    exports uigf.uncategorized.telemetry.crash;
     exports uigf;
     exports uigf.game;
+    exports uigf.game.genshin.sdk;
+    exports uigf.game.genshin.dispatch;
     exports uigf.launcher;
     exports uigf.commerce;
+    exports uigf.uncategorized;
 
     opens uigf.passport to io.clientcore.core;
     opens uigf to io.clientcore.core;
     opens uigf.community to io.clientcore.core;
     opens uigf.game to io.clientcore.core;
+    opens uigf.game.genshin.sdk to io.clientcore.core;
+    opens uigf.game.genshin.dispatch to io.clientcore.core;
     opens uigf.launcher to io.clientcore.core;
+    opens uigf.utility.device to io.clientcore.core;
     opens uigf.commerce to io.clientcore.core;
+    opens uigf.uncategorized to io.clientcore.core;
 }

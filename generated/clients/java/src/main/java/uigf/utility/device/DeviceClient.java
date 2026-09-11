@@ -9,6 +9,7 @@ import io.clientcore.core.http.models.HttpResponseException;
 import io.clientcore.core.http.models.RequestContext;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.instrumentation.Instrumentation;
+import uigf.ApiResponseDeviceExtensionList;
 import uigf.ApiResponseDeviceFingerprint;
 import uigf.checkin.implementation.FingerprintApisImpl;
 import uigf.game.DeviceFingerprintRequest;
@@ -33,6 +34,40 @@ public final class DeviceClient {
     DeviceClient(FingerprintApisImpl serviceClient, Instrumentation instrumentation) {
         this.serviceClient = serviceClient;
         this.instrumentation = instrumentation;
+    }
+
+    /**
+     * Returns the client extension fields expected by the fingerprint registration endpoint.
+     * 
+     * @param platform The platform parameter.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return common response wrapper returned by MiHoYo and HoYoLAB services along with {@link Response}.
+     */
+    @Metadata(properties = { MetadataProperties.GENERATED })
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<ApiResponseDeviceExtensionList> getExtensionListWithResponse(String platform,
+        RequestContext requestContext) {
+        return this.instrumentation.instrumentWithResponse("UIGF.Utility.Device.FingerprintApi.getExtensionList",
+            requestContext,
+            updatedContext -> this.serviceClient.getExtensionListWithResponse(platform, updatedContext));
+    }
+
+    /**
+     * Returns the client extension fields expected by the fingerprint registration endpoint.
+     * 
+     * @param platform The platform parameter.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return common response wrapper returned by MiHoYo and HoYoLAB services.
+     */
+    @Metadata(properties = { MetadataProperties.GENERATED })
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public ApiResponseDeviceExtensionList getExtensionList(String platform) {
+        return getExtensionListWithResponse(platform, RequestContext.none()).getValue();
     }
 
     /**

@@ -17,20 +17,20 @@ import uigf.game.PandaQrRequest;
  * Initializes a new instance of the synchronous LoginClient type.
  */
 @ServiceClient(builder = LoginClientBuilder.class)
-public final class LoginClient {
+public final class PandaQrApiClient {
     @Metadata(properties = { MetadataProperties.GENERATED })
     private final PandaQrApisImpl serviceClient;
 
     private final Instrumentation instrumentation;
 
     /**
-     * Initializes an instance of LoginClient class.
+     * Initializes an instance of PandaQrApiClient class.
      * 
      * @param serviceClient the service client implementation.
      * @param instrumentation the instrumentation instance.
      */
     @Metadata(properties = { MetadataProperties.GENERATED })
-    LoginClient(PandaQrApisImpl serviceClient, Instrumentation instrumentation) {
+    PandaQrApiClient(PandaQrApisImpl serviceClient, Instrumentation instrumentation) {
         this.serviceClient = serviceClient;
         this.instrumentation = instrumentation;
     }
