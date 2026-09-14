@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
-const languages = process.argv.length > 2 ? process.argv.slice(2) : ["csharp", "java", "python", "javascript"];
+const languages = process.argv.length > 2 ? process.argv.slice(2) : ["csharp", "java", "python", "javascript", "rust"];
 process.env.PATH = [process.env.JAVA_HOME, process.env.MAVEN_HOME]
   .filter(Boolean).map((home) => join(home, "bin")).concat(process.env.PATH ?? "").join(delimiter);
 
@@ -23,6 +23,12 @@ for (const language of languages) {
       run("npm", ["install", "--no-audit", "--no-fund"], cwd);
       run("npm", ["run", "build"], cwd);
       run("npm", ["pack", "--silent"], cwd);
+      break;
+    case "rust":
+      run("cargo", ["build", "--release"], cwd);
+      // The crate is generated into a tracked directory, so the working tree is
+      // routinely dirty while iterating; dirty files do not affect the archive.
+      run("cargo", ["package", "--allow-dirty"], cwd);
       break;
     default:
       throw new Error(`Unknown language: ${language}`);

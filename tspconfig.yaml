@@ -23,3 +23,8 @@ options:
       name: "@uigf/mihoyo-client"
       version: "0.1.0"
     generate-metadata: false
+  # `crate-name`/`crate-version` must match tools/client-packaging/rust/Cargo.toml.
+  "@azure-tools/typespec-rust":
+    emitter-output-dir: "{output-dir}/clients/rust"
+    crate-name: "uigf-mihoyo"
+    crate-version: "0.1.0"

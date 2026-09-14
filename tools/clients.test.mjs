@@ -28,11 +28,11 @@ function mockResponse(data = { preserved_vendor_field: true }, status = 200) {
   };
 }
 
-test("all four SDKs cover every TypeSpec service, and all JS clients can be constructed", async () => {
+test("all five SDKs cover every TypeSpec service, and all JS clients can be constructed", async () => {
   const program = await compile(NodeHost, fileURLToPath(new URL("../main.tsp", import.meta.url)), { noEmit: true });
   assert.equal(program.hasError(), false);
   const services = listServices(program).map((s) => getNamespaceFullName(s.type)).sort();
-  for (const language of ["csharp", "java", "python", "javascript"]) {
+  for (const language of ["csharp", "java", "python", "javascript", "rust"]) {
     const manifest = JSON.parse(await readFile(new URL(`../generated/clients/${language}/services.json`, import.meta.url)));
     assert.deepEqual(manifest.services, services, language);
   }

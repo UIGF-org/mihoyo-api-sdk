@@ -59,3 +59,11 @@ using Azure.ClientGenerator.Core;
 @@clientNamespace(UIGF.Mihoyo.Game.Global, "uigf.mihoyo.game.overseas", "python");
 @@clientNamespace(UIGF.Mihoyo.Launcher.Global, "uigf.mihoyo.launcher.overseas", "python");
 @@clientNamespace(UIGF.Mihoyo.Launcher.Sophon.Global, "uigf.mihoyo.launcher.sophon.overseas", "python");
+
+// Rust turns each namespace below the root service into a module, so a namespace
+// segment that is a reserved word (`static`) or that only consists of a suffix the
+// emitter strips (`PassportV4`, `PassportStatic`) cannot be emitted as written.
+@@clientNamespace(UIGF.Mihoyo.PassportV4, "UIGF.Mihoyo.Passport.V4", "rust");
+@@clientNamespace(UIGF.Mihoyo.PassportStatic, "UIGF.Mihoyo.Passport.StaticApi", "rust");
+@@clientNamespace(UIGF.Mihoyo.SDK.Static, "UIGF.Mihoyo.SDK.StaticApi", "rust");
+@@clientNamespace(UIGF.Mihoyo.MiYouShe.Static, "UIGF.Mihoyo.MiYouShe.StaticApi", "rust");
